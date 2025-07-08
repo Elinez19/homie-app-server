@@ -35,13 +35,15 @@ app.use(
 
 // API Documentation
 const specs = swaggerJsdoc(swaggerOptions);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+app.use(`${BASE_PATH}/docs`, swaggerUi.serve, swaggerUi.setup(specs));
 
 // Health check endpoint
 app.get('/health', (req: Request, res: Response) => {
   res.status(HTTPSTATUS.OK).json({
     status: 'healthy',
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
+    environment: config.NODE_ENV,
+    baseUrl: config.SERVER_URL
   });
 });
 
@@ -57,7 +59,7 @@ const startServer = async () => {
     await connectDatabase();
     app.listen(config.PORT, () => {
       console.log(`🚀 Server running on port ${config.PORT} in ${config.NODE_ENV} mode`);
-      console.log(`📚 API Documentation available at http://localhost:${config.PORT}/api-docs`);
+      console.log(`📚 API Documentation available at ${config.SERVER_URL}${BASE_PATH}/docs`);
     });
   } catch (error) {
     console.error('Failed to start server:', error);

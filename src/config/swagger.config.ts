@@ -15,6 +15,14 @@ export const swaggerOptions: Options = {
     },
     servers: [
       {
+        url: `${config.SERVER_URL}${config.BASE_PATH}`,
+        description: config.NODE_ENV === 'production' ? 'Production Server' : 'Local Development Server'
+      },
+      {
+        url: 'https://homie-app-server.vercel.app/api',
+        description: 'Production Server'
+      },
+      {
         url: `http://localhost:${config.PORT}${config.BASE_PATH}`,
         description: 'Local Development Server'
       }

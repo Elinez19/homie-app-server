@@ -1,12 +1,15 @@
 const appConfig = () => {
   const jwtExpiresIn = process.env.JWT_EXPIRES_IN || "1h";
   const refreshTokenExpiresIn = process.env.REFRESH_TOKEN_EXPIRES_IN || "7d";
+  const isProd = process.env.NODE_ENV === "production";
+  const serverUrl = isProd ? "https://homie-app-server.vercel.app" : "http://localhost:5001";
 
   return {
     // Server Configuration
     NODE_ENV: process.env.NODE_ENV || "development",
     PORT: process.env.PORT || "5001",
     BASE_PATH: process.env.BASE_PATH || "/api",
+    SERVER_URL: serverUrl,
     
     // Database
     DATABASE_URL: process.env.DATABASE_URL || "postgresql://postgres:postgres@localhost:5432/homie_app?schema=public",
@@ -23,7 +26,7 @@ const appConfig = () => {
     // Google OAuth
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID || "",
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET || "",
-    GOOGLE_CALLBACK_URL: process.env.GOOGLE_CALLBACK_URL || "http://localhost:5000/auth/google/callback",
+    GOOGLE_CALLBACK_URL: process.env.GOOGLE_CALLBACK_URL || `${serverUrl}/auth/google/callback`,
     FRONTEND_GOOGLE_CALLBACK_URL: process.env.FRONTEND_GOOGLE_CALLBACK_URL || "http://localhost:5173/auth/google/callback",
   };
 };
