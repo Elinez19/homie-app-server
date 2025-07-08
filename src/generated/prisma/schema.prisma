@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  CUSTOMER
+  SERVICE_PROVIDER
+  ADMIN
+}
+
+enum UserStatus {
+  PENDING
+  ACTIVE
+  SUSPENDED
+  BANNED
+}
+
+enum ServiceProviderStatus {
+  PENDING_VERIFICATION
+  VERIFIED
+  REJECTED
+}
+
+model User {
+  id              String     @id @default(cuid())
+  firstName       String
+  lastName        String
+  email           String     @unique
+  passwordHash    String
+  phoneNumber     String?    @unique
+  role            UserRole   @default(CUSTOMER)
+  status          UserStatus @default(PENDING)
+  isEmailVerified Boolean    @default(false)
+  profilePicture  String?
+
+  // Common fields for all users
+  address   String?
+  city      String?
+  state     String?
+  zipCode   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Service Provider specific fields
+  serviceProvider ServiceProvider?
+
+  // Relations
+  authTokens    AuthToken[]
+  refreshTokens RefreshToken[]
+
+  @@map("users")
+}
+
+model ServiceProvider {
+  id                String                @id @default(cuid())
+  userId            String                @unique
+  businessName      String
+  businessLicense   String                @unique
+  taxId             String?               @unique
+  serviceCategories String[] // Array of service categories
+  serviceAreas      String[] // Array of service area zip codes
+  status            ServiceProviderStatus @default(PENDING_VERIFICATION)
+  rating            Float?                @default(0)
+  totalRatings      Int                   @default(0)
+  verificationDate  DateTime?
+  insuranceInfo     String? // JSON string containing insurance details
+  workingHours      String? // JSON string containing working hours
+  isAvailable       Boolean               @default(false)
+  maxJobDistance    Int                   @default(50) // Maximum distance willing to travel (km)
+  hourlyRate        Float? // Base hourly rate
+  description       String?               @db.Text
+  yearsOfExperience Int?
+  qualifications    String[] // Array of qualifications/certifications
+
+  // Relations
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("service_providers")
+}
+
+model AuthToken {
+  id        String   @id @default(cuid())
+  userId    String
+  authCode  String
+  newEmail  String?
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("auth_tokens")
+}
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("refresh_tokens")
+}
