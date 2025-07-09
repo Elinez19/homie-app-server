@@ -1,43 +1,44 @@
-import { Router } from "express";
-import passport from "passport";
-import { config } from "../config/app.config";
-import {
-  googleLoginCallback,
-  loginController,
-  logoutController,
-  refreshTokenController,
-  registerUserController,
-  registerServiceProviderController,
-} from "../controllers/auth.controller";
-import { isAuthenticated } from "../middlewares/isAuthenticated.middleware";
-
-const failedUrl = `${config.FRONTEND_GOOGLE_CALLBACK_URL}?status=failure`;
+import { Router } from 'express';
+import passport from 'passport';
+import * as authController from '../controllers/auth.controller';
 
 const router = Router();
 
-// Public routes
-router.post("/register", registerUserController);
-router.post("/login", loginController);
-router.post("/refresh-token", refreshTokenController);
+// Register new user
+router.post('/register', authController.register);
 
-// Protected routes
-router.use(isAuthenticated);
-router.post("/register-provider", registerServiceProviderController);
-router.post("/logout", logoutController);
+// Verify user's email
+router.post('/verify/:userId', authController.verify);
 
-router.get(
-  "/google",
-  passport.authenticate("google", {
-    scope: ["profile", "email"],
-  })
-);
+// Resend verification code
+router.post('/verify/resend/:userId', authController.resendVerificationCode);
 
-router.get(
-  "/google/callback",
-  passport.authenticate("google", {
-    failureRedirect: failedUrl,
+// Login
+router.post('/login', authController.login);
+
+// Logout
+router.post('/logout', authController.logout);
+
+// Forgot password
+router.post('/forgot-password', authController.forgotPassword);
+
+// Reset password
+router.post('/reset-password', authController.resetPassword);
+
+// Refresh access token
+router.post('/refresh-token', authController.refreshToken);
+
+// Google OAuth routes
+router.get('/google', passport.authenticate('google', {
+  scope: ['profile', 'email']
+}));
+
+router.get('/google/callback',
+  passport.authenticate('google', {
+    failureRedirect: '/auth/login?error=Google authentication failed',
+    session: false
   }),
-  googleLoginCallback
+  authController.googleCallback
 );
 
 export default router;

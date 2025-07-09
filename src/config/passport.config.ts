@@ -1,69 +1,68 @@
-import passport from "passport";
-import { Request } from "express";
-import { Strategy as GoogleStrategy } from "passport-google-oauth20";
-import { Strategy as LocalStrategy } from "passport-local";
+import passport from 'passport';
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+import { PrismaClient, UserRole, UserStatus } from '../generated/prisma';
+import { getEnv } from '../utils/get-env';
 
-import { config } from "./app.config";
-import { NotFoundException } from "../utils/appError";
-import { ProviderEnum } from "../enums/account-provider.enum";
-import {
-  loginOrCreateAccountService,
-  verifyUserService,
-} from "../services/auth.service";
+const prisma = new PrismaClient();
+
+passport.serializeUser((user: any, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id: string, done) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id }
+    });
+    done(null, user);
+  } catch (error) {
+    done(error, null);
+  }
+});
 
 passport.use(
   new GoogleStrategy(
     {
-      clientID: config.GOOGLE_CLIENT_ID,
-      clientSecret: config.GOOGLE_CLIENT_SECRET,
-      callbackURL: config.GOOGLE_CALLBACK_URL,
-      scope: ["profile", "email"],
-      passReqToCallback: true,
+      clientID: getEnv('GOOGLE_CLIENT_ID'),
+      clientSecret: getEnv('GOOGLE_CLIENT_SECRET'),
+      callbackURL: `${getEnv('API_URL')}/auth/google/callback`,
+      scope: ['profile', 'email']
     },
-    async (req: Request, accessToken, refreshToken, profile, done) => {
+    async (accessToken, refreshToken, profile, done) => {
       try {
-        const { email, sub: googleId, picture } = profile._json;
-        console.log(profile, "profile");
-        console.log(googleId, "googleId");
-        if (!googleId) {
-          throw new NotFoundException("Google ID (sub) is missing");
-        }
+        const email = profile.emails?.[0]?.value;
+        
         if (!email) {
-          throw new NotFoundException("Email is required from Google profile");
+          return done(new Error('No email found in Google profile'), undefined);
         }
 
-        const { user } = await loginOrCreateAccountService({
-          provider: ProviderEnum.GOOGLE,
-          displayName: profile.displayName,
-          providerId: googleId,
-          picture: picture,
-          email: email,
+        // Check if user exists
+        let user = await prisma.user.findUnique({
+          where: { email }
         });
-        done(null, user);
-      } catch (error) {
-        done(error, false);
-      }
-    }
-  )
-);
 
-passport.use(
-  new LocalStrategy(
-    {
-      usernameField: "email",
-      passwordField: "password",
-      session: true,
-    },
-    async (email, password, done) => {
-      try {
-        const user = await verifyUserService({ email, password });
+        if (!user) {
+          // Create new user
+          user = await prisma.user.create({
+            data: {
+              email,
+              firstName: profile.name?.givenName || profile.displayName,
+              lastName: profile.name?.familyName || '',
+              passwordHash: '', // OAuth users don't need a password
+              role: UserRole.CUSTOMER,
+              status: UserStatus.ACTIVE,
+              isEmailVerified: true,
+              profilePicture: profile.photos?.[0]?.value
+            }
+          });
+        }
+
         return done(null, user);
-      } catch (error: any) {
-        return done(error, false, { message: error?.message });
+      } catch (error) {
+        return done(error, undefined);
       }
     }
   )
 );
 
-passport.serializeUser((user: any, done) => done(null, user));
-passport.deserializeUser((user: any, done) => done(null, user));
+export default passport;
