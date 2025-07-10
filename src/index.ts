@@ -14,7 +14,6 @@ import adminRoutes from './routes/admin.route';
 
 // Swagger documentation
 import swaggerUi from 'swagger-ui-express';
-import openApiSpec from '../openapi.json';
 
 const app = express();
 const BASE_PATH = config.BASE_PATH;
@@ -62,8 +61,121 @@ app.get('/', (req: Request, res: Response) => {
   });
 });
 
-// API Documentation (using static openapi.json)
-app.use(`${BASE_PATH}/docs`, swaggerUi.serve, swaggerUi.setup(openApiSpec));
+// API Documentation
+const swaggerDocument = {
+  openapi: '3.0.0',
+  info: {
+    title: 'Homie App API',
+    version: '1.0.0',
+    description: 'API documentation for Homie App - A platform connecting customers with skilled artisans'
+  },
+  servers: [
+    {
+      url: config.SERVER_URL + BASE_PATH,
+      description: 'API Server'
+    }
+  ],
+  components: {
+    securitySchemes: {
+      bearerAuth: {
+        type: 'http',
+        scheme: 'bearer'
+      }
+    }
+  },
+  tags: [
+    { name: 'auth', description: 'Authentication endpoints' },
+    { name: 'artisan', description: 'Artisan-specific endpoints' },
+    { name: 'admin', description: 'Admin endpoints' }
+  ],
+  paths: {
+    [`${BASE_PATH}/auth/register`]: {
+      post: {
+        tags: ['auth'],
+        summary: 'Register a new user',
+        requestBody: {
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  email: { type: 'string', format: 'email' },
+                  password: { type: 'string', minLength: 8 },
+                  firstName: { type: 'string' },
+                  lastName: { type: 'string' }
+                },
+                required: ['email', 'password', 'firstName', 'lastName']
+              }
+            }
+          }
+        },
+        responses: {
+          201: {
+            description: 'User registered successfully'
+          }
+        }
+      }
+    },
+    [`${BASE_PATH}/auth/login`]: {
+      post: {
+        tags: ['auth'],
+        summary: 'Login user',
+        requestBody: {
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  email: { type: 'string', format: 'email' },
+                  password: { type: 'string' }
+                },
+                required: ['email', 'password']
+              }
+            }
+          }
+        },
+        responses: {
+          200: {
+            description: 'Login successful'
+          }
+        }
+      }
+    },
+    [`${BASE_PATH}/auth/artisan/register`]: {
+      post: {
+        tags: ['artisan'],
+        summary: 'Register a new artisan',
+        requestBody: {
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  email: { type: 'string', format: 'email' },
+                  password: { type: 'string', minLength: 8 },
+                  firstName: { type: 'string' },
+                  lastName: { type: 'string' },
+                  businessName: { type: 'string' },
+                  businessLicense: { type: 'string' },
+                  serviceCategories: { type: 'array', items: { type: 'string' } },
+                  serviceAreas: { type: 'array', items: { type: 'string' } }
+                },
+                required: ['email', 'password', 'firstName', 'lastName', 'businessName', 'businessLicense', 'serviceCategories', 'serviceAreas']
+              }
+            }
+          }
+        },
+        responses: {
+          201: {
+            description: 'Artisan registered successfully'
+          }
+        }
+      }
+    }
+  }
+};
+
+app.use(`${BASE_PATH}/docs`, swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // API base route
 app.get(BASE_PATH, (req: Request, res: Response) => {
