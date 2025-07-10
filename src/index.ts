@@ -24,11 +24,38 @@ let swaggerDocument = {};
 try {
   swaggerDocument = JSON.parse(fs.readFileSync(swaggerFilePath, 'utf8'));
 } catch (e) {
-  swaggerDocument = { openapi: '3.0.0', info: { title: 'Homie App API', version: '1.0.0' }, paths: {} };
+  console.warn('Could not read openapi.json, using default swagger document');
+  swaggerDocument = { 
+    openapi: '3.0.0', 
+    info: { 
+      title: 'Homie App API', 
+      version: '1.0.0',
+      description: 'API documentation for Homie App'
+    }, 
+    paths: {} 
+  };
 }
 
-// Setup the Swagger route
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// Setup the Swagger route with enhanced configuration
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
+  customCss: '.swagger-ui .topbar { display: none }',
+  customSiteTitle: 'Homie App API Documentation',
+  customfavIcon: '/favicon.ico',
+  swaggerOptions: {
+    persistAuthorization: true,
+    displayRequestDuration: true,
+    docExpansion: 'none',
+    filter: true,
+    showExtensions: true,
+    showCommonExtensions: true,
+    tryItOutEnabled: true,
+    defaultModelsExpandDepth: 1,
+    defaultModelExpandDepth: 1,
+    displayOperationId: false,
+    supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch']
+  },
+  explorer: true
+}));
 
 // Serve static files (landing page, assets)
 app.use(express.static(path.join(__dirname, '../public')));
