@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homie App API</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #5b86e5 0%, #36d1c4 100%);
+      font-family: 'Montserrat', Arial, sans-serif;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .stars {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .logo {
+      margin-top: 40px;
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #ff7e5f, #feb47b);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #fff;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin: 0 0 10px 0;
+      text-align: center;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .subtitle {
+      font-size: 1.2rem;
+      font-weight: 400;
+      margin-bottom: 40px;
+      text-align: center;
+      color: #e0e0e0;
+    }
+    .card {
+      background: rgba(40, 40, 80, 0.85);
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      padding: 36px 32px 32px 32px;
+      max-width: 420px;
+      margin: 0 auto 32px auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .api-status {
+      color: #00ff7f;
+      font-size: 1rem;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    .version {
+      display: inline-block;
+      background: #ff7e5f;
+      color: #fff;
+      border-radius: 12px;
+      padding: 2px 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .card p {
+      color: #e0e0e0;
+      font-size: 1.05rem;
+      margin-bottom: 28px;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: linear-gradient(90deg, #ff7e5f, #feb47b);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 12px 32px;
+      border: none;
+      border-radius: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, box-shadow 0.2s;
+    }
+    .cta-btn:hover {
+      background: linear-gradient(90deg, #feb47b, #ff7e5f);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.16);
+    }
+    .endpoints-card {
+      background: rgba(40, 40, 80, 0.75);
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+      padding: 28px 24px 24px 24px;
+      max-width: 340px;
+      margin: 0 auto 24px auto;
+      text-align: center;
+      z-index: 1;
+    }
+    .endpoints-card h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+    .endpoints-card .view-btn {
+      background: #fff;
+      color: #5b86e5;
+      font-weight: 700;
+      border: none;
+      border-radius: 18px;
+      padding: 8px 22px;
+      font-size: 1rem;
+      margin-top: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .endpoints-card .view-btn:hover {
+      background: #5b86e5;
+      color: #fff;
+    }
+    footer {
+      margin-top: 40px;
+      color: #e0e0e0;
+      font-size: 0.95rem;
+      text-align: center;
+      z-index: 1;
+    }
+    @media (max-width: 600px) {
+      .card, .endpoints-card {
+        max-width: 95vw;
+        padding: 18px 6vw 18px 6vw;
+      }
+      h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas class="stars"></canvas>
+  <div class="logo">EC</div>
+  <h1>Eimpact Chart</h1>
+  <div class="subtitle">Powerful API for Environmental Impact Visualization</div>
+  <div class="card">
+    <div class="api-status">● API Online & Ready</div>
+    <div class="version">v1.0.0</div>
+    <p>Internal API for the development team. Access comprehensive environmental impact data endpoints, generate dynamic charts, and integrate with our platform services.</p>
+    <a href="/api/docs" class="cta-btn">🚀 Explore API Documentation</a>
+  </div>
+  <div class="endpoints-card">
+    <h2>API Endpoints</h2>
+    <div>Browse available endpoints and test API calls</div>
+    <a href="/api/docs" class="view-btn">View Docs</a>
+  </div>
+  <footer>
+    © 2025 Eimpact Chart. Internal Development API.
+  </footer>
+  <script>
+    // Starfield animation for background
+    const canvas = document.querySelector('.stars');
+    const ctx = canvas.getContext('2d');
+    let w = window.innerWidth;
+    let h = window.innerHeight;
+    canvas.width = w;
+    canvas.height = h;
+    let stars = Array.from({length: 120}, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 1.2 + 0.2,
+      o: Math.random() * 0.5 + 0.5
+    }));
+    function drawStars() {
+      ctx.clearRect(0, 0, w, h);
+      for (const s of stars) {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, 2 * Math.PI);
+        ctx.fillStyle = `rgba(255,255,255,${s.o})`;
+        ctx.fill();
+      }
+    }
+    function animateStars() {
+      for (const s of stars) {
+        s.y += 0.08 + s.r * 0.08;
+        if (s.y > h) {
+          s.x = Math.random() * w;
+          s.y = 0;
+        }
+      }
+      drawStars();
+      requestAnimationFrame(animateStars);
+    }
+    window.addEventListener('resize', () => {
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = w;
+      canvas.height = h;
+      drawStars();
+    });
+    animateStars();
+  </script>
+</body>
+</html> 

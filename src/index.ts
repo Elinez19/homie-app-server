@@ -6,6 +6,7 @@ import { config } from "./config/app.config";
 import { connectDatabase } from "./config/database.config";
 import { errorHandler } from "./middlewares/errorHandler.middleware";
 import { HTTPSTATUS } from "./config/http.config";
+import path from 'path';
 
 // Routes
 import authRoutes from "./routes/auth.route";
@@ -17,6 +18,9 @@ import swaggerUi from 'swagger-ui-express';
 
 const app = express();
 const BASE_PATH = config.BASE_PATH;
+
+// Serve static files (landing page, assets)
+app.use(express.static(path.join(__dirname, '../public')));
 
 // Middleware
 app.use(express.json());
@@ -33,32 +37,9 @@ app.use(
   })
 );
 
-// Landing page
+// Landing page (serve HTML)
 app.get('/', (req: Request, res: Response) => {
-  res.status(HTTPSTATUS.OK).json({
-    message: 'Welcome to Homie App API',
-    version: '1.0.0',
-    environment: config.NODE_ENV,
-    endpoints: {
-      baseUrl: config.SERVER_URL,
-      apiDocs: `${config.SERVER_URL}${BASE_PATH}/docs`,
-      healthCheck: `${config.SERVER_URL}/health`,
-      auth: {
-        register: `${config.SERVER_URL}${BASE_PATH}/auth/register`,
-        login: `${config.SERVER_URL}${BASE_PATH}/auth/login`,
-        verify: `${config.SERVER_URL}${BASE_PATH}/auth/verify/:userId`,
-        logout: `${config.SERVER_URL}${BASE_PATH}/auth/logout`,
-        refresh: `${config.SERVER_URL}${BASE_PATH}/auth/refresh`,
-        forgotPassword: `${config.SERVER_URL}${BASE_PATH}/auth/forgot-password`,
-        resetPassword: `${config.SERVER_URL}${BASE_PATH}/auth/reset-password`,
-        googleOAuth: `${config.SERVER_URL}${BASE_PATH}/auth/google`
-      }
-    },
-    documentation: {
-      swagger: `${config.SERVER_URL}${BASE_PATH}/docs`,
-      description: 'Complete API documentation with interactive examples'
-    }
-  });
+  res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
 // API Documentation
