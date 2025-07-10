@@ -18,31 +18,17 @@ import adminRoutes from './routes/admin.route';
 const app = express();
 const BASE_PATH = config.BASE_PATH;
 
-// Load OpenAPI spec
-const openApiPath = path.resolve(__dirname, '../openapi.json');
-let openApiSpec = {};
+// Read the Swagger JSON file
+const swaggerFilePath = path.join(__dirname, '../openapi.json');
+let swaggerDocument = {};
 try {
-  openApiSpec = JSON.parse(fs.readFileSync(openApiPath, 'utf8'));
+  swaggerDocument = JSON.parse(fs.readFileSync(swaggerFilePath, 'utf8'));
 } catch (e) {
-  openApiSpec = { openapi: '3.0.0', info: { title: 'Homie App API', version: '1.0.0' }, paths: {} };
+  swaggerDocument = { openapi: '3.0.0', info: { title: 'Homie App API', version: '1.0.0' }, paths: {} };
 }
 
-// Serve the raw OpenAPI JSON
-app.get('/api/docs/openapi.json', (req, res) => {
-  res.json(openApiSpec);
-});
-
-// Serve Swagger UI, configured to use the above JSON
-app.use(
-  '/api/docs',
-  swaggerUi.serve,
-  swaggerUi.setup(null, {
-    swaggerOptions: {
-      url: '/api/docs/openapi.json',
-    },
-    customSiteTitle: 'Homie App API Docs',
-  })
-);
+// Setup the Swagger route
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Serve static files (landing page, assets)
 app.use(express.static(path.join(__dirname, '../public')));
@@ -65,29 +51,6 @@ app.use(
 // Landing page (serve HTML)
 app.get('/', (req: Request, res: Response) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
-});
-
-// API base route
-app.get(BASE_PATH, (req: Request, res: Response) => {
-  res.status(HTTPSTATUS.OK).json({
-    message: 'Homie App API',
-    version: '1.0.0',
-    environment: config.NODE_ENV,
-    endpoints: {
-      docs: `${config.SERVER_URL}${BASE_PATH}/docs`,
-      auth: {
-        register: `${config.SERVER_URL}${BASE_PATH}/auth/register`,
-        login: `${config.SERVER_URL}${BASE_PATH}/auth/login`,
-        verify: `${config.SERVER_URL}${BASE_PATH}/auth/verify/:userId`,
-        logout: `${config.SERVER_URL}${BASE_PATH}/auth/logout`,
-        refresh: `${config.SERVER_URL}${BASE_PATH}/auth/refresh`,
-        forgotPassword: `${config.SERVER_URL}${BASE_PATH}/auth/forgot-password`,
-        resetPassword: `${config.SERVER_URL}${BASE_PATH}/auth/reset-password`,
-        googleOAuth: `${config.SERVER_URL}${BASE_PATH}/auth/google`
-      }
-    },
-    documentation: `${config.SERVER_URL}${BASE_PATH}/docs`
-  });
 });
 
 // Health check endpoint
@@ -114,7 +77,7 @@ const startServer = async () => {
     await connectDatabase();
     app.listen(config.PORT, () => {
       console.log(`🚀 Server running on port ${config.PORT} in ${config.NODE_ENV} mode`);
-      console.log(`📚 API Documentation available at ${config.SERVER_URL}${BASE_PATH}/docs`);
+      console.log(`📚 API Documentation available at ${config.SERVER_URL}/api/docs`);
       console.log(`🏠 Landing page available at ${config.SERVER_URL}`);
     });
   } catch (error) {
