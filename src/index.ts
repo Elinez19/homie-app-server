@@ -38,9 +38,13 @@ try {
 
 // Setup the Swagger route with enhanced configuration
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
-  customCss: '.swagger-ui .topbar { display: none }',
+  customCssUrl: 'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css',
+  customJs: [
+    'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.js'
+  ],
   customSiteTitle: 'Homie App API Documentation',
-  customfavIcon: '/favicon.ico',
+  explorer: true,
   swaggerOptions: {
     persistAuthorization: true,
     displayRequestDuration: true,
@@ -53,8 +57,7 @@ app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
     defaultModelExpandDepth: 1,
     displayOperationId: false,
     supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch']
-  },
-  explorer: true
+  }
 }));
 
 // Serve static files (landing page, assets)
