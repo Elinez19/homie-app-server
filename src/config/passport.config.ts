@@ -1,9 +1,9 @@
 import passport from 'passport';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
-import { PrismaClient, UserRole, UserStatus } from '../generated/prisma';
-import { getEnv } from '../utils/get-env';
-
-const prisma = new PrismaClient();
+import { UserRole, UserStatus } from '../generated/prisma';
+import { prisma } from './database.config';
+import { config } from './app.config';
+import { handleOAuthUser } from '../services/oauth.service';
 
 passport.serializeUser((user: any, done) => {
   done(null, user.id);
@@ -23,38 +23,30 @@ passport.deserializeUser(async (id: string, done) => {
 passport.use(
   new GoogleStrategy(
     {
-      clientID: getEnv('GOOGLE_CLIENT_ID'),
-      clientSecret: getEnv('GOOGLE_CLIENT_SECRET'),
-      callbackURL: `${getEnv('API_URL')}/auth/google/callback`,
+      clientID: config.GOOGLE_CLIENT_ID,
+      clientSecret: config.GOOGLE_CLIENT_SECRET,
+      callbackURL: config.GOOGLE_CALLBACK_URL,
       scope: ['profile', 'email']
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        const email = profile.emails?.[0]?.value;
+        // Get role from state parameter or default to CUSTOMER
+        const state = (profile as any).state;
+        const role = state === 'artisan' ? UserRole.ARTISAN : UserRole.CUSTOMER;
         
-        if (!email) {
-          return done(new Error('No email found in Google profile'), undefined);
-        }
-
-        // Check if user exists
-        let user = await prisma.user.findUnique({
-          where: { email }
+        // Handle OAuth user creation/update
+        const userData = await handleOAuthUser(profile, role);
+        
+        // Find the user after creation/update
+        const user = await prisma.user.findUnique({
+          where: { email: userData.email },
+          include: {
+            artisan: role === UserRole.ARTISAN
+          }
         });
 
         if (!user) {
-          // Create new user
-          user = await prisma.user.create({
-            data: {
-              email,
-              firstName: profile.name?.givenName || profile.displayName,
-              lastName: profile.name?.familyName || '',
-              passwordHash: '', // OAuth users don't need a password
-              role: UserRole.CUSTOMER,
-              status: UserStatus.ACTIVE,
-              isEmailVerified: true,
-              profilePicture: profile.photos?.[0]?.value
-            }
-          });
+          return done(new Error('Failed to create or find user'), undefined);
         }
 
         return done(null, user);

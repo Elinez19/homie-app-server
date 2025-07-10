@@ -1,19 +1,14 @@
 import { PrismaClient } from '../generated/prisma';
 
 declare global {
-  var __prisma: PrismaClient | undefined;
+  var prisma: PrismaClient | undefined;
 }
 
-// Prevent multiple instances of Prisma Client in development
-const prisma = globalThis.__prisma || new PrismaClient({
-  log: ['query', 'error', 'warn'],
-});
+export const prisma = global.prisma || new PrismaClient();
 
-if (process.env.NODE_ENV === 'development') {
-  globalThis.__prisma = prisma;
+if (process.env.NODE_ENV !== 'production') {
+  global.prisma = prisma;
 }
-
-export { prisma };
 
 export const connectDatabase = async () => {
   try {
@@ -24,3 +19,5 @@ export const connectDatabase = async () => {
     process.exit(1);
   }
 };
+
+export default prisma;

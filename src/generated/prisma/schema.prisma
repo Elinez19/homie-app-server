@@ -10,7 +10,7 @@ datasource db {
 
 enum UserRole {
   CUSTOMER
-  SERVICE_PROVIDER
+  ARTISAN
   ADMIN
 }
 
@@ -21,7 +21,7 @@ enum UserStatus {
   BANNED
 }
 
-enum ServiceProviderStatus {
+enum ArtisanStatus {
   PENDING_VERIFICATION
   VERIFIED
   REJECTED
@@ -47,8 +47,8 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Service Provider specific fields
-  serviceProvider ServiceProvider?
+  // Artisan specific fields
+  artisan Artisan?
 
   // Relations
   authTokens    AuthToken[]
@@ -57,31 +57,31 @@ model User {
   @@map("users")
 }
 
-model ServiceProvider {
-  id                String                @id @default(cuid())
-  userId            String                @unique
+model Artisan {
+  id                String        @id @default(cuid())
+  userId            String        @unique
   businessName      String
-  businessLicense   String                @unique
-  taxId             String?               @unique
+  businessLicense   String        @unique
+  taxId             String?       @unique
   serviceCategories String[] // Array of service categories
   serviceAreas      String[] // Array of service area zip codes
-  status            ServiceProviderStatus @default(PENDING_VERIFICATION)
-  rating            Float?                @default(0)
-  totalRatings      Int                   @default(0)
+  status            ArtisanStatus @default(PENDING_VERIFICATION)
+  rating            Float?        @default(0)
+  totalRatings      Int           @default(0)
   verificationDate  DateTime?
   insuranceInfo     String? // JSON string containing insurance details
   workingHours      String? // JSON string containing working hours
-  isAvailable       Boolean               @default(false)
-  maxJobDistance    Int                   @default(50) // Maximum distance willing to travel (km)
+  isAvailable       Boolean       @default(false)
+  maxJobDistance    Int           @default(50) // Maximum distance willing to travel (km)
   hourlyRate        Float? // Base hourly rate
-  description       String?               @db.Text
+  description       String?       @db.Text
   yearsOfExperience Int?
   qualifications    String[] // Array of qualifications/certifications
 
   // Relations
   user User @relation(fields: [userId], references: [id])
 
-  @@map("service_providers")
+  @@map("artisans")
 }
 
 model AuthToken {

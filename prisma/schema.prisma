@@ -10,7 +10,7 @@ datasource db {
 
 enum UserRole {
   CUSTOMER
-  SERVICE_PROVIDER
+  ARTISAN
   ADMIN
 }
 
@@ -21,7 +21,7 @@ enum UserStatus {
   BANNED
 }
 
-enum ServiceProviderStatus {
+enum ArtisanStatus {
   PENDING_VERIFICATION
   VERIFIED
   REJECTED
@@ -47,8 +47,8 @@ model User {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
-  // Service Provider specific fields
-  serviceProvider ServiceProvider?
+  // Artisan specific fields
+  artisan Artisan?
 
   // Relations
   authTokens      AuthToken[]
@@ -57,7 +57,7 @@ model User {
   @@map("users")
 }
 
-model ServiceProvider {
+model Artisan {
   id                String              @id @default(cuid())
   userId            String              @unique
   businessName      String
@@ -65,7 +65,7 @@ model ServiceProvider {
   taxId             String?             @unique
   serviceCategories String[]            // Array of service categories
   serviceAreas      String[]            // Array of service area zip codes
-  status            ServiceProviderStatus @default(PENDING_VERIFICATION)
+  status            ArtisanStatus @default(PENDING_VERIFICATION)
   rating            Float?              @default(0)
   totalRatings      Int                 @default(0)
   verificationDate  DateTime?
@@ -81,7 +81,7 @@ model ServiceProvider {
   // Relations
   user              User                @relation(fields: [userId], references: [id])
 
-  @@map("service_providers")
+  @@map("artisans")
 }
 
 model AuthToken {

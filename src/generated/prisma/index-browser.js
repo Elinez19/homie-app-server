@@ -139,7 +139,7 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.ServiceProviderScalarFieldEnum = {
+exports.Prisma.ArtisanScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   businessName: 'businessName',
@@ -196,7 +196,7 @@ exports.Prisma.NullsOrder = {
 };
 exports.UserRole = exports.$Enums.UserRole = {
   CUSTOMER: 'CUSTOMER',
-  SERVICE_PROVIDER: 'SERVICE_PROVIDER',
+  ARTISAN: 'ARTISAN',
   ADMIN: 'ADMIN'
 };
 
@@ -207,7 +207,7 @@ exports.UserStatus = exports.$Enums.UserStatus = {
   BANNED: 'BANNED'
 };
 
-exports.ServiceProviderStatus = exports.$Enums.ServiceProviderStatus = {
+exports.ArtisanStatus = exports.$Enums.ArtisanStatus = {
   PENDING_VERIFICATION: 'PENDING_VERIFICATION',
   VERIFIED: 'VERIFIED',
   REJECTED: 'REJECTED'
@@ -215,7 +215,7 @@ exports.ServiceProviderStatus = exports.$Enums.ServiceProviderStatus = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  ServiceProvider: 'ServiceProvider',
+  Artisan: 'Artisan',
   AuthToken: 'AuthToken',
   RefreshToken: 'RefreshToken'
 };

@@ -12,14 +12,14 @@ import {
   generateVerificationCode,
 } from '../utils/functions';
 import {
-  RegisterUserParams,
-  VerifyUserParams,
-  LoginParams,
+  ArtisanRegisterParams,
+  ArtisanLoginParams,
+  ArtisanVerifyParams,
   ResetPasswordParams,
-  AuthResponse
-} from '../@types/auth.types';
+  ArtisanAuthResponse
+} from '../@types/artisanAuth.types';
 
-export const registerUser = async (params: RegisterUserParams) => {
+export const registerArtisan = async (params: ArtisanRegisterParams) => {
   try {
     const existingUser = await prisma.user.findUnique({
       where: { email: params.email.toLowerCase() }
@@ -48,8 +48,31 @@ export const registerUser = async (params: RegisterUserParams) => {
         firstName: params.firstName,
         lastName: params.lastName,
         phoneNumber: params.phoneNumber,
-        role: params.role || UserRole.CUSTOMER,
-        status: UserStatus.PENDING
+        role: UserRole.ARTISAN,
+        status: UserStatus.PENDING,
+        address: params.address,
+        city: params.city,
+        state: params.state,
+        zipCode: params.zipCode,
+        artisan: {
+          create: {
+            businessName: params.businessName,
+            businessLicense: params.businessLicense,
+            taxId: params.taxId,
+            serviceCategories: params.serviceCategories,
+            serviceAreas: params.serviceAreas,
+            description: params.description,
+            hourlyRate: params.hourlyRate,
+            yearsOfExperience: params.yearsOfExperience,
+            qualifications: params.qualifications || [],
+            insuranceInfo: params.insuranceInfo,
+            workingHours: params.workingHours,
+            maxJobDistance: params.maxJobDistance || 50
+          }
+        }
+      },
+      include: {
+        artisan: true
       }
     });
 
@@ -71,14 +94,18 @@ export const registerUser = async (params: RegisterUserParams) => {
 
       await sendMail({
         email: newUser.email,
-        subject: 'Verify Your Email',
+        subject: 'Verify Your Artisan Account',
         text: emailContent
       });
 
       return {
         success: true,
-        message: 'User registered successfully. Please verify your email using the code sent to your email.',
-        data: { id: newUser.id, email: newUser.email }
+        message: 'Artisan registered successfully. Please verify your email using the code sent to your email.',
+        data: { 
+          id: newUser.id, 
+          email: newUser.email,
+          artisanId: newUser.artisan?.id
+        }
       };
     } catch (emailError: any) {
       await cleanupTokensAfterFailedEmailMessage({ id: newUser.id });
@@ -89,11 +116,20 @@ export const registerUser = async (params: RegisterUserParams) => {
   }
 };
 
-export const verifyUser = async ({ userId, code }: VerifyUserParams) => {
+export const verifyArtisan = async ({ artisanId, code }: ArtisanVerifyParams) => {
   try {
+    const artisan = await prisma.artisan.findUnique({
+      where: { id: artisanId },
+      include: { user: true }
+    });
+
+    if (!artisan) {
+      throw new Error('Artisan not found');
+    }
+
     const authToken = await prisma.authToken.findFirst({
       where: {
-        userId,
+        userId: artisan.userId,
         expiresAt: { gt: new Date() }
       }
     });
@@ -108,7 +144,7 @@ export const verifyUser = async ({ userId, code }: VerifyUserParams) => {
     }
 
     const user = await prisma.user.update({
-      where: { id: userId },
+      where: { id: artisan.userId },
       data: {
         isEmailVerified: true,
         status: UserStatus.ACTIVE
@@ -125,32 +161,33 @@ export const verifyUser = async ({ userId, code }: VerifyUserParams) => {
 
     await sendMail({
       email: user.email,
-      subject: 'Email Verification Successful',
+      subject: 'Artisan Account Verification Successful',
       text: emailContent
     });
 
     return {
       success: true,
-      message: 'Email successfully verified',
+      message: 'Artisan account successfully verified',
       data: null
     };
   } catch (error: any) {
-    throw new Error(`Error verifying user: ${error.message}`);
+    throw new Error(`Error verifying artisan: ${error.message}`);
   }
 };
 
-export const resendVerificationCode = async (userId: string) => {
+export const resendVerificationTokenArtisan = async (artisanId: string) => {
   try {
-    const user = await prisma.user.findUnique({
-      where: { id: userId }
+    const artisan = await prisma.artisan.findUnique({
+      where: { id: artisanId },
+      include: { user: true }
     });
 
-    if (!user) {
-      throw new Error('User not found');
+    if (!artisan) {
+      throw new Error('Artisan not found');
     }
 
     await prisma.authToken.deleteMany({
-      where: { userId }
+      where: { userId: artisan.userId }
     });
 
     const verificationCode = generateVerificationCode(VERIFICATION_CODE_LENGTH);
@@ -158,7 +195,7 @@ export const resendVerificationCode = async (userId: string) => {
 
     await prisma.authToken.create({
       data: {
-        userId,
+        userId: artisan.userId,
         authCode: hashedVerificationCode,
         expiresAt: calculateExpiryTime(VERIFICATION_EXPIRY_MINUTES)
       }
@@ -169,37 +206,46 @@ export const resendVerificationCode = async (userId: string) => {
     });
 
     await sendMail({
-      email: user.email,
-      subject: 'Verify Your Email',
+      email: artisan.user.email,
+      subject: 'Verify Your Artisan Account',
       text: emailContent
     });
 
     return {
       success: true,
       message: 'Verification code resent successfully',
-      data: { id: user.id, email: user.email }
+      data: {
+        id: artisan.user.id,
+        email: artisan.user.email,
+        artisanId: artisan.id
+      }
     };
   } catch (error: any) {
     throw new Error(`Error resending verification code: ${error.message}`);
   }
 };
 
-export const login = async ({ email, password }: LoginParams) => {
+export const loginArtisan = async ({ email, password }: ArtisanLoginParams) => {
   try {
     const user = await prisma.user.findUnique({
-      where: { email: email.toLowerCase() }
+      where: { email: email.toLowerCase() },
+      include: { artisan: true }
     });
 
     if (!user) {
       throw new Error('Invalid email or password');
     }
 
-    if (user.status === UserStatus.SUSPENDED || user.status === UserStatus.BANNED) {
-      throw new Error('Your account has been suspended or banned');
+    if (user.role !== UserRole.ARTISAN) {
+      throw new Error('This account is not registered as an artisan');
     }
 
     if (!user.isEmailVerified) {
       throw new Error('Please verify your email before logging in');
+    }
+
+    if (user.status !== UserStatus.ACTIVE) {
+      throw new Error('Account is not active. Please contact support.');
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
@@ -207,27 +253,44 @@ export const login = async ({ email, password }: LoginParams) => {
       throw new Error('Invalid email or password');
     }
 
-    const tokens = jwtUtils.generateTokens(user);
+    const { accessToken, refreshToken } = jwtUtils.generateTokens({
+      id: user.id,
+      email: user.email,
+      role: user.role
+    });
 
     await prisma.refreshToken.create({
       data: {
         userId: user.id,
-        token: tokens.refreshToken,
-        expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 days
+        token: refreshToken,
+        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
       }
     });
 
     return {
       success: true,
-      message: 'Login successful',
-      data: tokens
+      message: 'Artisan logged in successfully',
+      data: {
+        user: {
+          id: user.id,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          role: user.role,
+          artisan: user.artisan
+        }
+      },
+      tokens: {
+        accessToken,
+        refreshToken
+      }
     };
   } catch (error: any) {
-    throw new Error(`Error logging in: ${error.message}`);
+    throw new Error(`Error logging in artisan: ${error.message}`);
   }
 };
 
-export const logout = async (refreshToken: string) => {
+export const logoutArtisan = async (refreshToken: string) => {
   try {
     await prisma.refreshToken.delete({
       where: { token: refreshToken }
@@ -235,34 +298,29 @@ export const logout = async (refreshToken: string) => {
 
     return {
       success: true,
-      message: 'Logged out successfully',
-      data: null
+      message: 'Artisan logged out successfully'
     };
   } catch (error: any) {
-    throw new Error(`Error logging out: ${error.message}`);
+    throw new Error(`Error logging out artisan: ${error.message}`);
   }
 };
 
-export const forgotPassword = async (email: string) => {
+export const forgotPasswordArtisan = async (email: string) => {
   try {
     const user = await prisma.user.findUnique({
-      where: { email: email.toLowerCase() }
+      where: { email: email.toLowerCase() },
+      include: { artisan: true }
     });
 
     if (!user) {
-      throw new Error('User with this email not found');
+      throw new Error('User not found');
+    }
+
+    if (user.role !== UserRole.ARTISAN) {
+      throw new Error('This account is not registered as an artisan');
     }
 
     const resetToken = jwtUtils.generateResetToken(user.email);
-    const resetTokenExpiry = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
-
-    await prisma.authToken.create({
-      data: {
-        userId: user.id,
-        authCode: resetToken,
-        expiresAt: resetTokenExpiry
-      }
-    });
 
     const emailContent = getEmailTemplates.forgotPassword({
       resetPasswordUrl: `${process.env.FRONTEND_URL || 'http://localhost:5713'}/reset-password?token=${resetToken}`,
@@ -271,110 +329,97 @@ export const forgotPassword = async (email: string) => {
 
     await sendMail({
       email: user.email,
-      subject: 'Reset Your Password',
+      subject: 'Reset Your Artisan Account Password',
       text: emailContent
     });
 
     return {
       success: true,
-      message: 'Password reset instructions sent to your email',
-      data: null
+      message: 'Password reset email sent successfully'
     };
   } catch (error: any) {
     throw new Error(`Error sending password reset email: ${error.message}`);
   }
 };
 
-export const resetPassword = async ({ token, password }: ResetPasswordParams) => {
+export const resetPasswordArtisan = async ({ token, password }: ResetPasswordParams) => {
   try {
-    const authToken = await prisma.authToken.findFirst({
-      where: {
-        authCode: token,
-        expiresAt: { gt: new Date() }
-      },
-      include: { user: true }
-    });
-
-    if (!authToken) {
-      throw new Error('Reset token is expired or invalid');
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    await prisma.user.update({
-      where: { id: authToken.userId },
-      data: { passwordHash: hashedPassword }
-    });
-
-    await prisma.authToken.delete({
-      where: { id: authToken.id }
-    });
-
-    const emailContent = getEmailTemplates.passwordChangeSuccess({
-      loginUrl: `${process.env.FRONTEND_URL || 'http://localhost:5713'}/login`,
-      fullName: `${authToken.user.firstName} ${authToken.user.lastName}`
-    });
-
-    await sendMail({
-      email: authToken.user.email,
-      subject: 'Password Reset Successful',
-      text: emailContent
-    });
-
-    return {
-      success: true,
-      message: 'Password reset successful',
-      data: null
-    };
-  } catch (error: any) {
-    throw new Error(`Error resetting password: ${error.message}`);
-  }
-};
-
-export const refreshAccessToken = async (refreshToken: string) => {
-  try {
-    const existingToken = await prisma.refreshToken.findUnique({
-      where: { token: refreshToken }
-    });
-
-    if (!existingToken) {
-      throw new Error('Invalid refresh token');
-    }
-
-    if (existingToken.expiresAt < new Date()) {
-      await prisma.refreshToken.delete({
-        where: { id: existingToken.id }
-      });
-      throw new Error('Refresh token expired');
-    }
-
-    const decoded = jwtUtils.verifyRefreshToken(refreshToken) as { id: string };
+    const decoded = jwtUtils.verifyToken(token) as { email: string };
     const user = await prisma.user.findUnique({
-      where: { id: decoded.id }
+      where: { email: decoded.email },
+      include: { artisan: true }
     });
 
     if (!user) {
       throw new Error('User not found');
     }
 
-    const tokens = jwtUtils.generateTokens(user);
+    if (user.role !== UserRole.ARTISAN) {
+      throw new Error('This account is not registered as an artisan');
+    }
 
-    await prisma.refreshToken.update({
-      where: { id: existingToken.id },
-      data: {
-        token: tokens.refreshToken,
-        expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 days
-      }
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { passwordHash: hashedPassword }
     });
 
     return {
       success: true,
-      message: 'Access token refreshed successfully',
-      data: tokens
+      message: 'Password reset successfully'
     };
   } catch (error: any) {
-    throw new Error(`Error refreshing access token: ${error.message}`);
+    throw new Error(`Error resetting password: ${error.message}`);
   }
 };
 
+export const requestAccessTokenArtisan = async (refreshToken: string) => {
+  try {
+    const tokenRecord = await prisma.refreshToken.findUnique({
+      where: { token: refreshToken },
+      include: { user: { include: { artisan: true } } }
+    });
 
+    if (!tokenRecord) {
+      throw new Error('Invalid refresh token');
+    }
+
+    if (tokenRecord.expiresAt < new Date()) {
+      await prisma.refreshToken.delete({
+        where: { id: tokenRecord.id }
+      });
+      throw new Error('Refresh token expired');
+    }
+
+    if (tokenRecord.user.role !== UserRole.ARTISAN) {
+      throw new Error('This account is not registered as an artisan');
+    }
+
+    const { accessToken } = jwtUtils.generateTokens({
+      id: tokenRecord.user.id,
+      email: tokenRecord.user.email,
+      role: tokenRecord.user.role
+    });
+
+    return {
+      success: true,
+      message: 'Access token generated successfully',
+      data: {
+        user: {
+          id: tokenRecord.user.id,
+          email: tokenRecord.user.email,
+          firstName: tokenRecord.user.firstName,
+          lastName: tokenRecord.user.lastName,
+          role: tokenRecord.user.role,
+          artisan: tokenRecord.user.artisan
+        }
+      },
+      tokens: {
+        accessToken
+      }
+    };
+  } catch (error: any) {
+    throw new Error(`Error generating access token: ${error.message}`);
+  }
+}; 

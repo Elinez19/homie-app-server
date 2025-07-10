@@ -1,11 +1,10 @@
 import jwt from 'jsonwebtoken';
-import { User } from '@prisma/client';
 import { getEnv } from './get-env';
 
 const JWT_SECRET = getEnv('JWT_SECRET');
 const JWT_REFRESH_SECRET = getEnv('JWT_REFRESH_SECRET');
 
-export const generateTokens = (user: User) => {
+export const generateTokens = (user: { id: string; email: string; role: string }) => {
   const accessToken = jwt.sign(
     { id: user.id, email: user.email, role: user.role },
     JWT_SECRET,
@@ -37,9 +36,9 @@ export const verifyRefreshToken = (token: string) => {
   }
 };
 
-export const generateResetToken = (user: User) => {
+export const generateResetToken = (email: string) => {
   return jwt.sign(
-    { id: user.id },
+    { email },
     JWT_SECRET,
     { expiresIn: '10m' }
   );

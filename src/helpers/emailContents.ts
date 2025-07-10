@@ -1,20 +1,9 @@
-interface VerificationCodeParams {
-  verificationCode: string;
-}
-
-interface SuccessfulVerificationParams {
-  loginUrl: string;
-}
-
-interface ForgotPasswordParams {
-  resetPasswordUrl: string;
-  fullName: string;
-}
-
-interface PasswordChangeSuccessParams {
-  loginUrl: string;
-  fullName: string;
-}
+import {
+  VerificationCodeParams,
+  SuccessfulVerificationParams,
+  ForgotPasswordParams,
+  PasswordChangeSuccessParams
+} from '../@types/email.types';
 
 export const getEmailTemplates = {
   verificationCode: ({ verificationCode }: VerificationCodeParams) => `

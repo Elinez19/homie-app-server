@@ -2,7 +2,7 @@ const appConfig = () => {
   const jwtExpiresIn = process.env.JWT_EXPIRES_IN || "1h";
   const refreshTokenExpiresIn = process.env.REFRESH_TOKEN_EXPIRES_IN || "7d";
   const isProd = process.env.NODE_ENV === "production";
-  const serverUrl = isProd ? "https://homie-app-server.vercel.app" : "http://localhost:5001";
+  const serverUrl = isProd ? "https://homie-app-server.vercel.app/" : "http://localhost:5001";
 
   return {
     // Server Configuration

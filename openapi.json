@@ -1,0 +1,4130 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "Skillex Africa API",
+		"version": "1.0.0"
+	},
+	"servers": [
+		{
+			"url": "http://{{base_url}}"
+		},
+		{
+			"url": "http://{{base_url_live}}"
+		}
+	],
+	"components": {
+		"securitySchemes": {
+			"bearerAuth": {
+				"type": "http",
+				"scheme": "bearer"
+			}
+		}
+	},
+	"tags": [
+		{
+			"name": "auth"
+		},
+		{
+			"name": "artisan"
+		},
+		{
+			"name": "artisan > auth"
+		},
+		{
+			"name": "artisan > profile"
+		},
+		{
+			"name": "artisan > extended profile"
+		},
+		{
+			"name": "artisan > verification"
+		},
+		{
+			"name": "artisan > portfolio"
+		},
+		{
+			"name": "artisan > general"
+		},
+		{
+			"name": "user"
+		},
+		{
+			"name": "service category"
+		},
+		{
+			"name": "service tags"
+		},
+		{
+			"name": "bookings"
+		},
+		{
+			"name": "bookings > user"
+		},
+		{
+			"name": "bookings > artisan"
+		},
+		{
+			"name": "support"
+		},
+		{
+			"name": "admin"
+		},
+		{
+			"name": "admin > users"
+		},
+		{
+			"name": "admin > sub-admins"
+		}
+	],
+	"paths": {
+		"/auth/register": {
+			"post": {
+				"tags": ["auth"],
+				"summary": "resend_auth_code",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"email": {
+										"type": "string",
+										"example": "test@gmail.com"
+									},
+									"password": {
+										"type": "string",
+										"example": "password123"
+									},
+									"confirmPassword": {
+										"type": "string",
+										"example": "password123"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/auth/google": {
+			"post": {
+				"tags": ["auth"],
+				"summary": "google_auth",
+				"requestBody": {
+					"content": {}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/auth/facebook": {
+			"post": {
+				"tags": ["auth"],
+				"summary": "facebook_auth",
+				"requestBody": {
+					"content": {}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/auth/verify/{userId}": {
+			"post": {
+				"tags": ["auth"],
+				"summary": "verify_code",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"authCode": {
+										"type": "integer",
+										"example": "58411"
+									}
+								}
+							}
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/auth/login": {
+			"post": {
+				"tags": ["auth"],
+				"summary": "login",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"email": {
+										"type": "string",
+										"example": "gospyjo@gmail.com"
+									},
+									"password": {
+										"type": "string",
+										"example": "12@Jkmdaj"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/auth/logout": {
+			"post": {
+				"tags": ["auth"],
+				"summary": "logout",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"refreshToken": {
+										"type": "string",
+										"example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDFhYTk2NWIwMzJlMDg0NWM3ZjlhMCIsImlhdCI6MTczMjM1Nzg4NiwiZXhwIjoxNzM0OTQ5ODg2fQ.otYsgivZqMVRaGBTDkp4GGNAWxoSo8fpJqxn2yDHR-A"
+									}
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/auth/forgot-password": {
+			"post": {
+				"tags": ["auth"],
+				"summary": "forgot_password",
+				"requestBody": {
+					"content": {}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/auth/reset-password": {
+			"post": {
+				"tags": ["auth"],
+				"summary": "reset_password",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"password": {
+										"type": "string",
+										"example": "12@Jkmdaj"
+									},
+									"token": {
+										"type": "string",
+										"example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3NDFhYTk2NWIwMzJlMDg0NWM3ZjlhMCIsImlhdCI6MTczMjM1ODc1NywiZXhwIjoxNzMyMzYyMzU3fQ.8f5oscsDzoAPGr6fdm3XvquG0x2qMVXCvA5HZn300rA"
+									},
+									"confirmPassword": {
+										"type": "string",
+										"example": "12@Jkmdaj"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/auth/artisan/register": {
+			"post": {
+				"tags": ["artisan > auth"],
+				"summary": "registeration",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"email": {
+										"type": "string",
+										"example": "elijande@gmail.com"
+									},
+									"password": {
+										"type": "string",
+										"example": "password123"
+									},
+									"confirmPassword": {
+										"type": "string",
+										"example": "password123"
+									},
+									"firstname": {
+										"type": "string",
+										"example": "{{$randomFirstName}}"
+									},
+									"lastname": {
+										"type": "string",
+										"example": "{{$randomLastName}}"
+									},
+									"phone": {
+										"type": "integer",
+										"example": "07030548630"
+									},
+									"address": {
+										"type": "string",
+										"example": "{{$randomStreetAddress}}"
+									},
+									"state": {
+										"type": "string",
+										"example": "{{$randomMACAddress}}"
+									},
+									"lga": {
+										"type": "string",
+										"example": "{{$randomMACAddress}}"
+									},
+									"gender": {
+										"type": "string",
+										"example": "male"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/auth/artisan/verify/{artisanId}": {
+			"post": {
+				"tags": ["artisan > auth"],
+				"summary": "verify_code",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"authCode": {
+										"type": "integer",
+										"example": "864518"
+									}
+								}
+							}
+						}
+					}
+				},
+				"parameters": [
+					{
+						    "name": "artisanId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/auth/artisan/login": {
+			"post": {
+				"tags": ["artisan > auth"],
+				"summary": "login",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"email": {
+										"type": "string",
+										"example": "elijande@gmail.com"
+									},
+									"password": {
+										"type": "string",
+										"example": "123@Jkmdaj"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"headers": {
+							"Date": {
+								"schema": {
+									"type": "string",
+									"example": "Wed, 02 Apr 2025 13:38:50 GMT"
+								}
+							},
+							"Server": {
+								"schema": {
+									"type": "string",
+									"example": "Apache/2.4.54 (Ubuntu)"
+								}
+							},
+							"X-Powered-By": {
+								"schema": {
+									"type": "string",
+									"example": "Express"
+								}
+							},
+							"Access-Control-Allow-Origin": {
+								"schema": {
+									"type": "string",
+									"example": "*"
+								}
+							},
+							"Access-Control-Allow-Methods": {
+								"schema": {
+									"type": "string",
+									"example": "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+								}
+							},
+							"Access-Control-Allow-Headers": {
+								"schema": {
+									"type": "string",
+									"example": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+								}
+							},
+							"Access-Control-Allow-Credentials": {
+								"schema": {
+									"type": "boolean",
+									"example": "true"
+								}
+							},
+							"Content-Type": {
+								"schema": {
+									"type": "string",
+									"example": "application/json; charset=utf-8"
+								}
+							},
+							"Content-Length": {
+								"schema": {
+									"type": "integer",
+									"example": "431"
+								}
+							},
+							"ETag": {
+								"schema": {
+									"type": "string",
+									"example": "W/\"1af-6N2NGQADRpiGoal4aYB8wZiJYjo\""
+								}
+							},
+							"Keep-Alive": {
+								"schema": {
+									"type": "string",
+									"example": "timeout=5, max=100"
+								}
+							},
+							"Connection": {
+								"schema": {
+									"type": "string",
+									"example": "Keep-Alive"
+								}
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								},
+								"example": {
+									"success": true,
+									"message": "Login successful",
+									"data": {
+										"accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OGZhMGEwZGNmYzU4MWViNDljNzlkNSIsImlhdCI6MTc0MzYwMTEyOSwiZXhwIjoxNzQzNjg3NTI5fQ.eNJlOw6_stI3kCsx5zu3jLALDPnd37W5bbXaVhhsziA",
+										"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OGZhMGEwZGNmYzU4MWViNDljNzlkNSIsImlhdCI6MTc0MzYwMTEyOSwiZXhwIjoxNzQ2MTkzMTI5fQ.GWYmnKycs680KyOmRiN5HpDYBdSm51nckyS6DTR8GFA"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/auth/artisan/logout": {
+			"post": {
+				"tags": ["artisan > auth"],
+				"summary": "logout",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"refreshToken": {
+										"type": "string",
+										"example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OGY4NTRkMjczMmQ5ZGVlZTg4MmExZCIsImlhdCI6MTczNzQ2MjMyOCwiZXhwIjoxNzQwMDU0MzI4fQ.ILgb3us1ws3F1o8rkrQLGHhkOcXLOat4MrOjZE3bWCc"
+									}
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/auth/artisan/forgot-password": {
+			"post": {
+				"tags": ["artisan > auth"],
+				"summary": "forgot_password",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"email": {
+										"type": "string",
+										"example": "elijande@gmail.com"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/auth/artisan/reset-password": {
+			"post": {
+				    "tags": ["artisan > auth"],
+				"summary": "reset_password",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"password": {
+										"type": "string",
+										"example": "12@Jkmdaj"
+									},
+									"token": {
+										"type": "string",
+										"example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3OGY4NTRkMjczMmQ5ZGVlZTg4MmExZCIsImlhdCI6MTczNzQ2MzAzMSwiZXhwIjoxNzM3NDY2NjMxfQ.KFxxOLrxgDkv-dJqK_hSANKo5KWZ6O6tvSEHHmxsnTY"
+									},
+									"confirmPassword": {
+										"type": "string",
+										"example": "12@Jkmdaj"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/auth/artisan/resend-token/{artisanId}": {
+			"post": {
+				"tags": ["artisan > auth"],
+				"summary": "resend_auth_code",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"email": {
+										"type": "string",
+										"example": "test@gmail.com"
+									},
+									"password": {
+										"type": "string",
+										"example": "password123"
+									},
+									"confirmPassword": {
+										"type": "string",
+										"example": "password123"
+									}
+								}
+							}
+						}
+					}
+				},
+				"parameters": [
+					{
+						"name": "artisanId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/artisan/profile/{artisanId}": {
+			"put": {
+				"tags": ["artisan > profile"],
+				"summary": "update_artisan",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"address": {
+										"type": "string",
+										"example": "125 Ekwueme road"
+									},
+									"lga": {
+										"type": "string",
+										"example": "Ogwashi-Uku"
+									},
+									"state": {
+										"type": "string",
+										"example": "Delta"
+									},
+									"firstname": {
+										"type": "string",
+										"example": "Elijan"
+									},
+									"lastname": {
+										"type": "string",
+										"example": "Ndenwa"
+									},
+									"phone": {
+										"type": "integer",
+										"example": "080199020102"
+									},
+									"gender": {
+										"type": "string",
+										"example": "male"
+									}
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "artisanId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/artisan/profile": {
+			"get": {
+				"tags": ["artisan > profile"],
+				"summary": "fetch_artisan",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		            "/artisan/profile/update-email/{artisanId}": {
+			"post": {
+				"tags": ["artisan > profile"],
+				"summary": "change_email",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"email": {
+										"type": "string",
+										"example": "elijande@gmail.com"
+									}
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "artisanId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/artisan/profile/verify-email/{artisanId}": {
+			"put": {
+				"tags": ["artisan > profile"],
+				"summary": "verify_email",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"authCode": {
+										"type": "integer",
+										"example": "634116"
+									}
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "artisanId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/artisan/profile/change-password/{artisanId}": {
+			"put": {
+				"tags": ["artisan > profile"],
+				"summary": "change_password",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"oldPassword": {
+										"type": "string",
+										"example": "password123"
+									},
+									"newPassword": {
+										"type": "string",
+										"example": "123@Jkmdaj"
+									},
+									"confirmNewPassword": {
+										"type": "string",
+										"example": "123@Jkmdaj"
+									}
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "artisanId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/artisan/profile/delete-account/{artisanId}": {
+			"delete": {
+				"tags": ["artisan > profile"],
+				"summary": "delete_account",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "artisanId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/artisan/extended-profile/complete/{artisanId}": {
+			"post": {
+				"tags": ["artisan > extended profile"],
+				"summary": "complete_profile",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"example": {
+									"profile_url": "https://me",
+									"about_me": "My Description",
+									"service_description": "interesting service to be earned",
+									"service_category_ids": ["679185c5e9fe55d337f7527b"],
+									"bank_name": "Access bank",
+									"bank_account": "7030548630",
+									"bank_account_name": "Gospel Jonathan",
+									"guarantors_name": "Sarah Jonathan",
+									"guarantors_phone": "09010707383",
+									"guarantors_relationship": "Sisters",
+									"availability": [
+										{
+											"day": "2025-01-27",
+											"from": "09:00",
+											"to": "17:00",
+											"intervalInMinutes": 10,
+											"breakDuration": 5
+										}
+									],
+									"rate_per_hour": "$5",
+									"rate_per_job": "$36",
+									"years_of_experience": 3
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "artisanId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"headers": {
+							"X-Powered-By": {
+								"schema": {
+									"type": "string",
+									"example": "Express"
+								}
+							},
+							"Access-Control-Allow-Headers": {
+								"schema": {
+									"type": "string",
+									"example": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+								}
+							},
+							"Access-Control-Allow-Credentials": {
+								"schema": {
+									"type": "boolean",
+									"example": "true"
+								}
+							},
+							"Content-Type": {
+								"schema": {
+									"type": "string",
+									"example": "application/json; charset=utf-8"
+								}
+							},
+							"Content-Length": {
+								"schema": {
+									"type": "integer",
+									"example": "3668"
+								}
+							},
+							"ETag": {
+								"schema": {
+									"type": "string",
+									"example": "W/\"e54-E+Lhp0odXQOtsgKwq8xVdVBVrfs\""
+								}
+							},
+							"Date": {
+								"schema": {
+									"type": "string",
+									"example": "Thu, 03 Apr 2025 01:37:30 GMT"
+								}
+							},
+							"Connection": {
+								"schema": {
+									"type": "string",
+									"example": "keep-alive"
+								}
+							},
+							"Keep-Alive": {
+								"schema": {
+									"type": "string",
+									"example": "timeout=5"
+								}
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								},
+								"example": {
+									"success": true,
+									"message": "Artisan profile completed successfully",
+									"data": {
+										"artisanId": "678fa0a0dcfc581eb49c79d5",
+										"profile_url": "https://me",
+										"about_me": "My Description",
+										"service_description": "interesting service to be earned",
+										"service_category_ids": ["679185c5e9fe55d337f7527b"],
+										"bank_name": "Access bank",
+										"bank_account": 7030548630,
+										"bank_account_name": "Gospel Jonathan",
+										"guarantors_name": "Sarah Jonathan",
+										"guarantors_phone": 9010707383,
+										"online": true,
+										"guarantors_relationship": "Sisters",
+										"years_of_experience": 3,
+										"availability": [
+											{
+												"day": "2025-01-27",
+												"from": "09:00",
+												"to": "17:00",
+												"intervalInMinutes": 10,
+												"breakDuration": 5,
+												"slots": [
+													{
+														"startTime": "09:00",
+														"endTime": "09:10",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00aaf"
+													},
+													{
+														"startTime": "09:15",
+														"endTime": "09:25",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00ab0"
+													},
+													{
+														"startTime": "09:30",
+														"endTime": "09:40",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00ab1"
+													},
+													{
+														"startTime": "09:45",
+														"endTime": "09:55",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00ab2"
+													},
+													{
+														"startTime": "10:00",
+														"endTime": "10:10",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00ab3"
+													},
+													{
+														"startTime": "10:15",
+														"endTime": "10:25",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00ab4"
+													},
+													{
+														"startTime": "10:30",
+														"endTime": "10:40",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00ab5"
+													},
+													{
+														"startTime": "10:45",
+														"endTime": "10:55",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00ab6"
+													},
+													{
+														"startTime": "11:00",
+														"endTime": "11:10",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00ab7"
+													},
+													{
+														"startTime": "11:15",
+														"endTime": "11:25",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00ab8"
+													},
+													{
+														"startTime": "11:30",
+														"endTime": "11:40",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00ab9"
+													},
+													{
+														"startTime": "11:45",
+														"endTime": "11:55",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00aba"
+													},
+													{
+														"startTime": "12:00",
+														"endTime": "12:10",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00abb"
+													},
+													{
+														"startTime": "12:15",
+														"endTime": "12:25",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00abc"
+													},
+													{
+														"startTime": "12:30",
+														"endTime": "12:40",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00abd"
+													},
+													{
+														"startTime": "12:45",
+														"endTime": "12:55",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00abe"
+													},
+													{
+														"startTime": "13:00",
+														"endTime": "13:10",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00abf"
+													},
+													{
+														"startTime": "13:15",
+														"endTime": "13:25",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00ac0"
+													},
+													{
+														"startTime": "13:30",
+														"endTime": "13:40",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00ac1"
+													},
+													{
+														"startTime": "13:45",
+														"endTime": "13:55",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00ac2"
+													},
+													{
+														"startTime": "14:00",
+														"endTime": "14:10",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00ac3"
+													},
+													{
+														"startTime": "14:15",
+														"endTime": "14:25",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00ac4"
+													},
+													{
+														"startTime": "14:30",
+														"endTime": "14:40",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00ac5"
+													},
+													{
+														"startTime": "14:45",
+														"endTime": "14:55",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00ac6"
+													},
+													{
+														"startTime": "15:00",
+														"endTime": "15:10",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00ac7"
+													},
+													{
+														"startTime": "15:15",
+														"endTime": "15:25",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00ac8"
+													},
+													{
+														"startTime": "15:30",
+														"endTime": "15:40",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00ac9"
+													},
+													{
+														"startTime": "15:45",
+														"endTime": "15:55",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00aca"
+													},
+													{
+														"startTime": "16:00",
+														"endTime": "16:10",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00acb"
+													},
+													{
+														"startTime": "16:15",
+														"endTime": "16:25",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00acc"
+													},
+													{
+														"startTime": "16:30",
+														"endTime": "16:40",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00acd"
+													},
+													{
+														"startTime": "16:45",
+														"endTime": "16:55",
+														"isBooked": false,
+														"_id": "67ede65a9dfbe41dc5d00ace"
+													}
+												]
+											}
+										],
+										"rate_per_hour": "$5",
+										"rate_per_job": "$36",
+										"_id": "67ede65a9dfbe41dc5d00aad",
+										"createdAt": "2025-04-03T01:37:30.396Z",
+										"updatedAt": "2025-04-03T01:37:30.396Z",
+										"__v": 0
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/handyman/extended-profile/update/{handymanId}": {
+			"put": {
+				"tags": ["handyman > extended profile"],
+				"summary": "update_profile",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"profile_url": {
+										"type": "string",
+										"description": "Profile URL must be a valid URL",
+										"example": "https://me"
+									},
+									"about_me": {
+										"type": "string",
+										"description": "Description must be at least 10 characters long. Max 500",
+										"example": "My Description"
+									},
+									"service_description": {
+										"type": "string",
+										"description": "Description must be at least 10 characters long. Max 500",
+										"example": "interesting service to be earned"
+									},
+									"service_category_id": {
+										"type": "string",
+										"example": "679185c5e9fe55d337f7527b"
+									},
+									"bank_name": {
+										"type": "string",
+										"example": "Access bank"
+									},
+									"bank_account": {
+										"type": "integer",
+										"description": "Bank account number must be 10 digits long",
+										"example": "7030548630"
+									},
+									"bank_account_name": {
+										"type": "string",
+										"example": "Gospel Jonathan"
+									},
+									"guarantors_name": {
+										"type": "string",
+										"example": "Sarah Jonathan"
+									},
+									"guarantors_phone": {
+										"type": "integer",
+										"example": "09010707383"
+									},
+									"guarantors_relationship": {
+										"type": "string",
+										"description": "Min: 2 characters, Max: 50 Characters",
+										"example": "Sisters"
+									},
+									"availability": {
+										"type": "string",
+										"description": "Day : ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], To and From must follow this format : [00:00] ",
+										"example": "[{day: Monday, from: 14:00, to: 16:00}]"
+									},
+									"rate_per_hour": {
+										"type": "string",
+										"example": "$5"
+									},
+									"rate_per_job": {
+										"type": "string",
+										"example": "$36"
+									},
+									"years_of_experience": {
+										"type": "integer",
+										"example": "3"
+									}
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "handymanId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/handyman/extended-profile/fetch/{handymanId}": {
+			"get": {
+				"tags": ["handyman > extended profile"],
+				"summary": "get_profile",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "handymanId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/handyman/extended-profile/fetch/availability/{handymanId}": {
+			"get": {
+				"tags": ["handyman > general"],
+				"summary": "get_handyman_availability",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "handymanId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"headers": {
+							"X-Powered-By": {
+								"schema": {
+									"type": "string",
+									"example": "Express"
+								}
+							},
+							"Access-Control-Allow-Headers": {
+								"schema": {
+									"type": "string",
+									"example": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+								}
+							},
+							"Access-Control-Allow-Credentials": {
+								"schema": {
+									"type": "boolean",
+									"example": "true"
+								}
+							},
+							"Content-Type": {
+								"schema": {
+									"type": "string",
+									"example": "application/json; charset=utf-8"
+								}
+							},
+							"Content-Length": {
+								"schema": {
+									"type": "integer",
+									"example": "2090"
+								}
+							},
+							"ETag": {
+								"schema": {
+									"type": "string",
+									"example": "W/\"82a-7WIHhSt4fJ5OLOpdDSLq+txjIv0\""
+								}
+							},
+							"Date": {
+								"schema": {
+									"type": "string",
+									"example": "Thu, 03 Apr 2025 01:32:31 GMT"
+								}
+							},
+							"Connection": {
+								"schema": {
+									"type": "string",
+									"example": "keep-alive"
+								}
+							},
+							"Keep-Alive": {
+								"schema": {
+									"type": "string",
+									"example": "timeout=5"
+								}
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								},
+								"example": {
+									"success": true,
+									"message": "Handyman availability fetched successfully",
+									"data": [
+										{
+											"day": "2025-01-27",
+											"from": "09:00",
+											"to": "17:00",
+											"intervalInMinutes": 60,
+											"breakDuration": 5,
+											"slots": [
+												{
+													"startTime": "09:00",
+													"endTime": "10:00",
+													"isBooked": false,
+													"_id": "67978ebccb376d51dfbc2d78"
+												},
+												{
+													"startTime": "10:05",
+													"endTime": "11:05",
+													"isBooked": true,
+													"_id": "67978ebccb376d51dfbc2d79"
+												},
+												{
+													"startTime": "11:10",
+													"endTime": "12:10",
+													"isBooked": false,
+													"_id": "67978ebccb376d51dfbc2d7a"
+												},
+												{
+													"startTime": "12:15",
+													"endTime": "13:15",
+													"isBooked": false,
+													"_id": "67978ebccb376d51dfbc2d7b"
+												},
+												{
+													"startTime": "13:20",
+													"endTime": "14:20",
+													"isBooked": true,
+													"_id": "67978ebccb376d51dfbc2d7c"
+												},
+												{
+													"startTime": "14:25",
+													"endTime": "15:25",
+													"isBooked": false,
+													"_id": "67978ebccb376d51dfbc2d7d"
+												},
+												{
+													"startTime": "15:30",
+													"endTime": "16:30",
+													"isBooked": false,
+													"_id": "67978ebccb376d51dfbc2d7e"
+												}
+											]
+										},
+										{
+											"day": "2025-01-29",
+											"from": "09:00",
+											"to": "17:00",
+											"intervalInMinutes": 60,
+											"breakDuration": 15,
+											"slots": [
+												{
+													"startTime": "09:00",
+													"endTime": "10:00",
+													"isBooked": false,
+													"_id": "67978ebccb376d51dfbc2d7f"
+												},
+												{
+													"startTime": "10:15",
+													"endTime": "11:15",
+													"isBooked": false,
+													"_id": "67978ebccb376d51dfbc2d80"
+												},
+												{
+													"startTime": "11:30",
+													"endTime": "12:30",
+													"isBooked": false,
+													"_id": "67978ebccb376d51dfbc2d81"
+												},
+												{
+													"startTime": "12:45",
+													"endTime": "13:45",
+													"isBooked": false,
+													"_id": "67978ebccb376d51dfbc2d82"
+												},
+												{
+													"startTime": "14:00",
+													"endTime": "15:00",
+													"isBooked": false,
+													"_id": "67978ebccb376d51dfbc2d83"
+												},
+												{
+													"startTime": "15:15",
+													"endTime": "16:15",
+													"isBooked": false,
+													"_id": "67978ebccb376d51dfbc2d84"
+												}
+											]
+										},
+										{
+											"day": "2025-01-31",
+											"from": "09:00",
+											"to": "17:00",
+											"intervalInMinutes": 60,
+											"breakDuration": 20,
+											"slots": [
+												{
+													"startTime": "09:00",
+													"endTime": "10:00",
+													"isBooked": false,
+													"_id": "67978ebccb376d51dfbc2d85"
+												},
+												{
+													"startTime": "10:20",
+													"endTime": "11:20",
+													"isBooked": false,
+													"_id": "67978ebccb376d51dfbc2d86"
+												},
+												{
+													"startTime": "11:40",
+													"endTime": "12:40",
+													"isBooked": false,
+													"_id": "67978ebccb376d51dfbc2d87"
+												},
+												{
+													"startTime": "13:00",
+													"endTime": "14:00",
+													"isBooked": false,
+													"_id": "67978ebccb376d51dfbc2d88"
+												},
+												{
+													"startTime": "14:20",
+													"endTime": "15:20",
+													"isBooked": false,
+													"_id": "67978ebccb376d51dfbc2d89"
+												},
+												{
+													"startTime": "15:40",
+													"endTime": "16:40",
+													"isBooked": false,
+													"_id": "67978ebccb376d51dfbc2d8a"
+												}
+											]
+										}
+									]
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/handyman/verification/add/{handymanId}": {
+			"post": {
+				"tags": ["handyman > verification"],
+				"summary": "add_verification",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"example": {
+									"verification_type": "Professional",
+									"verification_docs": ["https://example.com/document1.pdf", "https://example.com/document2.pdf"],
+									"certification_docs": ["https://example.com/certification1.pdf"]
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "handymanId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/handyman/verification/update/{handymanId}": {
+			"put": {
+				"tags": ["handyman > verification"],
+				"summary": "update_verification",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"example": {
+									"verification_type": "National Passport"
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "handymanId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/handyman/verification/fetch/{handymanId}": {
+			"get": {
+				"tags": ["handyman > verification"],
+				"summary": "fetch_verification",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "handymanId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/handyman/portfolio/add/{handymanId}": {
+			"post": {
+				"tags": ["handyman > portfolio"],
+				"summary": "add_portfolio",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"example": {
+									"portfolios": [
+										{
+											"description": "Bathroom renovation project in downtown apartment",
+											"serviceTags": ["Elegant", "Durable"],
+											"photos": [
+												"https://example.com/bathroom1.jpg",
+												"https://example.com/bathroom2.jpg",
+												"https://example.com/bathroom3.jpg"
+											]
+										},
+										{
+											"description": "Kitchen remodeling for modern home",
+											"serviceTags": ["Elegant", "Durable"],
+											"photos": ["https://example.com/kitchen1.jpg", "https://example.com/kitchen2.jpg"]
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "handymanId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/handyman/portfolio/fetch/{handymanId}": {
+			"get": {
+				"tags": ["handyman > portfolio"],
+				"summary": "fetch_portfolios",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "handymanId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/handyman/portfolio/update/{handymanId}/portfolio/{portfolioId}": {
+			"put": {
+				"tags": ["handyman > portfolio"],
+				"summary": "update_portfolio",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"example": {
+									"portfolios": [
+										{
+											"description": "Bathroom renovation project in downtown apartment",
+											"photos": [
+												"https://example.com/bathroom1.jpg",
+												"https://example.com/bathroom2.jpg",
+												"https://example.com/bathroom3.jpg"
+											]
+										}
+									]
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "handymanId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					},
+					{
+						"name": "portfolioId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/handyman/portfolio/fetch/{handymanId}/portfolio/{portfolioId}": {
+			"get": {
+				"tags": ["handyman > portfolio"],
+				"summary": "fetch_single_portfolio",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "handymanId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					},
+					{
+						"name": "portfolioId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/handyman/portfolio/delete/{handymanId}/portfolio/{portfolioId}": {
+			"delete": {
+				"tags": ["handyman > portfolio"],
+				"summary": "delete_single_portfolio Copy",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "handymanId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					},
+					{
+						"name": "portfolioId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/handyman/handymen/fetch-all": {
+			"get": {
+				"tags": ["handyman > general"],
+				"summary": "fetch_handymen",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"headers": {
+							"X-Powered-By": {
+								"schema": {
+									"type": "string",
+									"example": "Express"
+								}
+							},
+							"Access-Control-Allow-Headers": {
+								"schema": {
+									"type": "string",
+									"example": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+								}
+							},
+							"Access-Control-Allow-Credentials": {
+								"schema": {
+									"type": "boolean",
+									"example": "true"
+								}
+							},
+							"Content-Type": {
+								"schema": {
+									"type": "string",
+									"example": "application/json; charset=utf-8"
+								}
+							},
+							"Content-Length": {
+								"schema": {
+									"type": "integer",
+									"example": "3525"
+								}
+							},
+							"ETag": {
+								"schema": {
+									"type": "string",
+									"example": "W/\"dc5-/RCXCdYarww+Eggg3rT1sVnRT58\""
+								}
+							},
+							"Date": {
+								"schema": {
+									"type": "string",
+									"example": "Thu, 03 Apr 2025 00:54:44 GMT"
+								}
+							},
+							"Connection": {
+								"schema": {
+									"type": "string",
+									"example": "keep-alive"
+								}
+							},
+							"Keep-Alive": {
+								"schema": {
+									"type": "string",
+									"example": "timeout=5"
+								}
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								},
+								"example": {
+									"success": true,
+									"message": "Handymen fetched successfully",
+									"data": [
+										{
+											"_id": "678fa0a0dcfc581eb49c79d5",
+											"firstname": "Gospel",
+											"lastname": "Jonathan",
+											"gender": "male",
+											"state": "Edo",
+											"lga": "Oredo",
+											"email": "eseelite11@gmail.com",
+											"confirmPassword": "password123",
+											"phone": "080199020102",
+											"address": "125 Ekehuan road",
+											"isEmailVerified": false,
+											"isProfileUpdated": true,
+											"isSuspended": false,
+											"referralCode": "HM-464885",
+											"createdAt": "2025-01-21T13:26:56.510Z",
+											"updatedAt": "2025-01-27T13:48:44.602Z",
+											"isIdentityUploaded": true,
+											"isIdentityVerified": false,
+											"isPortfolioUploaded": true,
+											"profile": {
+												"_id": "67978ebccb376d51dfbc2d76",
+												"handymanId": "678fa0a0dcfc581eb49c79d5",
+												"profile_url": "https://example.com/profile/image.jpg",
+												"about_me": "I am a skilled handyman with over 10 years of experience in home repairs and maintenance. I specialize in plumbing, electrical work, and general carpentry.",
+												"service_description": "Professional handyman services including plumbing repairs, electrical installations, furniture assembly, and general home maintenance. Available for both emergency repairs and scheduled maintenance.",
+												"bank_name": "Chase Bank",
+												"bank_account": 1234567890,
+												"bank_account_name": "John Doe Smith",
+												"guarantors_name": "Jane Wilson",
+												"guarantors_phone": 1234567890,
+												"online": true,
+												"guarantors_relationship": "Sister",
+												"years_of_experience": 10,
+												"availability": [
+													{
+														"day": "2025-01-27",
+														"from": "09:00",
+														"to": "17:00",
+														"intervalInMinutes": 60,
+														"breakDuration": 5,
+														"slots": [
+															{
+																"startTime": "09:00",
+																"endTime": "10:00",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d78"
+															},
+															{
+																"startTime": "10:05",
+																"endTime": "11:05",
+																"isBooked": true,
+																"_id": "67978ebccb376d51dfbc2d79"
+															},
+															{
+																"startTime": "11:10",
+																"endTime": "12:10",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d7a"
+															},
+															{
+																"startTime": "12:15",
+																"endTime": "13:15",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d7b"
+															},
+															{
+																"startTime": "13:20",
+																"endTime": "14:20",
+																"isBooked": true,
+																"_id": "67978ebccb376d51dfbc2d7c"
+															},
+															{
+																"startTime": "14:25",
+																"endTime": "15:25",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d7d"
+															},
+															{
+																"startTime": "15:30",
+																"endTime": "16:30",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d7e"
+															}
+														]
+													},
+													{
+														"day": "2025-01-29",
+														"from": "09:00",
+														"to": "17:00",
+														"intervalInMinutes": 60,
+														"breakDuration": 15,
+														"slots": [
+															{
+																"startTime": "09:00",
+																"endTime": "10:00",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d7f"
+															},
+															{
+																"startTime": "10:15",
+																"endTime": "11:15",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d80"
+															},
+															{
+																"startTime": "11:30",
+																"endTime": "12:30",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d81"
+															},
+															{
+																"startTime": "12:45",
+																"endTime": "13:45",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d82"
+															},
+															{
+																"startTime": "14:00",
+																"endTime": "15:00",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d83"
+															},
+															{
+																"startTime": "15:15",
+																"endTime": "16:15",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d84"
+															}
+														]
+													},
+													{
+														"day": "2025-01-31",
+														"from": "09:00",
+														"to": "17:00",
+														"intervalInMinutes": 60,
+														"breakDuration": 20,
+														"slots": [
+															{
+																"startTime": "09:00",
+																"endTime": "10:00",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d85"
+															},
+															{
+																"startTime": "10:20",
+																"endTime": "11:20",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d86"
+															},
+															{
+																"startTime": "11:40",
+																"endTime": "12:40",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d87"
+															},
+															{
+																"startTime": "13:00",
+																"endTime": "14:00",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d88"
+															},
+															{
+																"startTime": "14:20",
+																"endTime": "15:20",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d89"
+															},
+															{
+																"startTime": "15:40",
+																"endTime": "16:40",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d8a"
+															}
+														]
+													}
+												],
+												"rate_per_hour": "50.00",
+												"rate_per_job": "150.00",
+												"createdAt": "2025-01-27T13:48:44.767Z",
+												"updatedAt": "2025-01-27T13:55:10.871Z",
+												"__v": 0,
+												"service_category_ids": ["679185c5e9fe55d337f7527b"]
+											}
+										}
+									]
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/handyman/handymen/fetch-complete-profile/{handymanId}": {
+			"get": {
+				"tags": ["handyman > general"],
+				"summary": "fetch_single_handyman_complete_profile",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "handymanId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"headers": {
+							"X-Powered-By": {
+								"schema": {
+									"type": "string",
+									"example": "Express"
+								}
+							},
+							"Access-Control-Allow-Headers": {
+								"schema": {
+									"type": "string",
+									"example": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+								}
+							},
+							"Access-Control-Allow-Credentials": {
+								"schema": {
+									"type": "boolean",
+									"example": "true"
+								}
+							},
+							"Content-Type": {
+								"schema": {
+									"type": "string",
+									"example": "application/json; charset=utf-8"
+								}
+							},
+							"Content-Length": {
+								"schema": {
+									"type": "integer",
+									"example": "3576"
+								}
+							},
+							"ETag": {
+								"schema": {
+									"type": "string",
+									"example": "W/\"df8-lfceFE5zpfyDCpQqG5mJVOQZ16Y\""
+								}
+							},
+							"Date": {
+								"schema": {
+									"type": "string",
+									"example": "Thu, 03 Apr 2025 01:31:33 GMT"
+								}
+							},
+							"Connection": {
+								"schema": {
+									"type": "string",
+									"example": "keep-alive"
+								}
+							},
+							"Keep-Alive": {
+								"schema": {
+									"type": "string",
+									"example": "timeout=5"
+								}
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								},
+								"example": {
+									"success": true,
+									"message": "Handyman fetched successfully",
+									"data": {
+										"_id": "678fa0a0dcfc581eb49c79d5",
+										"firstname": "Gospel",
+										"lastname": "Jonathan",
+										"gender": "male",
+										"state": "Edo",
+										"lga": "Oredo",
+										"email": "eseelite11@gmail.com",
+										"googleId": null,
+										"facebookId": null,
+										"instagramId": null,
+										"confirmPassword": "password123",
+										"phone": "080199020102",
+										"address": "125 Ekehuan road",
+										"isEmailVerified": false,
+										"isProfileUpdated": true,
+										"isSuspended": false,
+										"referralCode": "HM-464885",
+										"createdAt": "2025-01-21T13:26:56.510Z",
+										"updatedAt": "2025-01-27T13:48:44.602Z",
+										"isIdentityUploaded": true,
+										"isIdentityVerified": false,
+										"isPortfolioUploaded": true,
+										"profile": {
+											"_id": "67978ebccb376d51dfbc2d76",
+											"handymanId": "678fa0a0dcfc581eb49c79d5",
+											"profile_url": "https://example.com/profile/image.jpg",
+											"about_me": "I am a skilled handyman with over 10 years of experience in home repairs and maintenance. I specialize in plumbing, electrical work, and general carpentry.",
+											"service_description": "Professional handyman services including plumbing repairs, electrical installations, furniture assembly, and general home maintenance. Available for both emergency repairs and scheduled maintenance.",
+											"bank_name": "Chase Bank",
+											"bank_account": 1234567890,
+											"bank_account_name": "John Doe Smith",
+											"guarantors_name": "Jane Wilson",
+											"guarantors_phone": 1234567890,
+											"online": true,
+											"guarantors_relationship": "Sister",
+											"years_of_experience": 10,
+											"availability": [
+												{
+													"day": "2025-01-27",
+													"from": "09:00",
+													"to": "17:00",
+													"intervalInMinutes": 60,
+													"breakDuration": 5,
+													"slots": [
+														{
+															"startTime": "09:00",
+															"endTime": "10:00",
+															"isBooked": false,
+															"_id": "67978ebccb376d51dfbc2d78"
+														},
+														{
+															"startTime": "10:05",
+															"endTime": "11:05",
+															"isBooked": true,
+															"_id": "67978ebccb376d51dfbc2d79"
+														},
+														{
+															"startTime": "11:10",
+															"endTime": "12:10",
+															"isBooked": false,
+															"_id": "67978ebccb376d51dfbc2d7a"
+														},
+														{
+															"startTime": "12:15",
+															"endTime": "13:15",
+															"isBooked": false,
+															"_id": "67978ebccb376d51dfbc2d7b"
+														},
+														{
+															"startTime": "13:20",
+															"endTime": "14:20",
+															"isBooked": true,
+															"_id": "67978ebccb376d51dfbc2d7c"
+														},
+														{
+															"startTime": "14:25",
+															"endTime": "15:25",
+															"isBooked": false,
+															"_id": "67978ebccb376d51dfbc2d7d"
+														},
+														{
+															"startTime": "15:30",
+															"endTime": "16:30",
+															"isBooked": false,
+															"_id": "67978ebccb376d51dfbc2d7e"
+														}
+													]
+												},
+												{
+													"day": "2025-01-29",
+													"from": "09:00",
+													"to": "17:00",
+													"intervalInMinutes": 60,
+													"breakDuration": 15,
+													"slots": [
+														{
+															"startTime": "09:00",
+															"endTime": "10:00",
+															"isBooked": false,
+															"_id": "67978ebccb376d51dfbc2d7f"
+														},
+														{
+															"startTime": "10:15",
+															"endTime": "11:15",
+															"isBooked": false,
+															"_id": "67978ebccb376d51dfbc2d80"
+														},
+														{
+															"startTime": "11:30",
+															"endTime": "12:30",
+															"isBooked": false,
+															"_id": "67978ebccb376d51dfbc2d81"
+														},
+														{
+															"startTime": "12:45",
+															"endTime": "13:45",
+															"isBooked": false,
+															"_id": "67978ebccb376d51dfbc2d82"
+														},
+														{
+															"startTime": "14:00",
+															"endTime": "15:00",
+															"isBooked": false,
+															"_id": "67978ebccb376d51dfbc2d83"
+														},
+														{
+															"startTime": "15:15",
+															"endTime": "16:15",
+															"isBooked": false,
+															"_id": "67978ebccb376d51dfbc2d84"
+														}
+													]
+												},
+												{
+													"day": "2025-01-31",
+													"from": "09:00",
+													"to": "17:00",
+													"intervalInMinutes": 60,
+													"breakDuration": 20,
+													"slots": [
+														{
+															"startTime": "09:00",
+															"endTime": "10:00",
+															"isBooked": false,
+															"_id": "67978ebccb376d51dfbc2d85"
+														},
+														{
+															"startTime": "10:20",
+															"endTime": "11:20",
+															"isBooked": false,
+															"_id": "67978ebccb376d51dfbc2d86"
+														},
+														{
+															"startTime": "11:40",
+															"endTime": "12:40",
+															"isBooked": false,
+															"_id": "67978ebccb376d51dfbc2d87"
+														},
+														{
+															"startTime": "13:00",
+															"endTime": "14:00",
+															"isBooked": false,
+															"_id": "67978ebccb376d51dfbc2d88"
+														},
+														{
+															"startTime": "14:20",
+															"endTime": "15:20",
+															"isBooked": false,
+															"_id": "67978ebccb376d51dfbc2d89"
+														},
+														{
+															"startTime": "15:40",
+															"endTime": "16:40",
+															"isBooked": false,
+															"_id": "67978ebccb376d51dfbc2d8a"
+														}
+													]
+												}
+											],
+											"rate_per_hour": "50.00",
+											"rate_per_job": "150.00",
+											"createdAt": "2025-01-27T13:48:44.767Z",
+											"updatedAt": "2025-01-27T13:55:10.871Z",
+											"__v": 0,
+											"service_category_ids": ["679185c5e9fe55d337f7527b"]
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/artisan/artisans/fetch-all/{serviceId}": {
+			"get": {
+				"tags": ["artisan > general"],
+				"summary": "fetch_artisans_by_services",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "serviceId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"headers": {
+							"X-Powered-By": {
+								"schema": {
+									"type": "string",
+									"example": "Express"
+								}
+							},
+							"Access-Control-Allow-Headers": {
+								"schema": {
+									"type": "string",
+									"example": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+								}
+							},
+							"Access-Control-Allow-Credentials": {
+								"schema": {
+									"type": "boolean",
+									"example": "true"
+								}
+							},
+							"Content-Type": {
+								"schema": {
+									"type": "string",
+									"example": "application/json; charset=utf-8"
+								}
+							},
+							"Content-Length": {
+								"schema": {
+									"type": "integer",
+									"example": "3578"
+								}
+							},
+							"ETag": {
+								"schema": {
+									"type": "string",
+									"example": "W/\"dfa-hu58QW1WIMzk3dhP6V2Kiii7ZY0\""
+								}
+							},
+							"Date": {
+								"schema": {
+									"type": "string",
+									"example": "Thu, 03 Apr 2025 01:25:06 GMT"
+								}
+							},
+							"Connection": {
+								"schema": {
+									"type": "string",
+									"example": "keep-alive"
+								}
+							},
+							"Keep-Alive": {
+								"schema": {
+									"type": "string",
+									"example": "timeout=5"
+								}
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								},
+								"example": {
+									"success": true,
+									"message": "Artisans fetched successfully",
+									"data": [
+										{
+											"_id": "678fa0a0dcfc581eb49c79d5",
+											"firstname": "Elijan",
+											"lastname": "Jonathan",
+											"gender": "male",
+											"state": "Edo",
+											"lga": "Ogwashi-Uku",
+											"email": "elijande@gmail.com",
+											"googleId": null,
+											"facebookId": null,
+											"instagramId": null,
+											"confirmPassword": "password123",
+											"phone": "080199020102",
+											"address": "125 Ekwueme road",
+											"isEmailVerified": false,
+											"isProfileUpdated": true,
+											"isSuspended": false,
+											"referralCode": "AR-464885",
+											"createdAt": "2025-01-21T13:26:56.510Z",
+											"updatedAt": "2025-01-27T13:48:44.602Z",
+											"isIdentityUploaded": true,
+											"isIdentityVerified": false,
+											"isPortfolioUploaded": true,
+											"profile": {
+												"_id": "67978ebccb376d51dfbc2d76",
+												"artisanId": "678fa0a0dcfc581eb49c79d5",
+												"profile_url": "https://example.com/profile/image.jpg",
+												"about_me": "I am a skilled artisan with over 10 years of experience in home repairs and maintenance. I specialize in plumbing, electrical work, and general carpentry.",
+												"service_description": "Professional artisan services including plumbing repairs, electrical installations, furniture assembly, and general home maintenance. Available for both emergency repairs and scheduled maintenance.",
+												"bank_name": "Chase Bank",
+												"bank_account": 1234567890,
+												"bank_account_name": "John Doe Smith",
+												"guarantors_name": "Jane Wilson",
+												"guarantors_phone": 1234567890,
+												"online": true,
+												"guarantors_relationship": "Sister",
+												"years_of_experience": 10,
+												"availability": [
+													{
+														"day": "2025-01-27",
+														"from": "09:00",
+														"to": "17:00",
+														"intervalInMinutes": 60,
+														"breakDuration": 5,
+														"slots": [
+															{
+																"startTime": "09:00",
+																"endTime": "10:00",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d78"
+															},
+															{
+																"startTime": "10:05",
+																"endTime": "11:05",
+																"isBooked": true,
+																"_id": "67978ebccb376d51dfbc2d79"
+															},
+															{
+																"startTime": "11:10",
+																"endTime": "12:10",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d7a"
+															},
+															{
+																"startTime": "12:15",
+																"endTime": "13:15",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d7b"
+															},
+															{
+																"startTime": "13:20",
+																"endTime": "14:20",
+																"isBooked": true,
+																"_id": "67978ebccb376d51dfbc2d7c"
+															},
+															{
+																"startTime": "14:25",
+																"endTime": "15:25",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d7d"
+															},
+															{
+																"startTime": "15:30",
+																"endTime": "16:30",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d7e"
+															}
+														]
+													},
+													{
+														"day": "2025-01-29",
+														"from": "09:00",
+														"to": "17:00",
+														"intervalInMinutes": 60,
+														"breakDuration": 15,
+														"slots": [
+															{
+																"startTime": "09:00",
+																"endTime": "10:00",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d7f"
+															},
+															{
+																"startTime": "10:15",
+																"endTime": "11:15",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d80"
+															},
+															{
+																"startTime": "11:30",
+																"endTime": "12:30",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d81"
+															},
+															{
+																"startTime": "12:45",
+																"endTime": "13:45",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d82"
+															},
+															{
+																"startTime": "14:00",
+																"endTime": "15:00",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d83"
+															},
+															{
+																"startTime": "15:15",
+																"endTime": "16:15",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d84"
+															}
+														]
+													},
+													{
+														"day": "2025-01-31",
+														"from": "09:00",
+														"to": "17:00",
+														"intervalInMinutes": 60,
+														"breakDuration": 20,
+														"slots": [
+															{
+																"startTime": "09:00",
+																"endTime": "10:00",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d85"
+															},
+															{
+																"startTime": "10:20",
+																"endTime": "11:20",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d86"
+															},
+															{
+																"startTime": "11:40",
+																"endTime": "12:40",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d87"
+															},
+															{
+																"startTime": "13:00",
+																"endTime": "14:00",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d88"
+															},
+															{
+																"startTime": "14:20",
+																"endTime": "15:20",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d89"
+															},
+															{
+																"startTime": "15:40",
+																"endTime": "16:40",
+																"isBooked": false,
+																"_id": "67978ebccb376d51dfbc2d8a"
+															}
+														]
+													}
+												],
+												"rate_per_hour": "50.00",
+												"rate_per_job": "150.00",
+												"createdAt": "2025-01-27T13:48:44.767Z",
+												"updatedAt": "2025-01-27T13:55:10.871Z",
+												"__v": 0,
+												"service_category_ids": ["679185c5e9fe55d337f7527b"]
+											}
+										}
+									]
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/user/{userId}": {
+			"put": {
+				"tags": ["user"],
+				"summary": "update_user",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"address": {
+										"type": "string",
+										"example": "125 Ekehuan road"
+									},
+									"lga": {
+										"type": "string",
+										"example": "Oredo"
+									},
+									"state": {
+										"type": "string",
+										"example": "Edo"
+									},
+									"firstname": {
+										"type": "string",
+										"example": "Gospel"
+									},
+									"lastname": {
+										"type": "string",
+										"example": "Jonathan"
+									},
+									"phone": {
+										"type": "integer",
+										"example": "080199020102"
+									},
+									"gender": {
+										"type": "string",
+										"example": "male"
+									}
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/user": {
+			"get": {
+				"tags": ["user"],
+				"summary": "fetch_user",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/user/update-email/{userId}": {
+			"post": {
+				"tags": ["user"],
+				"summary": "change_email",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"email": {
+										"type": "string",
+										"example": "eseelite11@gmail.com"
+									}
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/user/verify-email/{userId}": {
+			"put": {
+				"tags": ["user"],
+				"summary": "verify_email",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"authCode": {
+										"type": "integer",
+										"example": "558459"
+									}
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/user/change-password/{userId}": {
+			"put": {
+				"tags": ["user"],
+				"summary": "change_password",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"oldPassword": {
+										"type": "string",
+										"example": "12@Jkmdaj"
+									},
+									"newPassword": {
+										"type": "string",
+										"example": "123@Jkmdaj"
+									},
+									"confirmNewPassword": {
+										"type": "string",
+										"example": "123@Jkmdaj"
+									}
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/user/delete-account/{userId}": {
+			"delete": {
+				"tags": ["user"],
+				"summary": "delete_account",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/service-category/add-category": {
+			"post": {
+				"tags": ["service category"],
+				"summary": "add_category",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"category": {
+										"type": "string",
+										"example": "Appliance Repairs"
+									},
+									"description": {
+										"type": "string",
+										"example": "Appliance Repairs"
+									}
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/service-category/fetch": {
+			"get": {
+				"tags": ["service category"],
+				"summary": "get_categories",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"headers": {
+							"X-Powered-By": {
+								"schema": {
+									"type": "string",
+									"example": "Express"
+								}
+							},
+							"Access-Control-Allow-Headers": {
+								"schema": {
+									"type": "string",
+									"example": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+								}
+							},
+							"Access-Control-Allow-Credentials": {
+								"schema": {
+									"type": "boolean",
+									"example": "true"
+								}
+							},
+							"Content-Type": {
+								"schema": {
+									"type": "string",
+									"example": "application/json; charset=utf-8"
+								}
+							},
+							"Content-Length": {
+								"schema": {
+									"type": "integer",
+									"example": "945"
+								}
+							},
+							"ETag": {
+								"schema": {
+									"type": "string",
+									"example": "W/\"3b1-RtEEWCPw/3J454eEj26fh5bRSuo\""
+								}
+							},
+							"Date": {
+								"schema": {
+									"type": "string",
+									"example": "Thu, 03 Apr 2025 01:25:55 GMT"
+								}
+							},
+							"Connection": {
+								"schema": {
+									"type": "string",
+									"example": "keep-alive"
+								}
+							},
+							"Keep-Alive": {
+								"schema": {
+									"type": "string",
+									"example": "timeout=5"
+								}
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								},
+								"example": {
+									"success": true,
+									"message": "Categories fetched successfully",
+									"data": [
+										{
+											"_id": "679185c5e9fe55d337f7527b",
+											"category": "Electric Work",
+											"description": "Electric Work",
+											"createdAt": "2025-01-22T23:56:53.090Z",
+											"updatedAt": "2025-01-22T23:56:53.090Z",
+											"__v": 0
+										},
+										{
+											"_id": "679185e6e9fe55d337f75286",
+											"category": "Home Repairs",
+											"description": "Home Repairs",
+											"createdAt": "2025-01-22T23:57:26.017Z",
+											"updatedAt": "2025-01-22T23:57:26.017Z",
+											"__v": 0
+										},
+										{
+											"_id": "679185f4e9fe55d337f7528a",
+											"category": "Plumbing",
+											"description": "Plumbing",
+											"createdAt": "2025-01-22T23:57:40.210Z",
+											"updatedAt": "2025-01-22T23:57:40.210Z",
+											"__v": 0
+										},
+										{
+											"_id": "679185ffe9fe55d337f7528e",
+											"category": "Appliance Repairs",
+											"description": "Appliance Repairs",
+											"createdAt": "2025-01-22T23:57:51.252Z",
+											"updatedAt": "2025-01-22T23:57:51.252Z",
+											"__v": 0
+										},
+										{
+											"_id": "6791890d611b89c781e0a1d6",
+											"category": "Capentry",
+											"description": "Capentry",
+											"createdAt": "2025-01-23T00:10:53.227Z",
+											"updatedAt": "2025-01-23T00:10:53.227Z",
+											"__v": 0
+										}
+									]
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/service-category/fetch/{category_id}": {
+			"get": {
+				"tags": ["service category"],
+				"summary": "get_single_category",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "category_id",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"headers": {
+							"X-Powered-By": {
+								"schema": {
+									"type": "string",
+									"example": "Express"
+								}
+							},
+							"Access-Control-Allow-Headers": {
+								"schema": {
+									"type": "string",
+									"example": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+								}
+							},
+							"Access-Control-Allow-Credentials": {
+								"schema": {
+									"type": "boolean",
+									"example": "true"
+								}
+							},
+							"Content-Type": {
+								"schema": {
+									"type": "string",
+									"example": "application/json; charset=utf-8"
+								}
+							},
+							"Content-Length": {
+								"schema": {
+									"type": "integer",
+									"example": "243"
+								}
+							},
+							"ETag": {
+								"schema": {
+									"type": "string",
+									"example": "W/\"f3-DDGAP+gFEg8SRjc661YA3S5Y0bw\""
+								}
+							},
+							"Date": {
+								"schema": {
+									"type": "string",
+									"example": "Thu, 03 Apr 2025 01:26:28 GMT"
+								}
+							},
+							"Connection": {
+								"schema": {
+									"type": "string",
+									"example": "keep-alive"
+								}
+							},
+							"Keep-Alive": {
+								"schema": {
+									"type": "string",
+									"example": "timeout=5"
+								}
+							}
+						},
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object"
+								},
+								"example": {
+									"success": true,
+									"message": "Category fetched successfully",
+									"data": {
+										"_id": "679185c5e9fe55d337f7527b",
+										"category": "Electric Work",
+										"description": "Electric Work",
+										"createdAt": "2025-01-22T23:56:53.090Z",
+										"updatedAt": "2025-01-22T23:56:53.090Z",
+										"__v": 0
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/service-category/update/{category_id}": {
+			"put": {
+				"tags": ["service category"],
+				"summary": "update_category",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"category": {
+										"type": "string",
+										"example": "Capentry"
+									}
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "category_id",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/service-category/delete/{category_id}": {
+			"delete": {
+				"tags": ["service category"],
+				"summary": "delete_category",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "category_id",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/service-tag/add": {
+			"post": {
+				"tags": ["service tags"],
+				"summary": "add_tag",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"tag": {
+										"type": "string",
+										"example": "Civilized"
+									},
+									"description": {
+										"type": "string",
+										"example": "Civilized"
+									}
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/service-tag/fetch": {
+			"get": {
+				"tags": ["service tags"],
+				"summary": "get_tags",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/service-tag/fetch/{tag_id}": {
+			"get": {
+				"tags": ["service tags"],
+				"summary": "get_single_category",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "tag_id",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/service-tag/update/{tag_id}": {
+			"put": {
+				"tags": ["service tags"],
+				"summary": "update_category",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"tag": {
+										"type": "string",
+										"example": "Capentry"
+									}
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "tag_id",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/service-tag/delete/{tag_id}": {
+			"delete": {
+				"tags": ["service tags"],
+				"summary": "delete_category",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "tag_id",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/bookings/create/{userId}": {
+			"post": {
+				"tags": ["bookings > user"],
+				"summary": "create_bookings",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"handymanId": {
+										"type": "string",
+										"example": "{{handymanId}}"
+									},
+									"serviceId": {
+										"type": "string",
+										"example": "{{serviceId}}"
+									},
+									"slotId": {
+										"type": "string",
+										"example": "{{slotId}}"
+									}
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/bookings/fetch/{userId}": {
+			"get": {
+				"tags": ["bookings > user"],
+				"summary": "fetch_bookings",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/bookings/fetch/{userId}/bookings/{bookingId}": {
+			"get": {
+				"tags": ["bookings > user"],
+				"summary": "fetch_single_booking",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					},
+					{
+						"name": "bookingId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/bookings/cancel/{userId}/bookings/{bookingId}": {
+			"put": {
+				"tags": ["bookings > user"],
+				"summary": "cancel_single_booking",
+				"requestBody": {
+					"content": {}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					},
+					{
+						"name": "bookingId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/bookings/handyman/fetch/{handymanId}": {
+			"get": {
+				"tags": ["bookings > handyman"],
+				"summary": "fetch_bookings",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "handymanId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/bookings/handyman/fetch/{handymanId}/bookings/{bookingId}": {
+			"get": {
+				"tags": ["bookings > handyman"],
+				"summary": "fetch_single_booking",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "handymanId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					},
+					{
+						"name": "bookingId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/bookings/handyman/update/{handymanId}/bookings/{bookingId}": {
+			"put": {
+				"tags": ["bookings > handyman"],
+				"summary": "update_single_booking",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"status": {
+										"type": "string",
+										"description": "Status: \n\nenum: ['pending', 'confirmed', 'in-progress', 'completed', 'cancelled', 'disputed'] ",
+										"example": "confirmed"
+									},
+									"description": {
+										"type": "string",
+										"example": "Civilized"
+									}
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "handymanId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					},
+					{
+						"name": "bookingId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/support/send-message": {
+			"post": {
+				"tags": ["support"],
+				"summary": "send_message",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"fullname": {
+										"type": "string",
+										"example": "Poko James"
+									},
+									"title": {
+										"type": "string",
+										"example": "Inquiries"
+									},
+									"email": {
+										"type": "string",
+										"example": "test@gmail.com"
+									},
+									"phone": {
+										"type": "integer",
+										"example": "07030547830"
+									},
+									"message": {
+										"type": "string",
+										"example": "Random message, sent to this user"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/admin/users/toggle-suspend": {
+			"put": {
+				"tags": ["admin > users"],
+				"summary": "suspend_user",
+				"requestBody": {
+					"content": {}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/admin/users": {
+			"get": {
+				"tags": ["admin > users"],
+				"summary": "get_single_user",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/admin/auth/register-admin": {
+			"post": {
+				"tags": ["admin > sub-admins"],
+				"summary": "create_sub_admin",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"email": {
+										"type": "string",
+										"example": "sirelite11@gmail.com"
+									},
+									"password": {
+										"type": "string",
+										"example": "12@Jkmdaj"
+									},
+									"confirmPassword": {
+										"type": "string",
+										"example": "12@Jkmdaj"
+									},
+									"fullname": {
+										"type": "string",
+										"example": "{{$randomFullName}}"
+									},
+									"phone": {
+										"type": "string",
+										"example": "{{$randomPhoneNumber}}"
+									},
+									"address": {
+										"type": "string",
+										"example": "{{$randomStreetAddress}}"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/admin/auth/update-admin/{userId}": {
+			"put": {
+				"tags": ["admin > sub-admins"],
+				"summary": "update_admin_details",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"fullname": {
+										"type": "string",
+										"example": "{{$randomFullName}}"
+									}
+								}
+							}
+						}
+					}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/admin/auth/suspend/": {
+			"put": {
+				"tags": ["admin > sub-admins"],
+				"summary": "suspend_admin",
+				"requestBody": {
+					"content": {}
+				},
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "adminId",
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/admin/auth/delete-admin/{userId}": {
+			"delete": {
+				"tags": ["admin > sub-admins"],
+				"summary": "delete_admin",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"parameters": [
+					{
+						"name": "userId",
+						"in": "path",
+						"schema": {
+							"type": "string"
+						},
+						"required": true
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/admin/auth/login": {
+			"post": {
+				"tags": ["admin"],
+				"summary": "login_admin",
+				"requestBody": {
+					"content": {
+						"application/x-www-form-urlencoded": {
+							"schema": {
+								"properties": {
+									"email": {
+										"type": "string",
+										"example": "sirelite11@gmail.com"
+									},
+									"password": {
+										"type": "string",
+										"example": "12@Jkmdaj"
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		},
+		"/admin/auth/me": {
+			"get": {
+				"tags": ["admin"],
+				"summary": "get_admin_details",
+				"security": [
+					{
+						"bearerAuth": []
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful response",
+						"content": {
+							"application/json": {}
+						}
+					}
+				}
+			}
+		}
+	}
+}

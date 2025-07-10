@@ -19,10 +19,10 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
- * Model ServiceProvider
+ * Model Artisan
  * 
  */
-export type ServiceProvider = $Result.DefaultSelection<Prisma.$ServiceProviderPayload>
+export type Artisan = $Result.DefaultSelection<Prisma.$ArtisanPayload>
 /**
  * Model AuthToken
  * 
@@ -40,7 +40,7 @@ export type RefreshToken = $Result.DefaultSelection<Prisma.$RefreshTokenPayload>
 export namespace $Enums {
   export const UserRole: {
   CUSTOMER: 'CUSTOMER',
-  SERVICE_PROVIDER: 'SERVICE_PROVIDER',
+  ARTISAN: 'ARTISAN',
   ADMIN: 'ADMIN'
 };
 
@@ -57,13 +57,13 @@ export const UserStatus: {
 export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
 
 
-export const ServiceProviderStatus: {
+export const ArtisanStatus: {
   PENDING_VERIFICATION: 'PENDING_VERIFICATION',
   VERIFIED: 'VERIFIED',
   REJECTED: 'REJECTED'
 };
 
-export type ServiceProviderStatus = (typeof ServiceProviderStatus)[keyof typeof ServiceProviderStatus]
+export type ArtisanStatus = (typeof ArtisanStatus)[keyof typeof ArtisanStatus]
 
 }
 
@@ -75,9 +75,9 @@ export type UserStatus = $Enums.UserStatus
 
 export const UserStatus: typeof $Enums.UserStatus
 
-export type ServiceProviderStatus = $Enums.ServiceProviderStatus
+export type ArtisanStatus = $Enums.ArtisanStatus
 
-export const ServiceProviderStatus: typeof $Enums.ServiceProviderStatus
+export const ArtisanStatus: typeof $Enums.ArtisanStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -215,14 +215,14 @@ export class PrismaClient<
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.serviceProvider`: Exposes CRUD operations for the **ServiceProvider** model.
+   * `prisma.artisan`: Exposes CRUD operations for the **Artisan** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more ServiceProviders
-    * const serviceProviders = await prisma.serviceProvider.findMany()
+    * // Fetch zero or more Artisans
+    * const artisans = await prisma.artisan.findMany()
     * ```
     */
-  get serviceProvider(): Prisma.ServiceProviderDelegate<ExtArgs, ClientOptions>;
+  get artisan(): Prisma.ArtisanDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.authToken`: Exposes CRUD operations for the **AuthToken** model.
@@ -684,7 +684,7 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
-    ServiceProvider: 'ServiceProvider',
+    Artisan: 'Artisan',
     AuthToken: 'AuthToken',
     RefreshToken: 'RefreshToken'
   };
@@ -705,7 +705,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "serviceProvider" | "authToken" | "refreshToken"
+      modelProps: "user" | "artisan" | "authToken" | "refreshToken"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -783,77 +783,77 @@ export namespace Prisma {
           }
         }
       }
-      ServiceProvider: {
-        payload: Prisma.$ServiceProviderPayload<ExtArgs>
-        fields: Prisma.ServiceProviderFieldRefs
+      Artisan: {
+        payload: Prisma.$ArtisanPayload<ExtArgs>
+        fields: Prisma.ArtisanFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.ServiceProviderFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServiceProviderPayload> | null
+            args: Prisma.ArtisanFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArtisanPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.ServiceProviderFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServiceProviderPayload>
+            args: Prisma.ArtisanFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArtisanPayload>
           }
           findFirst: {
-            args: Prisma.ServiceProviderFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServiceProviderPayload> | null
+            args: Prisma.ArtisanFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArtisanPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.ServiceProviderFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServiceProviderPayload>
+            args: Prisma.ArtisanFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArtisanPayload>
           }
           findMany: {
-            args: Prisma.ServiceProviderFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServiceProviderPayload>[]
+            args: Prisma.ArtisanFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArtisanPayload>[]
           }
           create: {
-            args: Prisma.ServiceProviderCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServiceProviderPayload>
+            args: Prisma.ArtisanCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArtisanPayload>
           }
           createMany: {
-            args: Prisma.ServiceProviderCreateManyArgs<ExtArgs>
+            args: Prisma.ArtisanCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.ServiceProviderCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServiceProviderPayload>[]
+            args: Prisma.ArtisanCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArtisanPayload>[]
           }
           delete: {
-            args: Prisma.ServiceProviderDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServiceProviderPayload>
+            args: Prisma.ArtisanDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArtisanPayload>
           }
           update: {
-            args: Prisma.ServiceProviderUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServiceProviderPayload>
+            args: Prisma.ArtisanUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArtisanPayload>
           }
           deleteMany: {
-            args: Prisma.ServiceProviderDeleteManyArgs<ExtArgs>
+            args: Prisma.ArtisanDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.ServiceProviderUpdateManyArgs<ExtArgs>
+            args: Prisma.ArtisanUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.ServiceProviderUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServiceProviderPayload>[]
+            args: Prisma.ArtisanUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArtisanPayload>[]
           }
           upsert: {
-            args: Prisma.ServiceProviderUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ServiceProviderPayload>
+            args: Prisma.ArtisanUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ArtisanPayload>
           }
           aggregate: {
-            args: Prisma.ServiceProviderAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateServiceProvider>
+            args: Prisma.ArtisanAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateArtisan>
           }
           groupBy: {
-            args: Prisma.ServiceProviderGroupByArgs<ExtArgs>
-            result: $Utils.Optional<ServiceProviderGroupByOutputType>[]
+            args: Prisma.ArtisanGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ArtisanGroupByOutputType>[]
           }
           count: {
-            args: Prisma.ServiceProviderCountArgs<ExtArgs>
-            result: $Utils.Optional<ServiceProviderCountAggregateOutputType> | number
+            args: Prisma.ArtisanCountArgs<ExtArgs>
+            result: $Utils.Optional<ArtisanCountAggregateOutputType> | number
           }
         }
       }
@@ -1090,7 +1090,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
-    serviceProvider?: ServiceProviderOmit
+    artisan?: ArtisanOmit
     authToken?: AuthTokenOmit
     refreshToken?: RefreshTokenOmit
   }
@@ -1478,7 +1478,7 @@ export namespace Prisma {
     zipCode?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    serviceProvider?: boolean | User$serviceProviderArgs<ExtArgs>
+    artisan?: boolean | User$artisanArgs<ExtArgs>
     authTokens?: boolean | User$authTokensArgs<ExtArgs>
     refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1543,7 +1543,7 @@ export namespace Prisma {
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "passwordHash" | "phoneNumber" | "role" | "status" | "isEmailVerified" | "profilePicture" | "address" | "city" | "state" | "zipCode" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    serviceProvider?: boolean | User$serviceProviderArgs<ExtArgs>
+    artisan?: boolean | User$artisanArgs<ExtArgs>
     authTokens?: boolean | User$authTokensArgs<ExtArgs>
     refreshTokens?: boolean | User$refreshTokensArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1554,7 +1554,7 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      serviceProvider: Prisma.$ServiceProviderPayload<ExtArgs> | null
+      artisan: Prisma.$ArtisanPayload<ExtArgs> | null
       authTokens: Prisma.$AuthTokenPayload<ExtArgs>[]
       refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
     }
@@ -1969,7 +1969,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    serviceProvider<T extends User$serviceProviderArgs<ExtArgs> = {}>(args?: Subset<T, User$serviceProviderArgs<ExtArgs>>): Prisma__ServiceProviderClient<$Result.GetResult<Prisma.$ServiceProviderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    artisan<T extends User$artisanArgs<ExtArgs> = {}>(args?: Subset<T, User$artisanArgs<ExtArgs>>): Prisma__ArtisanClient<$Result.GetResult<Prisma.$ArtisanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     authTokens<T extends User$authTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$authTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuthTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     refreshTokens<T extends User$refreshTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -2405,22 +2405,22 @@ export namespace Prisma {
   }
 
   /**
-   * User.serviceProvider
+   * User.artisan
    */
-  export type User$serviceProviderArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$artisanArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ServiceProvider
+     * Select specific fields to fetch from the Artisan
      */
-    select?: ServiceProviderSelect<ExtArgs> | null
+    select?: ArtisanSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ServiceProvider
+     * Omit specific fields from the Artisan
      */
-    omit?: ServiceProviderOmit<ExtArgs> | null
+    omit?: ArtisanOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServiceProviderInclude<ExtArgs> | null
-    where?: ServiceProviderWhereInput
+    include?: ArtisanInclude<ExtArgs> | null
+    where?: ArtisanWhereInput
   }
 
   /**
@@ -2491,18 +2491,18 @@ export namespace Prisma {
 
 
   /**
-   * Model ServiceProvider
+   * Model Artisan
    */
 
-  export type AggregateServiceProvider = {
-    _count: ServiceProviderCountAggregateOutputType | null
-    _avg: ServiceProviderAvgAggregateOutputType | null
-    _sum: ServiceProviderSumAggregateOutputType | null
-    _min: ServiceProviderMinAggregateOutputType | null
-    _max: ServiceProviderMaxAggregateOutputType | null
+  export type AggregateArtisan = {
+    _count: ArtisanCountAggregateOutputType | null
+    _avg: ArtisanAvgAggregateOutputType | null
+    _sum: ArtisanSumAggregateOutputType | null
+    _min: ArtisanMinAggregateOutputType | null
+    _max: ArtisanMaxAggregateOutputType | null
   }
 
-  export type ServiceProviderAvgAggregateOutputType = {
+  export type ArtisanAvgAggregateOutputType = {
     rating: number | null
     totalRatings: number | null
     maxJobDistance: number | null
@@ -2510,7 +2510,7 @@ export namespace Prisma {
     yearsOfExperience: number | null
   }
 
-  export type ServiceProviderSumAggregateOutputType = {
+  export type ArtisanSumAggregateOutputType = {
     rating: number | null
     totalRatings: number | null
     maxJobDistance: number | null
@@ -2518,13 +2518,13 @@ export namespace Prisma {
     yearsOfExperience: number | null
   }
 
-  export type ServiceProviderMinAggregateOutputType = {
+  export type ArtisanMinAggregateOutputType = {
     id: string | null
     userId: string | null
     businessName: string | null
     businessLicense: string | null
     taxId: string | null
-    status: $Enums.ServiceProviderStatus | null
+    status: $Enums.ArtisanStatus | null
     rating: number | null
     totalRatings: number | null
     verificationDate: Date | null
@@ -2537,13 +2537,13 @@ export namespace Prisma {
     yearsOfExperience: number | null
   }
 
-  export type ServiceProviderMaxAggregateOutputType = {
+  export type ArtisanMaxAggregateOutputType = {
     id: string | null
     userId: string | null
     businessName: string | null
     businessLicense: string | null
     taxId: string | null
-    status: $Enums.ServiceProviderStatus | null
+    status: $Enums.ArtisanStatus | null
     rating: number | null
     totalRatings: number | null
     verificationDate: Date | null
@@ -2556,7 +2556,7 @@ export namespace Prisma {
     yearsOfExperience: number | null
   }
 
-  export type ServiceProviderCountAggregateOutputType = {
+  export type ArtisanCountAggregateOutputType = {
     id: number
     userId: number
     businessName: number
@@ -2580,7 +2580,7 @@ export namespace Prisma {
   }
 
 
-  export type ServiceProviderAvgAggregateInputType = {
+  export type ArtisanAvgAggregateInputType = {
     rating?: true
     totalRatings?: true
     maxJobDistance?: true
@@ -2588,7 +2588,7 @@ export namespace Prisma {
     yearsOfExperience?: true
   }
 
-  export type ServiceProviderSumAggregateInputType = {
+  export type ArtisanSumAggregateInputType = {
     rating?: true
     totalRatings?: true
     maxJobDistance?: true
@@ -2596,7 +2596,7 @@ export namespace Prisma {
     yearsOfExperience?: true
   }
 
-  export type ServiceProviderMinAggregateInputType = {
+  export type ArtisanMinAggregateInputType = {
     id?: true
     userId?: true
     businessName?: true
@@ -2615,7 +2615,7 @@ export namespace Prisma {
     yearsOfExperience?: true
   }
 
-  export type ServiceProviderMaxAggregateInputType = {
+  export type ArtisanMaxAggregateInputType = {
     id?: true
     userId?: true
     businessName?: true
@@ -2634,7 +2634,7 @@ export namespace Prisma {
     yearsOfExperience?: true
   }
 
-  export type ServiceProviderCountAggregateInputType = {
+  export type ArtisanCountAggregateInputType = {
     id?: true
     userId?: true
     businessName?: true
@@ -2657,93 +2657,93 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type ServiceProviderAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ArtisanAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which ServiceProvider to aggregate.
+     * Filter which Artisan to aggregate.
      */
-    where?: ServiceProviderWhereInput
+    where?: ArtisanWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ServiceProviders to fetch.
+     * Determine the order of Artisans to fetch.
      */
-    orderBy?: ServiceProviderOrderByWithRelationInput | ServiceProviderOrderByWithRelationInput[]
+    orderBy?: ArtisanOrderByWithRelationInput | ArtisanOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: ServiceProviderWhereUniqueInput
+    cursor?: ArtisanWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ServiceProviders from the position of the cursor.
+     * Take `±n` Artisans from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ServiceProviders.
+     * Skip the first `n` Artisans.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned ServiceProviders
+     * Count returned Artisans
     **/
-    _count?: true | ServiceProviderCountAggregateInputType
+    _count?: true | ArtisanCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to average
     **/
-    _avg?: ServiceProviderAvgAggregateInputType
+    _avg?: ArtisanAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to sum
     **/
-    _sum?: ServiceProviderSumAggregateInputType
+    _sum?: ArtisanSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: ServiceProviderMinAggregateInputType
+    _min?: ArtisanMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: ServiceProviderMaxAggregateInputType
+    _max?: ArtisanMaxAggregateInputType
   }
 
-  export type GetServiceProviderAggregateType<T extends ServiceProviderAggregateArgs> = {
-        [P in keyof T & keyof AggregateServiceProvider]: P extends '_count' | 'count'
+  export type GetArtisanAggregateType<T extends ArtisanAggregateArgs> = {
+        [P in keyof T & keyof AggregateArtisan]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateServiceProvider[P]>
-      : GetScalarType<T[P], AggregateServiceProvider[P]>
+        : GetScalarType<T[P], AggregateArtisan[P]>
+      : GetScalarType<T[P], AggregateArtisan[P]>
   }
 
 
 
 
-  export type ServiceProviderGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ServiceProviderWhereInput
-    orderBy?: ServiceProviderOrderByWithAggregationInput | ServiceProviderOrderByWithAggregationInput[]
-    by: ServiceProviderScalarFieldEnum[] | ServiceProviderScalarFieldEnum
-    having?: ServiceProviderScalarWhereWithAggregatesInput
+  export type ArtisanGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ArtisanWhereInput
+    orderBy?: ArtisanOrderByWithAggregationInput | ArtisanOrderByWithAggregationInput[]
+    by: ArtisanScalarFieldEnum[] | ArtisanScalarFieldEnum
+    having?: ArtisanScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: ServiceProviderCountAggregateInputType | true
-    _avg?: ServiceProviderAvgAggregateInputType
-    _sum?: ServiceProviderSumAggregateInputType
-    _min?: ServiceProviderMinAggregateInputType
-    _max?: ServiceProviderMaxAggregateInputType
+    _count?: ArtisanCountAggregateInputType | true
+    _avg?: ArtisanAvgAggregateInputType
+    _sum?: ArtisanSumAggregateInputType
+    _min?: ArtisanMinAggregateInputType
+    _max?: ArtisanMaxAggregateInputType
   }
 
-  export type ServiceProviderGroupByOutputType = {
+  export type ArtisanGroupByOutputType = {
     id: string
     userId: string
     businessName: string
@@ -2751,7 +2751,7 @@ export namespace Prisma {
     taxId: string | null
     serviceCategories: string[]
     serviceAreas: string[]
-    status: $Enums.ServiceProviderStatus
+    status: $Enums.ArtisanStatus
     rating: number | null
     totalRatings: number
     verificationDate: Date | null
@@ -2763,28 +2763,28 @@ export namespace Prisma {
     description: string | null
     yearsOfExperience: number | null
     qualifications: string[]
-    _count: ServiceProviderCountAggregateOutputType | null
-    _avg: ServiceProviderAvgAggregateOutputType | null
-    _sum: ServiceProviderSumAggregateOutputType | null
-    _min: ServiceProviderMinAggregateOutputType | null
-    _max: ServiceProviderMaxAggregateOutputType | null
+    _count: ArtisanCountAggregateOutputType | null
+    _avg: ArtisanAvgAggregateOutputType | null
+    _sum: ArtisanSumAggregateOutputType | null
+    _min: ArtisanMinAggregateOutputType | null
+    _max: ArtisanMaxAggregateOutputType | null
   }
 
-  type GetServiceProviderGroupByPayload<T extends ServiceProviderGroupByArgs> = Prisma.PrismaPromise<
+  type GetArtisanGroupByPayload<T extends ArtisanGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<ServiceProviderGroupByOutputType, T['by']> &
+      PickEnumerable<ArtisanGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof ServiceProviderGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof ArtisanGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], ServiceProviderGroupByOutputType[P]>
-            : GetScalarType<T[P], ServiceProviderGroupByOutputType[P]>
+              : GetScalarType<T[P], ArtisanGroupByOutputType[P]>
+            : GetScalarType<T[P], ArtisanGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type ServiceProviderSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type ArtisanSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     businessName?: boolean
@@ -2805,9 +2805,9 @@ export namespace Prisma {
     yearsOfExperience?: boolean
     qualifications?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["serviceProvider"]>
+  }, ExtArgs["result"]["artisan"]>
 
-  export type ServiceProviderSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type ArtisanSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     businessName?: boolean
@@ -2828,9 +2828,9 @@ export namespace Prisma {
     yearsOfExperience?: boolean
     qualifications?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["serviceProvider"]>
+  }, ExtArgs["result"]["artisan"]>
 
-  export type ServiceProviderSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type ArtisanSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     businessName?: boolean
@@ -2851,9 +2851,9 @@ export namespace Prisma {
     yearsOfExperience?: boolean
     qualifications?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["serviceProvider"]>
+  }, ExtArgs["result"]["artisan"]>
 
-  export type ServiceProviderSelectScalar = {
+  export type ArtisanSelectScalar = {
     id?: boolean
     userId?: boolean
     businessName?: boolean
@@ -2875,19 +2875,19 @@ export namespace Prisma {
     qualifications?: boolean
   }
 
-  export type ServiceProviderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "businessName" | "businessLicense" | "taxId" | "serviceCategories" | "serviceAreas" | "status" | "rating" | "totalRatings" | "verificationDate" | "insuranceInfo" | "workingHours" | "isAvailable" | "maxJobDistance" | "hourlyRate" | "description" | "yearsOfExperience" | "qualifications", ExtArgs["result"]["serviceProvider"]>
-  export type ServiceProviderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ArtisanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "businessName" | "businessLicense" | "taxId" | "serviceCategories" | "serviceAreas" | "status" | "rating" | "totalRatings" | "verificationDate" | "insuranceInfo" | "workingHours" | "isAvailable" | "maxJobDistance" | "hourlyRate" | "description" | "yearsOfExperience" | "qualifications", ExtArgs["result"]["artisan"]>
+  export type ArtisanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
-  export type ServiceProviderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ArtisanIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
-  export type ServiceProviderIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ArtisanIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
-  export type $ServiceProviderPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "ServiceProvider"
+  export type $ArtisanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Artisan"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
     }
@@ -2899,7 +2899,7 @@ export namespace Prisma {
       taxId: string | null
       serviceCategories: string[]
       serviceAreas: string[]
-      status: $Enums.ServiceProviderStatus
+      status: $Enums.ArtisanStatus
       rating: number | null
       totalRatings: number
       verificationDate: Date | null
@@ -2911,136 +2911,136 @@ export namespace Prisma {
       description: string | null
       yearsOfExperience: number | null
       qualifications: string[]
-    }, ExtArgs["result"]["serviceProvider"]>
+    }, ExtArgs["result"]["artisan"]>
     composites: {}
   }
 
-  type ServiceProviderGetPayload<S extends boolean | null | undefined | ServiceProviderDefaultArgs> = $Result.GetResult<Prisma.$ServiceProviderPayload, S>
+  type ArtisanGetPayload<S extends boolean | null | undefined | ArtisanDefaultArgs> = $Result.GetResult<Prisma.$ArtisanPayload, S>
 
-  type ServiceProviderCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<ServiceProviderFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: ServiceProviderCountAggregateInputType | true
+  type ArtisanCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ArtisanFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ArtisanCountAggregateInputType | true
     }
 
-  export interface ServiceProviderDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ServiceProvider'], meta: { name: 'ServiceProvider' } }
+  export interface ArtisanDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Artisan'], meta: { name: 'Artisan' } }
     /**
-     * Find zero or one ServiceProvider that matches the filter.
-     * @param {ServiceProviderFindUniqueArgs} args - Arguments to find a ServiceProvider
+     * Find zero or one Artisan that matches the filter.
+     * @param {ArtisanFindUniqueArgs} args - Arguments to find a Artisan
      * @example
-     * // Get one ServiceProvider
-     * const serviceProvider = await prisma.serviceProvider.findUnique({
+     * // Get one Artisan
+     * const artisan = await prisma.artisan.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends ServiceProviderFindUniqueArgs>(args: SelectSubset<T, ServiceProviderFindUniqueArgs<ExtArgs>>): Prisma__ServiceProviderClient<$Result.GetResult<Prisma.$ServiceProviderPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends ArtisanFindUniqueArgs>(args: SelectSubset<T, ArtisanFindUniqueArgs<ExtArgs>>): Prisma__ArtisanClient<$Result.GetResult<Prisma.$ArtisanPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one ServiceProvider that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Artisan that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {ServiceProviderFindUniqueOrThrowArgs} args - Arguments to find a ServiceProvider
+     * @param {ArtisanFindUniqueOrThrowArgs} args - Arguments to find a Artisan
      * @example
-     * // Get one ServiceProvider
-     * const serviceProvider = await prisma.serviceProvider.findUniqueOrThrow({
+     * // Get one Artisan
+     * const artisan = await prisma.artisan.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends ServiceProviderFindUniqueOrThrowArgs>(args: SelectSubset<T, ServiceProviderFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ServiceProviderClient<$Result.GetResult<Prisma.$ServiceProviderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends ArtisanFindUniqueOrThrowArgs>(args: SelectSubset<T, ArtisanFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ArtisanClient<$Result.GetResult<Prisma.$ArtisanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first ServiceProvider that matches the filter.
+     * Find the first Artisan that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServiceProviderFindFirstArgs} args - Arguments to find a ServiceProvider
+     * @param {ArtisanFindFirstArgs} args - Arguments to find a Artisan
      * @example
-     * // Get one ServiceProvider
-     * const serviceProvider = await prisma.serviceProvider.findFirst({
+     * // Get one Artisan
+     * const artisan = await prisma.artisan.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends ServiceProviderFindFirstArgs>(args?: SelectSubset<T, ServiceProviderFindFirstArgs<ExtArgs>>): Prisma__ServiceProviderClient<$Result.GetResult<Prisma.$ServiceProviderPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends ArtisanFindFirstArgs>(args?: SelectSubset<T, ArtisanFindFirstArgs<ExtArgs>>): Prisma__ArtisanClient<$Result.GetResult<Prisma.$ArtisanPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first ServiceProvider that matches the filter or
+     * Find the first Artisan that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServiceProviderFindFirstOrThrowArgs} args - Arguments to find a ServiceProvider
+     * @param {ArtisanFindFirstOrThrowArgs} args - Arguments to find a Artisan
      * @example
-     * // Get one ServiceProvider
-     * const serviceProvider = await prisma.serviceProvider.findFirstOrThrow({
+     * // Get one Artisan
+     * const artisan = await prisma.artisan.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends ServiceProviderFindFirstOrThrowArgs>(args?: SelectSubset<T, ServiceProviderFindFirstOrThrowArgs<ExtArgs>>): Prisma__ServiceProviderClient<$Result.GetResult<Prisma.$ServiceProviderPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends ArtisanFindFirstOrThrowArgs>(args?: SelectSubset<T, ArtisanFindFirstOrThrowArgs<ExtArgs>>): Prisma__ArtisanClient<$Result.GetResult<Prisma.$ArtisanPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more ServiceProviders that matches the filter.
+     * Find zero or more Artisans that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServiceProviderFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {ArtisanFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all ServiceProviders
-     * const serviceProviders = await prisma.serviceProvider.findMany()
+     * // Get all Artisans
+     * const artisans = await prisma.artisan.findMany()
      * 
-     * // Get first 10 ServiceProviders
-     * const serviceProviders = await prisma.serviceProvider.findMany({ take: 10 })
+     * // Get first 10 Artisans
+     * const artisans = await prisma.artisan.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const serviceProviderWithIdOnly = await prisma.serviceProvider.findMany({ select: { id: true } })
+     * const artisanWithIdOnly = await prisma.artisan.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends ServiceProviderFindManyArgs>(args?: SelectSubset<T, ServiceProviderFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServiceProviderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends ArtisanFindManyArgs>(args?: SelectSubset<T, ArtisanFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArtisanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a ServiceProvider.
-     * @param {ServiceProviderCreateArgs} args - Arguments to create a ServiceProvider.
+     * Create a Artisan.
+     * @param {ArtisanCreateArgs} args - Arguments to create a Artisan.
      * @example
-     * // Create one ServiceProvider
-     * const ServiceProvider = await prisma.serviceProvider.create({
+     * // Create one Artisan
+     * const Artisan = await prisma.artisan.create({
      *   data: {
-     *     // ... data to create a ServiceProvider
+     *     // ... data to create a Artisan
      *   }
      * })
      * 
      */
-    create<T extends ServiceProviderCreateArgs>(args: SelectSubset<T, ServiceProviderCreateArgs<ExtArgs>>): Prisma__ServiceProviderClient<$Result.GetResult<Prisma.$ServiceProviderPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends ArtisanCreateArgs>(args: SelectSubset<T, ArtisanCreateArgs<ExtArgs>>): Prisma__ArtisanClient<$Result.GetResult<Prisma.$ArtisanPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many ServiceProviders.
-     * @param {ServiceProviderCreateManyArgs} args - Arguments to create many ServiceProviders.
+     * Create many Artisans.
+     * @param {ArtisanCreateManyArgs} args - Arguments to create many Artisans.
      * @example
-     * // Create many ServiceProviders
-     * const serviceProvider = await prisma.serviceProvider.createMany({
+     * // Create many Artisans
+     * const artisan = await prisma.artisan.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends ServiceProviderCreateManyArgs>(args?: SelectSubset<T, ServiceProviderCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends ArtisanCreateManyArgs>(args?: SelectSubset<T, ArtisanCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many ServiceProviders and returns the data saved in the database.
-     * @param {ServiceProviderCreateManyAndReturnArgs} args - Arguments to create many ServiceProviders.
+     * Create many Artisans and returns the data saved in the database.
+     * @param {ArtisanCreateManyAndReturnArgs} args - Arguments to create many Artisans.
      * @example
-     * // Create many ServiceProviders
-     * const serviceProvider = await prisma.serviceProvider.createManyAndReturn({
+     * // Create many Artisans
+     * const artisan = await prisma.artisan.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many ServiceProviders and only return the `id`
-     * const serviceProviderWithIdOnly = await prisma.serviceProvider.createManyAndReturn({
+     * // Create many Artisans and only return the `id`
+     * const artisanWithIdOnly = await prisma.artisan.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -3050,28 +3050,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends ServiceProviderCreateManyAndReturnArgs>(args?: SelectSubset<T, ServiceProviderCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServiceProviderPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends ArtisanCreateManyAndReturnArgs>(args?: SelectSubset<T, ArtisanCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArtisanPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a ServiceProvider.
-     * @param {ServiceProviderDeleteArgs} args - Arguments to delete one ServiceProvider.
+     * Delete a Artisan.
+     * @param {ArtisanDeleteArgs} args - Arguments to delete one Artisan.
      * @example
-     * // Delete one ServiceProvider
-     * const ServiceProvider = await prisma.serviceProvider.delete({
+     * // Delete one Artisan
+     * const Artisan = await prisma.artisan.delete({
      *   where: {
-     *     // ... filter to delete one ServiceProvider
+     *     // ... filter to delete one Artisan
      *   }
      * })
      * 
      */
-    delete<T extends ServiceProviderDeleteArgs>(args: SelectSubset<T, ServiceProviderDeleteArgs<ExtArgs>>): Prisma__ServiceProviderClient<$Result.GetResult<Prisma.$ServiceProviderPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends ArtisanDeleteArgs>(args: SelectSubset<T, ArtisanDeleteArgs<ExtArgs>>): Prisma__ArtisanClient<$Result.GetResult<Prisma.$ArtisanPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one ServiceProvider.
-     * @param {ServiceProviderUpdateArgs} args - Arguments to update one ServiceProvider.
+     * Update one Artisan.
+     * @param {ArtisanUpdateArgs} args - Arguments to update one Artisan.
      * @example
-     * // Update one ServiceProvider
-     * const serviceProvider = await prisma.serviceProvider.update({
+     * // Update one Artisan
+     * const artisan = await prisma.artisan.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -3081,30 +3081,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends ServiceProviderUpdateArgs>(args: SelectSubset<T, ServiceProviderUpdateArgs<ExtArgs>>): Prisma__ServiceProviderClient<$Result.GetResult<Prisma.$ServiceProviderPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends ArtisanUpdateArgs>(args: SelectSubset<T, ArtisanUpdateArgs<ExtArgs>>): Prisma__ArtisanClient<$Result.GetResult<Prisma.$ArtisanPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more ServiceProviders.
-     * @param {ServiceProviderDeleteManyArgs} args - Arguments to filter ServiceProviders to delete.
+     * Delete zero or more Artisans.
+     * @param {ArtisanDeleteManyArgs} args - Arguments to filter Artisans to delete.
      * @example
-     * // Delete a few ServiceProviders
-     * const { count } = await prisma.serviceProvider.deleteMany({
+     * // Delete a few Artisans
+     * const { count } = await prisma.artisan.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends ServiceProviderDeleteManyArgs>(args?: SelectSubset<T, ServiceProviderDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends ArtisanDeleteManyArgs>(args?: SelectSubset<T, ArtisanDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more ServiceProviders.
+     * Update zero or more Artisans.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServiceProviderUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {ArtisanUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many ServiceProviders
-     * const serviceProvider = await prisma.serviceProvider.updateMany({
+     * // Update many Artisans
+     * const artisan = await prisma.artisan.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -3114,14 +3114,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends ServiceProviderUpdateManyArgs>(args: SelectSubset<T, ServiceProviderUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends ArtisanUpdateManyArgs>(args: SelectSubset<T, ArtisanUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more ServiceProviders and returns the data updated in the database.
-     * @param {ServiceProviderUpdateManyAndReturnArgs} args - Arguments to update many ServiceProviders.
+     * Update zero or more Artisans and returns the data updated in the database.
+     * @param {ArtisanUpdateManyAndReturnArgs} args - Arguments to update many Artisans.
      * @example
-     * // Update many ServiceProviders
-     * const serviceProvider = await prisma.serviceProvider.updateManyAndReturn({
+     * // Update many Artisans
+     * const artisan = await prisma.artisan.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -3130,8 +3130,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more ServiceProviders and only return the `id`
-     * const serviceProviderWithIdOnly = await prisma.serviceProvider.updateManyAndReturn({
+     * // Update zero or more Artisans and only return the `id`
+     * const artisanWithIdOnly = await prisma.artisan.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -3144,56 +3144,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends ServiceProviderUpdateManyAndReturnArgs>(args: SelectSubset<T, ServiceProviderUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServiceProviderPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends ArtisanUpdateManyAndReturnArgs>(args: SelectSubset<T, ArtisanUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArtisanPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one ServiceProvider.
-     * @param {ServiceProviderUpsertArgs} args - Arguments to update or create a ServiceProvider.
+     * Create or update one Artisan.
+     * @param {ArtisanUpsertArgs} args - Arguments to update or create a Artisan.
      * @example
-     * // Update or create a ServiceProvider
-     * const serviceProvider = await prisma.serviceProvider.upsert({
+     * // Update or create a Artisan
+     * const artisan = await prisma.artisan.upsert({
      *   create: {
-     *     // ... data to create a ServiceProvider
+     *     // ... data to create a Artisan
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the ServiceProvider we want to update
+     *     // ... the filter for the Artisan we want to update
      *   }
      * })
      */
-    upsert<T extends ServiceProviderUpsertArgs>(args: SelectSubset<T, ServiceProviderUpsertArgs<ExtArgs>>): Prisma__ServiceProviderClient<$Result.GetResult<Prisma.$ServiceProviderPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends ArtisanUpsertArgs>(args: SelectSubset<T, ArtisanUpsertArgs<ExtArgs>>): Prisma__ArtisanClient<$Result.GetResult<Prisma.$ArtisanPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of ServiceProviders.
+     * Count the number of Artisans.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServiceProviderCountArgs} args - Arguments to filter ServiceProviders to count.
+     * @param {ArtisanCountArgs} args - Arguments to filter Artisans to count.
      * @example
-     * // Count the number of ServiceProviders
-     * const count = await prisma.serviceProvider.count({
+     * // Count the number of Artisans
+     * const count = await prisma.artisan.count({
      *   where: {
-     *     // ... the filter for the ServiceProviders we want to count
+     *     // ... the filter for the Artisans we want to count
      *   }
      * })
     **/
-    count<T extends ServiceProviderCountArgs>(
-      args?: Subset<T, ServiceProviderCountArgs>,
+    count<T extends ArtisanCountArgs>(
+      args?: Subset<T, ArtisanCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], ServiceProviderCountAggregateOutputType>
+          : GetScalarType<T['select'], ArtisanCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a ServiceProvider.
+     * Allows you to perform aggregations operations on a Artisan.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServiceProviderAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {ArtisanAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -3213,13 +3213,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends ServiceProviderAggregateArgs>(args: Subset<T, ServiceProviderAggregateArgs>): Prisma.PrismaPromise<GetServiceProviderAggregateType<T>>
+    aggregate<T extends ArtisanAggregateArgs>(args: Subset<T, ArtisanAggregateArgs>): Prisma.PrismaPromise<GetArtisanAggregateType<T>>
 
     /**
-     * Group by ServiceProvider.
+     * Group by Artisan.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServiceProviderGroupByArgs} args - Group by arguments.
+     * @param {ArtisanGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -3234,14 +3234,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends ServiceProviderGroupByArgs,
+      T extends ArtisanGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: ServiceProviderGroupByArgs['orderBy'] }
-        : { orderBy?: ServiceProviderGroupByArgs['orderBy'] },
+        ? { orderBy: ArtisanGroupByArgs['orderBy'] }
+        : { orderBy?: ArtisanGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -3290,20 +3290,20 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, ServiceProviderGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetServiceProviderGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, ArtisanGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetArtisanGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the ServiceProvider model
+   * Fields of the Artisan model
    */
-  readonly fields: ServiceProviderFieldRefs;
+  readonly fields: ArtisanFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for ServiceProvider.
+   * The delegate class that acts as a "Promise-like" for Artisan.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__ServiceProviderClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__ArtisanClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -3332,439 +3332,439 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the ServiceProvider model
+   * Fields of the Artisan model
    */
-  interface ServiceProviderFieldRefs {
-    readonly id: FieldRef<"ServiceProvider", 'String'>
-    readonly userId: FieldRef<"ServiceProvider", 'String'>
-    readonly businessName: FieldRef<"ServiceProvider", 'String'>
-    readonly businessLicense: FieldRef<"ServiceProvider", 'String'>
-    readonly taxId: FieldRef<"ServiceProvider", 'String'>
-    readonly serviceCategories: FieldRef<"ServiceProvider", 'String[]'>
-    readonly serviceAreas: FieldRef<"ServiceProvider", 'String[]'>
-    readonly status: FieldRef<"ServiceProvider", 'ServiceProviderStatus'>
-    readonly rating: FieldRef<"ServiceProvider", 'Float'>
-    readonly totalRatings: FieldRef<"ServiceProvider", 'Int'>
-    readonly verificationDate: FieldRef<"ServiceProvider", 'DateTime'>
-    readonly insuranceInfo: FieldRef<"ServiceProvider", 'String'>
-    readonly workingHours: FieldRef<"ServiceProvider", 'String'>
-    readonly isAvailable: FieldRef<"ServiceProvider", 'Boolean'>
-    readonly maxJobDistance: FieldRef<"ServiceProvider", 'Int'>
-    readonly hourlyRate: FieldRef<"ServiceProvider", 'Float'>
-    readonly description: FieldRef<"ServiceProvider", 'String'>
-    readonly yearsOfExperience: FieldRef<"ServiceProvider", 'Int'>
-    readonly qualifications: FieldRef<"ServiceProvider", 'String[]'>
+  interface ArtisanFieldRefs {
+    readonly id: FieldRef<"Artisan", 'String'>
+    readonly userId: FieldRef<"Artisan", 'String'>
+    readonly businessName: FieldRef<"Artisan", 'String'>
+    readonly businessLicense: FieldRef<"Artisan", 'String'>
+    readonly taxId: FieldRef<"Artisan", 'String'>
+    readonly serviceCategories: FieldRef<"Artisan", 'String[]'>
+    readonly serviceAreas: FieldRef<"Artisan", 'String[]'>
+    readonly status: FieldRef<"Artisan", 'ArtisanStatus'>
+    readonly rating: FieldRef<"Artisan", 'Float'>
+    readonly totalRatings: FieldRef<"Artisan", 'Int'>
+    readonly verificationDate: FieldRef<"Artisan", 'DateTime'>
+    readonly insuranceInfo: FieldRef<"Artisan", 'String'>
+    readonly workingHours: FieldRef<"Artisan", 'String'>
+    readonly isAvailable: FieldRef<"Artisan", 'Boolean'>
+    readonly maxJobDistance: FieldRef<"Artisan", 'Int'>
+    readonly hourlyRate: FieldRef<"Artisan", 'Float'>
+    readonly description: FieldRef<"Artisan", 'String'>
+    readonly yearsOfExperience: FieldRef<"Artisan", 'Int'>
+    readonly qualifications: FieldRef<"Artisan", 'String[]'>
   }
     
 
   // Custom InputTypes
   /**
-   * ServiceProvider findUnique
+   * Artisan findUnique
    */
-  export type ServiceProviderFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ArtisanFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ServiceProvider
+     * Select specific fields to fetch from the Artisan
      */
-    select?: ServiceProviderSelect<ExtArgs> | null
+    select?: ArtisanSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ServiceProvider
+     * Omit specific fields from the Artisan
      */
-    omit?: ServiceProviderOmit<ExtArgs> | null
+    omit?: ArtisanOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServiceProviderInclude<ExtArgs> | null
+    include?: ArtisanInclude<ExtArgs> | null
     /**
-     * Filter, which ServiceProvider to fetch.
+     * Filter, which Artisan to fetch.
      */
-    where: ServiceProviderWhereUniqueInput
+    where: ArtisanWhereUniqueInput
   }
 
   /**
-   * ServiceProvider findUniqueOrThrow
+   * Artisan findUniqueOrThrow
    */
-  export type ServiceProviderFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ArtisanFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ServiceProvider
+     * Select specific fields to fetch from the Artisan
      */
-    select?: ServiceProviderSelect<ExtArgs> | null
+    select?: ArtisanSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ServiceProvider
+     * Omit specific fields from the Artisan
      */
-    omit?: ServiceProviderOmit<ExtArgs> | null
+    omit?: ArtisanOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServiceProviderInclude<ExtArgs> | null
+    include?: ArtisanInclude<ExtArgs> | null
     /**
-     * Filter, which ServiceProvider to fetch.
+     * Filter, which Artisan to fetch.
      */
-    where: ServiceProviderWhereUniqueInput
+    where: ArtisanWhereUniqueInput
   }
 
   /**
-   * ServiceProvider findFirst
+   * Artisan findFirst
    */
-  export type ServiceProviderFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ArtisanFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ServiceProvider
+     * Select specific fields to fetch from the Artisan
      */
-    select?: ServiceProviderSelect<ExtArgs> | null
+    select?: ArtisanSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ServiceProvider
+     * Omit specific fields from the Artisan
      */
-    omit?: ServiceProviderOmit<ExtArgs> | null
+    omit?: ArtisanOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServiceProviderInclude<ExtArgs> | null
+    include?: ArtisanInclude<ExtArgs> | null
     /**
-     * Filter, which ServiceProvider to fetch.
+     * Filter, which Artisan to fetch.
      */
-    where?: ServiceProviderWhereInput
+    where?: ArtisanWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ServiceProviders to fetch.
+     * Determine the order of Artisans to fetch.
      */
-    orderBy?: ServiceProviderOrderByWithRelationInput | ServiceProviderOrderByWithRelationInput[]
+    orderBy?: ArtisanOrderByWithRelationInput | ArtisanOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for ServiceProviders.
+     * Sets the position for searching for Artisans.
      */
-    cursor?: ServiceProviderWhereUniqueInput
+    cursor?: ArtisanWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ServiceProviders from the position of the cursor.
+     * Take `±n` Artisans from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ServiceProviders.
+     * Skip the first `n` Artisans.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of ServiceProviders.
+     * Filter by unique combinations of Artisans.
      */
-    distinct?: ServiceProviderScalarFieldEnum | ServiceProviderScalarFieldEnum[]
+    distinct?: ArtisanScalarFieldEnum | ArtisanScalarFieldEnum[]
   }
 
   /**
-   * ServiceProvider findFirstOrThrow
+   * Artisan findFirstOrThrow
    */
-  export type ServiceProviderFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ArtisanFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ServiceProvider
+     * Select specific fields to fetch from the Artisan
      */
-    select?: ServiceProviderSelect<ExtArgs> | null
+    select?: ArtisanSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ServiceProvider
+     * Omit specific fields from the Artisan
      */
-    omit?: ServiceProviderOmit<ExtArgs> | null
+    omit?: ArtisanOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServiceProviderInclude<ExtArgs> | null
+    include?: ArtisanInclude<ExtArgs> | null
     /**
-     * Filter, which ServiceProvider to fetch.
+     * Filter, which Artisan to fetch.
      */
-    where?: ServiceProviderWhereInput
+    where?: ArtisanWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ServiceProviders to fetch.
+     * Determine the order of Artisans to fetch.
      */
-    orderBy?: ServiceProviderOrderByWithRelationInput | ServiceProviderOrderByWithRelationInput[]
+    orderBy?: ArtisanOrderByWithRelationInput | ArtisanOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for ServiceProviders.
+     * Sets the position for searching for Artisans.
      */
-    cursor?: ServiceProviderWhereUniqueInput
+    cursor?: ArtisanWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ServiceProviders from the position of the cursor.
+     * Take `±n` Artisans from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ServiceProviders.
+     * Skip the first `n` Artisans.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of ServiceProviders.
+     * Filter by unique combinations of Artisans.
      */
-    distinct?: ServiceProviderScalarFieldEnum | ServiceProviderScalarFieldEnum[]
+    distinct?: ArtisanScalarFieldEnum | ArtisanScalarFieldEnum[]
   }
 
   /**
-   * ServiceProvider findMany
+   * Artisan findMany
    */
-  export type ServiceProviderFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ArtisanFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ServiceProvider
+     * Select specific fields to fetch from the Artisan
      */
-    select?: ServiceProviderSelect<ExtArgs> | null
+    select?: ArtisanSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ServiceProvider
+     * Omit specific fields from the Artisan
      */
-    omit?: ServiceProviderOmit<ExtArgs> | null
+    omit?: ArtisanOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServiceProviderInclude<ExtArgs> | null
+    include?: ArtisanInclude<ExtArgs> | null
     /**
-     * Filter, which ServiceProviders to fetch.
+     * Filter, which Artisans to fetch.
      */
-    where?: ServiceProviderWhereInput
+    where?: ArtisanWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of ServiceProviders to fetch.
+     * Determine the order of Artisans to fetch.
      */
-    orderBy?: ServiceProviderOrderByWithRelationInput | ServiceProviderOrderByWithRelationInput[]
+    orderBy?: ArtisanOrderByWithRelationInput | ArtisanOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing ServiceProviders.
+     * Sets the position for listing Artisans.
      */
-    cursor?: ServiceProviderWhereUniqueInput
+    cursor?: ArtisanWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` ServiceProviders from the position of the cursor.
+     * Take `±n` Artisans from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` ServiceProviders.
+     * Skip the first `n` Artisans.
      */
     skip?: number
-    distinct?: ServiceProviderScalarFieldEnum | ServiceProviderScalarFieldEnum[]
+    distinct?: ArtisanScalarFieldEnum | ArtisanScalarFieldEnum[]
   }
 
   /**
-   * ServiceProvider create
+   * Artisan create
    */
-  export type ServiceProviderCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ArtisanCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ServiceProvider
+     * Select specific fields to fetch from the Artisan
      */
-    select?: ServiceProviderSelect<ExtArgs> | null
+    select?: ArtisanSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ServiceProvider
+     * Omit specific fields from the Artisan
      */
-    omit?: ServiceProviderOmit<ExtArgs> | null
+    omit?: ArtisanOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServiceProviderInclude<ExtArgs> | null
+    include?: ArtisanInclude<ExtArgs> | null
     /**
-     * The data needed to create a ServiceProvider.
+     * The data needed to create a Artisan.
      */
-    data: XOR<ServiceProviderCreateInput, ServiceProviderUncheckedCreateInput>
+    data: XOR<ArtisanCreateInput, ArtisanUncheckedCreateInput>
   }
 
   /**
-   * ServiceProvider createMany
+   * Artisan createMany
    */
-  export type ServiceProviderCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ArtisanCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many ServiceProviders.
+     * The data used to create many Artisans.
      */
-    data: ServiceProviderCreateManyInput | ServiceProviderCreateManyInput[]
+    data: ArtisanCreateManyInput | ArtisanCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * ServiceProvider createManyAndReturn
+   * Artisan createManyAndReturn
    */
-  export type ServiceProviderCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ArtisanCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ServiceProvider
+     * Select specific fields to fetch from the Artisan
      */
-    select?: ServiceProviderSelectCreateManyAndReturn<ExtArgs> | null
+    select?: ArtisanSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the ServiceProvider
+     * Omit specific fields from the Artisan
      */
-    omit?: ServiceProviderOmit<ExtArgs> | null
+    omit?: ArtisanOmit<ExtArgs> | null
     /**
-     * The data used to create many ServiceProviders.
+     * The data used to create many Artisans.
      */
-    data: ServiceProviderCreateManyInput | ServiceProviderCreateManyInput[]
+    data: ArtisanCreateManyInput | ArtisanCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServiceProviderIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: ArtisanIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * ServiceProvider update
+   * Artisan update
    */
-  export type ServiceProviderUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ArtisanUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ServiceProvider
+     * Select specific fields to fetch from the Artisan
      */
-    select?: ServiceProviderSelect<ExtArgs> | null
+    select?: ArtisanSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ServiceProvider
+     * Omit specific fields from the Artisan
      */
-    omit?: ServiceProviderOmit<ExtArgs> | null
+    omit?: ArtisanOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServiceProviderInclude<ExtArgs> | null
+    include?: ArtisanInclude<ExtArgs> | null
     /**
-     * The data needed to update a ServiceProvider.
+     * The data needed to update a Artisan.
      */
-    data: XOR<ServiceProviderUpdateInput, ServiceProviderUncheckedUpdateInput>
+    data: XOR<ArtisanUpdateInput, ArtisanUncheckedUpdateInput>
     /**
-     * Choose, which ServiceProvider to update.
+     * Choose, which Artisan to update.
      */
-    where: ServiceProviderWhereUniqueInput
+    where: ArtisanWhereUniqueInput
   }
 
   /**
-   * ServiceProvider updateMany
+   * Artisan updateMany
    */
-  export type ServiceProviderUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ArtisanUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update ServiceProviders.
+     * The data used to update Artisans.
      */
-    data: XOR<ServiceProviderUpdateManyMutationInput, ServiceProviderUncheckedUpdateManyInput>
+    data: XOR<ArtisanUpdateManyMutationInput, ArtisanUncheckedUpdateManyInput>
     /**
-     * Filter which ServiceProviders to update
+     * Filter which Artisans to update
      */
-    where?: ServiceProviderWhereInput
+    where?: ArtisanWhereInput
     /**
-     * Limit how many ServiceProviders to update.
+     * Limit how many Artisans to update.
      */
     limit?: number
   }
 
   /**
-   * ServiceProvider updateManyAndReturn
+   * Artisan updateManyAndReturn
    */
-  export type ServiceProviderUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ArtisanUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ServiceProvider
+     * Select specific fields to fetch from the Artisan
      */
-    select?: ServiceProviderSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: ArtisanSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the ServiceProvider
+     * Omit specific fields from the Artisan
      */
-    omit?: ServiceProviderOmit<ExtArgs> | null
+    omit?: ArtisanOmit<ExtArgs> | null
     /**
-     * The data used to update ServiceProviders.
+     * The data used to update Artisans.
      */
-    data: XOR<ServiceProviderUpdateManyMutationInput, ServiceProviderUncheckedUpdateManyInput>
+    data: XOR<ArtisanUpdateManyMutationInput, ArtisanUncheckedUpdateManyInput>
     /**
-     * Filter which ServiceProviders to update
+     * Filter which Artisans to update
      */
-    where?: ServiceProviderWhereInput
+    where?: ArtisanWhereInput
     /**
-     * Limit how many ServiceProviders to update.
+     * Limit how many Artisans to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServiceProviderIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: ArtisanIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * ServiceProvider upsert
+   * Artisan upsert
    */
-  export type ServiceProviderUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ArtisanUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ServiceProvider
+     * Select specific fields to fetch from the Artisan
      */
-    select?: ServiceProviderSelect<ExtArgs> | null
+    select?: ArtisanSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ServiceProvider
+     * Omit specific fields from the Artisan
      */
-    omit?: ServiceProviderOmit<ExtArgs> | null
+    omit?: ArtisanOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServiceProviderInclude<ExtArgs> | null
+    include?: ArtisanInclude<ExtArgs> | null
     /**
-     * The filter to search for the ServiceProvider to update in case it exists.
+     * The filter to search for the Artisan to update in case it exists.
      */
-    where: ServiceProviderWhereUniqueInput
+    where: ArtisanWhereUniqueInput
     /**
-     * In case the ServiceProvider found by the `where` argument doesn't exist, create a new ServiceProvider with this data.
+     * In case the Artisan found by the `where` argument doesn't exist, create a new Artisan with this data.
      */
-    create: XOR<ServiceProviderCreateInput, ServiceProviderUncheckedCreateInput>
+    create: XOR<ArtisanCreateInput, ArtisanUncheckedCreateInput>
     /**
-     * In case the ServiceProvider was found with the provided `where` argument, update it with this data.
+     * In case the Artisan was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<ServiceProviderUpdateInput, ServiceProviderUncheckedUpdateInput>
+    update: XOR<ArtisanUpdateInput, ArtisanUncheckedUpdateInput>
   }
 
   /**
-   * ServiceProvider delete
+   * Artisan delete
    */
-  export type ServiceProviderDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ArtisanDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ServiceProvider
+     * Select specific fields to fetch from the Artisan
      */
-    select?: ServiceProviderSelect<ExtArgs> | null
+    select?: ArtisanSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ServiceProvider
+     * Omit specific fields from the Artisan
      */
-    omit?: ServiceProviderOmit<ExtArgs> | null
+    omit?: ArtisanOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServiceProviderInclude<ExtArgs> | null
+    include?: ArtisanInclude<ExtArgs> | null
     /**
-     * Filter which ServiceProvider to delete.
+     * Filter which Artisan to delete.
      */
-    where: ServiceProviderWhereUniqueInput
+    where: ArtisanWhereUniqueInput
   }
 
   /**
-   * ServiceProvider deleteMany
+   * Artisan deleteMany
    */
-  export type ServiceProviderDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ArtisanDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which ServiceProviders to delete
+     * Filter which Artisans to delete
      */
-    where?: ServiceProviderWhereInput
+    where?: ArtisanWhereInput
     /**
-     * Limit how many ServiceProviders to delete.
+     * Limit how many Artisans to delete.
      */
     limit?: number
   }
 
   /**
-   * ServiceProvider without action
+   * Artisan without action
    */
-  export type ServiceProviderDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ArtisanDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ServiceProvider
+     * Select specific fields to fetch from the Artisan
      */
-    select?: ServiceProviderSelect<ExtArgs> | null
+    select?: ArtisanSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ServiceProvider
+     * Omit specific fields from the Artisan
      */
-    omit?: ServiceProviderOmit<ExtArgs> | null
+    omit?: ArtisanOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ServiceProviderInclude<ExtArgs> | null
+    include?: ArtisanInclude<ExtArgs> | null
   }
 
 
@@ -5959,7 +5959,7 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-  export const ServiceProviderScalarFieldEnum: {
+  export const ArtisanScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
     businessName: 'businessName',
@@ -5981,7 +5981,7 @@ export namespace Prisma {
     qualifications: 'qualifications'
   };
 
-  export type ServiceProviderScalarFieldEnum = (typeof ServiceProviderScalarFieldEnum)[keyof typeof ServiceProviderScalarFieldEnum]
+  export type ArtisanScalarFieldEnum = (typeof ArtisanScalarFieldEnum)[keyof typeof ArtisanScalarFieldEnum]
 
 
   export const AuthTokenScalarFieldEnum: {
@@ -6102,16 +6102,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'ServiceProviderStatus'
+   * Reference to a field of type 'ArtisanStatus'
    */
-  export type EnumServiceProviderStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ServiceProviderStatus'>
+  export type EnumArtisanStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ArtisanStatus'>
     
 
 
   /**
-   * Reference to a field of type 'ServiceProviderStatus[]'
+   * Reference to a field of type 'ArtisanStatus[]'
    */
-  export type ListEnumServiceProviderStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ServiceProviderStatus[]'>
+  export type ListEnumArtisanStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ArtisanStatus[]'>
     
 
 
@@ -6166,7 +6166,7 @@ export namespace Prisma {
     zipCode?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    serviceProvider?: XOR<ServiceProviderNullableScalarRelationFilter, ServiceProviderWhereInput> | null
+    artisan?: XOR<ArtisanNullableScalarRelationFilter, ArtisanWhereInput> | null
     authTokens?: AuthTokenListRelationFilter
     refreshTokens?: RefreshTokenListRelationFilter
   }
@@ -6188,7 +6188,7 @@ export namespace Prisma {
     zipCode?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    serviceProvider?: ServiceProviderOrderByWithRelationInput
+    artisan?: ArtisanOrderByWithRelationInput
     authTokens?: AuthTokenOrderByRelationAggregateInput
     refreshTokens?: RefreshTokenOrderByRelationAggregateInput
   }
@@ -6213,7 +6213,7 @@ export namespace Prisma {
     zipCode?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    serviceProvider?: XOR<ServiceProviderNullableScalarRelationFilter, ServiceProviderWhereInput> | null
+    artisan?: XOR<ArtisanNullableScalarRelationFilter, ArtisanWhereInput> | null
     authTokens?: AuthTokenListRelationFilter
     refreshTokens?: RefreshTokenListRelationFilter
   }, "id" | "email" | "phoneNumber">
@@ -6262,33 +6262,33 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
-  export type ServiceProviderWhereInput = {
-    AND?: ServiceProviderWhereInput | ServiceProviderWhereInput[]
-    OR?: ServiceProviderWhereInput[]
-    NOT?: ServiceProviderWhereInput | ServiceProviderWhereInput[]
-    id?: StringFilter<"ServiceProvider"> | string
-    userId?: StringFilter<"ServiceProvider"> | string
-    businessName?: StringFilter<"ServiceProvider"> | string
-    businessLicense?: StringFilter<"ServiceProvider"> | string
-    taxId?: StringNullableFilter<"ServiceProvider"> | string | null
-    serviceCategories?: StringNullableListFilter<"ServiceProvider">
-    serviceAreas?: StringNullableListFilter<"ServiceProvider">
-    status?: EnumServiceProviderStatusFilter<"ServiceProvider"> | $Enums.ServiceProviderStatus
-    rating?: FloatNullableFilter<"ServiceProvider"> | number | null
-    totalRatings?: IntFilter<"ServiceProvider"> | number
-    verificationDate?: DateTimeNullableFilter<"ServiceProvider"> | Date | string | null
-    insuranceInfo?: StringNullableFilter<"ServiceProvider"> | string | null
-    workingHours?: StringNullableFilter<"ServiceProvider"> | string | null
-    isAvailable?: BoolFilter<"ServiceProvider"> | boolean
-    maxJobDistance?: IntFilter<"ServiceProvider"> | number
-    hourlyRate?: FloatNullableFilter<"ServiceProvider"> | number | null
-    description?: StringNullableFilter<"ServiceProvider"> | string | null
-    yearsOfExperience?: IntNullableFilter<"ServiceProvider"> | number | null
-    qualifications?: StringNullableListFilter<"ServiceProvider">
+  export type ArtisanWhereInput = {
+    AND?: ArtisanWhereInput | ArtisanWhereInput[]
+    OR?: ArtisanWhereInput[]
+    NOT?: ArtisanWhereInput | ArtisanWhereInput[]
+    id?: StringFilter<"Artisan"> | string
+    userId?: StringFilter<"Artisan"> | string
+    businessName?: StringFilter<"Artisan"> | string
+    businessLicense?: StringFilter<"Artisan"> | string
+    taxId?: StringNullableFilter<"Artisan"> | string | null
+    serviceCategories?: StringNullableListFilter<"Artisan">
+    serviceAreas?: StringNullableListFilter<"Artisan">
+    status?: EnumArtisanStatusFilter<"Artisan"> | $Enums.ArtisanStatus
+    rating?: FloatNullableFilter<"Artisan"> | number | null
+    totalRatings?: IntFilter<"Artisan"> | number
+    verificationDate?: DateTimeNullableFilter<"Artisan"> | Date | string | null
+    insuranceInfo?: StringNullableFilter<"Artisan"> | string | null
+    workingHours?: StringNullableFilter<"Artisan"> | string | null
+    isAvailable?: BoolFilter<"Artisan"> | boolean
+    maxJobDistance?: IntFilter<"Artisan"> | number
+    hourlyRate?: FloatNullableFilter<"Artisan"> | number | null
+    description?: StringNullableFilter<"Artisan"> | string | null
+    yearsOfExperience?: IntNullableFilter<"Artisan"> | number | null
+    qualifications?: StringNullableListFilter<"Artisan">
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
-  export type ServiceProviderOrderByWithRelationInput = {
+  export type ArtisanOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
     businessName?: SortOrder
@@ -6311,33 +6311,33 @@ export namespace Prisma {
     user?: UserOrderByWithRelationInput
   }
 
-  export type ServiceProviderWhereUniqueInput = Prisma.AtLeast<{
+  export type ArtisanWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     userId?: string
     businessLicense?: string
     taxId?: string
-    AND?: ServiceProviderWhereInput | ServiceProviderWhereInput[]
-    OR?: ServiceProviderWhereInput[]
-    NOT?: ServiceProviderWhereInput | ServiceProviderWhereInput[]
-    businessName?: StringFilter<"ServiceProvider"> | string
-    serviceCategories?: StringNullableListFilter<"ServiceProvider">
-    serviceAreas?: StringNullableListFilter<"ServiceProvider">
-    status?: EnumServiceProviderStatusFilter<"ServiceProvider"> | $Enums.ServiceProviderStatus
-    rating?: FloatNullableFilter<"ServiceProvider"> | number | null
-    totalRatings?: IntFilter<"ServiceProvider"> | number
-    verificationDate?: DateTimeNullableFilter<"ServiceProvider"> | Date | string | null
-    insuranceInfo?: StringNullableFilter<"ServiceProvider"> | string | null
-    workingHours?: StringNullableFilter<"ServiceProvider"> | string | null
-    isAvailable?: BoolFilter<"ServiceProvider"> | boolean
-    maxJobDistance?: IntFilter<"ServiceProvider"> | number
-    hourlyRate?: FloatNullableFilter<"ServiceProvider"> | number | null
-    description?: StringNullableFilter<"ServiceProvider"> | string | null
-    yearsOfExperience?: IntNullableFilter<"ServiceProvider"> | number | null
-    qualifications?: StringNullableListFilter<"ServiceProvider">
+    AND?: ArtisanWhereInput | ArtisanWhereInput[]
+    OR?: ArtisanWhereInput[]
+    NOT?: ArtisanWhereInput | ArtisanWhereInput[]
+    businessName?: StringFilter<"Artisan"> | string
+    serviceCategories?: StringNullableListFilter<"Artisan">
+    serviceAreas?: StringNullableListFilter<"Artisan">
+    status?: EnumArtisanStatusFilter<"Artisan"> | $Enums.ArtisanStatus
+    rating?: FloatNullableFilter<"Artisan"> | number | null
+    totalRatings?: IntFilter<"Artisan"> | number
+    verificationDate?: DateTimeNullableFilter<"Artisan"> | Date | string | null
+    insuranceInfo?: StringNullableFilter<"Artisan"> | string | null
+    workingHours?: StringNullableFilter<"Artisan"> | string | null
+    isAvailable?: BoolFilter<"Artisan"> | boolean
+    maxJobDistance?: IntFilter<"Artisan"> | number
+    hourlyRate?: FloatNullableFilter<"Artisan"> | number | null
+    description?: StringNullableFilter<"Artisan"> | string | null
+    yearsOfExperience?: IntNullableFilter<"Artisan"> | number | null
+    qualifications?: StringNullableListFilter<"Artisan">
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "userId" | "businessLicense" | "taxId">
 
-  export type ServiceProviderOrderByWithAggregationInput = {
+  export type ArtisanOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
     businessName?: SortOrder
@@ -6357,36 +6357,36 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     yearsOfExperience?: SortOrderInput | SortOrder
     qualifications?: SortOrder
-    _count?: ServiceProviderCountOrderByAggregateInput
-    _avg?: ServiceProviderAvgOrderByAggregateInput
-    _max?: ServiceProviderMaxOrderByAggregateInput
-    _min?: ServiceProviderMinOrderByAggregateInput
-    _sum?: ServiceProviderSumOrderByAggregateInput
+    _count?: ArtisanCountOrderByAggregateInput
+    _avg?: ArtisanAvgOrderByAggregateInput
+    _max?: ArtisanMaxOrderByAggregateInput
+    _min?: ArtisanMinOrderByAggregateInput
+    _sum?: ArtisanSumOrderByAggregateInput
   }
 
-  export type ServiceProviderScalarWhereWithAggregatesInput = {
-    AND?: ServiceProviderScalarWhereWithAggregatesInput | ServiceProviderScalarWhereWithAggregatesInput[]
-    OR?: ServiceProviderScalarWhereWithAggregatesInput[]
-    NOT?: ServiceProviderScalarWhereWithAggregatesInput | ServiceProviderScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"ServiceProvider"> | string
-    userId?: StringWithAggregatesFilter<"ServiceProvider"> | string
-    businessName?: StringWithAggregatesFilter<"ServiceProvider"> | string
-    businessLicense?: StringWithAggregatesFilter<"ServiceProvider"> | string
-    taxId?: StringNullableWithAggregatesFilter<"ServiceProvider"> | string | null
-    serviceCategories?: StringNullableListFilter<"ServiceProvider">
-    serviceAreas?: StringNullableListFilter<"ServiceProvider">
-    status?: EnumServiceProviderStatusWithAggregatesFilter<"ServiceProvider"> | $Enums.ServiceProviderStatus
-    rating?: FloatNullableWithAggregatesFilter<"ServiceProvider"> | number | null
-    totalRatings?: IntWithAggregatesFilter<"ServiceProvider"> | number
-    verificationDate?: DateTimeNullableWithAggregatesFilter<"ServiceProvider"> | Date | string | null
-    insuranceInfo?: StringNullableWithAggregatesFilter<"ServiceProvider"> | string | null
-    workingHours?: StringNullableWithAggregatesFilter<"ServiceProvider"> | string | null
-    isAvailable?: BoolWithAggregatesFilter<"ServiceProvider"> | boolean
-    maxJobDistance?: IntWithAggregatesFilter<"ServiceProvider"> | number
-    hourlyRate?: FloatNullableWithAggregatesFilter<"ServiceProvider"> | number | null
-    description?: StringNullableWithAggregatesFilter<"ServiceProvider"> | string | null
-    yearsOfExperience?: IntNullableWithAggregatesFilter<"ServiceProvider"> | number | null
-    qualifications?: StringNullableListFilter<"ServiceProvider">
+  export type ArtisanScalarWhereWithAggregatesInput = {
+    AND?: ArtisanScalarWhereWithAggregatesInput | ArtisanScalarWhereWithAggregatesInput[]
+    OR?: ArtisanScalarWhereWithAggregatesInput[]
+    NOT?: ArtisanScalarWhereWithAggregatesInput | ArtisanScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Artisan"> | string
+    userId?: StringWithAggregatesFilter<"Artisan"> | string
+    businessName?: StringWithAggregatesFilter<"Artisan"> | string
+    businessLicense?: StringWithAggregatesFilter<"Artisan"> | string
+    taxId?: StringNullableWithAggregatesFilter<"Artisan"> | string | null
+    serviceCategories?: StringNullableListFilter<"Artisan">
+    serviceAreas?: StringNullableListFilter<"Artisan">
+    status?: EnumArtisanStatusWithAggregatesFilter<"Artisan"> | $Enums.ArtisanStatus
+    rating?: FloatNullableWithAggregatesFilter<"Artisan"> | number | null
+    totalRatings?: IntWithAggregatesFilter<"Artisan"> | number
+    verificationDate?: DateTimeNullableWithAggregatesFilter<"Artisan"> | Date | string | null
+    insuranceInfo?: StringNullableWithAggregatesFilter<"Artisan"> | string | null
+    workingHours?: StringNullableWithAggregatesFilter<"Artisan"> | string | null
+    isAvailable?: BoolWithAggregatesFilter<"Artisan"> | boolean
+    maxJobDistance?: IntWithAggregatesFilter<"Artisan"> | number
+    hourlyRate?: FloatNullableWithAggregatesFilter<"Artisan"> | number | null
+    description?: StringNullableWithAggregatesFilter<"Artisan"> | string | null
+    yearsOfExperience?: IntNullableWithAggregatesFilter<"Artisan"> | number | null
+    qualifications?: StringNullableListFilter<"Artisan">
   }
 
   export type AuthTokenWhereInput = {
@@ -6531,7 +6531,7 @@ export namespace Prisma {
     zipCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    serviceProvider?: ServiceProviderCreateNestedOneWithoutUserInput
+    artisan?: ArtisanCreateNestedOneWithoutUserInput
     authTokens?: AuthTokenCreateNestedManyWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
   }
@@ -6553,7 +6553,7 @@ export namespace Prisma {
     zipCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    serviceProvider?: ServiceProviderUncheckedCreateNestedOneWithoutUserInput
+    artisan?: ArtisanUncheckedCreateNestedOneWithoutUserInput
     authTokens?: AuthTokenUncheckedCreateNestedManyWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   }
@@ -6575,7 +6575,7 @@ export namespace Prisma {
     zipCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    serviceProvider?: ServiceProviderUpdateOneWithoutUserNestedInput
+    artisan?: ArtisanUpdateOneWithoutUserNestedInput
     authTokens?: AuthTokenUpdateManyWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
   }
@@ -6597,7 +6597,7 @@ export namespace Prisma {
     zipCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    serviceProvider?: ServiceProviderUncheckedUpdateOneWithoutUserNestedInput
+    artisan?: ArtisanUncheckedUpdateOneWithoutUserNestedInput
     authTokens?: AuthTokenUncheckedUpdateManyWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -6659,14 +6659,14 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ServiceProviderCreateInput = {
+  export type ArtisanCreateInput = {
     id?: string
     businessName: string
     businessLicense: string
     taxId?: string | null
-    serviceCategories?: ServiceProviderCreateserviceCategoriesInput | string[]
-    serviceAreas?: ServiceProviderCreateserviceAreasInput | string[]
-    status?: $Enums.ServiceProviderStatus
+    serviceCategories?: ArtisanCreateserviceCategoriesInput | string[]
+    serviceAreas?: ArtisanCreateserviceAreasInput | string[]
+    status?: $Enums.ArtisanStatus
     rating?: number | null
     totalRatings?: number
     verificationDate?: Date | string | null
@@ -6677,85 +6677,19 @@ export namespace Prisma {
     hourlyRate?: number | null
     description?: string | null
     yearsOfExperience?: number | null
-    qualifications?: ServiceProviderCreatequalificationsInput | string[]
-    user: UserCreateNestedOneWithoutServiceProviderInput
+    qualifications?: ArtisanCreatequalificationsInput | string[]
+    user: UserCreateNestedOneWithoutArtisanInput
   }
 
-  export type ServiceProviderUncheckedCreateInput = {
-    id?: string
-    userId: string
-    businessName: string
-    businessLicense: string
-    taxId?: string | null
-    serviceCategories?: ServiceProviderCreateserviceCategoriesInput | string[]
-    serviceAreas?: ServiceProviderCreateserviceAreasInput | string[]
-    status?: $Enums.ServiceProviderStatus
-    rating?: number | null
-    totalRatings?: number
-    verificationDate?: Date | string | null
-    insuranceInfo?: string | null
-    workingHours?: string | null
-    isAvailable?: boolean
-    maxJobDistance?: number
-    hourlyRate?: number | null
-    description?: string | null
-    yearsOfExperience?: number | null
-    qualifications?: ServiceProviderCreatequalificationsInput | string[]
-  }
-
-  export type ServiceProviderUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    businessName?: StringFieldUpdateOperationsInput | string
-    businessLicense?: StringFieldUpdateOperationsInput | string
-    taxId?: NullableStringFieldUpdateOperationsInput | string | null
-    serviceCategories?: ServiceProviderUpdateserviceCategoriesInput | string[]
-    serviceAreas?: ServiceProviderUpdateserviceAreasInput | string[]
-    status?: EnumServiceProviderStatusFieldUpdateOperationsInput | $Enums.ServiceProviderStatus
-    rating?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalRatings?: IntFieldUpdateOperationsInput | number
-    verificationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    insuranceInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    workingHours?: NullableStringFieldUpdateOperationsInput | string | null
-    isAvailable?: BoolFieldUpdateOperationsInput | boolean
-    maxJobDistance?: IntFieldUpdateOperationsInput | number
-    hourlyRate?: NullableFloatFieldUpdateOperationsInput | number | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    yearsOfExperience?: NullableIntFieldUpdateOperationsInput | number | null
-    qualifications?: ServiceProviderUpdatequalificationsInput | string[]
-    user?: UserUpdateOneRequiredWithoutServiceProviderNestedInput
-  }
-
-  export type ServiceProviderUncheckedUpdateInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-    businessName?: StringFieldUpdateOperationsInput | string
-    businessLicense?: StringFieldUpdateOperationsInput | string
-    taxId?: NullableStringFieldUpdateOperationsInput | string | null
-    serviceCategories?: ServiceProviderUpdateserviceCategoriesInput | string[]
-    serviceAreas?: ServiceProviderUpdateserviceAreasInput | string[]
-    status?: EnumServiceProviderStatusFieldUpdateOperationsInput | $Enums.ServiceProviderStatus
-    rating?: NullableFloatFieldUpdateOperationsInput | number | null
-    totalRatings?: IntFieldUpdateOperationsInput | number
-    verificationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    insuranceInfo?: NullableStringFieldUpdateOperationsInput | string | null
-    workingHours?: NullableStringFieldUpdateOperationsInput | string | null
-    isAvailable?: BoolFieldUpdateOperationsInput | boolean
-    maxJobDistance?: IntFieldUpdateOperationsInput | number
-    hourlyRate?: NullableFloatFieldUpdateOperationsInput | number | null
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    yearsOfExperience?: NullableIntFieldUpdateOperationsInput | number | null
-    qualifications?: ServiceProviderUpdatequalificationsInput | string[]
-  }
-
-  export type ServiceProviderCreateManyInput = {
+  export type ArtisanUncheckedCreateInput = {
     id?: string
     userId: string
     businessName: string
     businessLicense: string
     taxId?: string | null
-    serviceCategories?: ServiceProviderCreateserviceCategoriesInput | string[]
-    serviceAreas?: ServiceProviderCreateserviceAreasInput | string[]
-    status?: $Enums.ServiceProviderStatus
+    serviceCategories?: ArtisanCreateserviceCategoriesInput | string[]
+    serviceAreas?: ArtisanCreateserviceAreasInput | string[]
+    status?: $Enums.ArtisanStatus
     rating?: number | null
     totalRatings?: number
     verificationDate?: Date | string | null
@@ -6766,17 +6700,17 @@ export namespace Prisma {
     hourlyRate?: number | null
     description?: string | null
     yearsOfExperience?: number | null
-    qualifications?: ServiceProviderCreatequalificationsInput | string[]
+    qualifications?: ArtisanCreatequalificationsInput | string[]
   }
 
-  export type ServiceProviderUpdateManyMutationInput = {
+  export type ArtisanUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     businessName?: StringFieldUpdateOperationsInput | string
     businessLicense?: StringFieldUpdateOperationsInput | string
     taxId?: NullableStringFieldUpdateOperationsInput | string | null
-    serviceCategories?: ServiceProviderUpdateserviceCategoriesInput | string[]
-    serviceAreas?: ServiceProviderUpdateserviceAreasInput | string[]
-    status?: EnumServiceProviderStatusFieldUpdateOperationsInput | $Enums.ServiceProviderStatus
+    serviceCategories?: ArtisanUpdateserviceCategoriesInput | string[]
+    serviceAreas?: ArtisanUpdateserviceAreasInput | string[]
+    status?: EnumArtisanStatusFieldUpdateOperationsInput | $Enums.ArtisanStatus
     rating?: NullableFloatFieldUpdateOperationsInput | number | null
     totalRatings?: IntFieldUpdateOperationsInput | number
     verificationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6787,18 +6721,19 @@ export namespace Prisma {
     hourlyRate?: NullableFloatFieldUpdateOperationsInput | number | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     yearsOfExperience?: NullableIntFieldUpdateOperationsInput | number | null
-    qualifications?: ServiceProviderUpdatequalificationsInput | string[]
+    qualifications?: ArtisanUpdatequalificationsInput | string[]
+    user?: UserUpdateOneRequiredWithoutArtisanNestedInput
   }
 
-  export type ServiceProviderUncheckedUpdateManyInput = {
+  export type ArtisanUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     businessName?: StringFieldUpdateOperationsInput | string
     businessLicense?: StringFieldUpdateOperationsInput | string
     taxId?: NullableStringFieldUpdateOperationsInput | string | null
-    serviceCategories?: ServiceProviderUpdateserviceCategoriesInput | string[]
-    serviceAreas?: ServiceProviderUpdateserviceAreasInput | string[]
-    status?: EnumServiceProviderStatusFieldUpdateOperationsInput | $Enums.ServiceProviderStatus
+    serviceCategories?: ArtisanUpdateserviceCategoriesInput | string[]
+    serviceAreas?: ArtisanUpdateserviceAreasInput | string[]
+    status?: EnumArtisanStatusFieldUpdateOperationsInput | $Enums.ArtisanStatus
     rating?: NullableFloatFieldUpdateOperationsInput | number | null
     totalRatings?: IntFieldUpdateOperationsInput | number
     verificationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -6809,7 +6744,72 @@ export namespace Prisma {
     hourlyRate?: NullableFloatFieldUpdateOperationsInput | number | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     yearsOfExperience?: NullableIntFieldUpdateOperationsInput | number | null
-    qualifications?: ServiceProviderUpdatequalificationsInput | string[]
+    qualifications?: ArtisanUpdatequalificationsInput | string[]
+  }
+
+  export type ArtisanCreateManyInput = {
+    id?: string
+    userId: string
+    businessName: string
+    businessLicense: string
+    taxId?: string | null
+    serviceCategories?: ArtisanCreateserviceCategoriesInput | string[]
+    serviceAreas?: ArtisanCreateserviceAreasInput | string[]
+    status?: $Enums.ArtisanStatus
+    rating?: number | null
+    totalRatings?: number
+    verificationDate?: Date | string | null
+    insuranceInfo?: string | null
+    workingHours?: string | null
+    isAvailable?: boolean
+    maxJobDistance?: number
+    hourlyRate?: number | null
+    description?: string | null
+    yearsOfExperience?: number | null
+    qualifications?: ArtisanCreatequalificationsInput | string[]
+  }
+
+  export type ArtisanUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    businessName?: StringFieldUpdateOperationsInput | string
+    businessLicense?: StringFieldUpdateOperationsInput | string
+    taxId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceCategories?: ArtisanUpdateserviceCategoriesInput | string[]
+    serviceAreas?: ArtisanUpdateserviceAreasInput | string[]
+    status?: EnumArtisanStatusFieldUpdateOperationsInput | $Enums.ArtisanStatus
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalRatings?: IntFieldUpdateOperationsInput | number
+    verificationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    insuranceInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    workingHours?: NullableStringFieldUpdateOperationsInput | string | null
+    isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    maxJobDistance?: IntFieldUpdateOperationsInput | number
+    hourlyRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    yearsOfExperience?: NullableIntFieldUpdateOperationsInput | number | null
+    qualifications?: ArtisanUpdatequalificationsInput | string[]
+  }
+
+  export type ArtisanUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    businessName?: StringFieldUpdateOperationsInput | string
+    businessLicense?: StringFieldUpdateOperationsInput | string
+    taxId?: NullableStringFieldUpdateOperationsInput | string | null
+    serviceCategories?: ArtisanUpdateserviceCategoriesInput | string[]
+    serviceAreas?: ArtisanUpdateserviceAreasInput | string[]
+    status?: EnumArtisanStatusFieldUpdateOperationsInput | $Enums.ArtisanStatus
+    rating?: NullableFloatFieldUpdateOperationsInput | number | null
+    totalRatings?: IntFieldUpdateOperationsInput | number
+    verificationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    insuranceInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    workingHours?: NullableStringFieldUpdateOperationsInput | string | null
+    isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    maxJobDistance?: IntFieldUpdateOperationsInput | number
+    hourlyRate?: NullableFloatFieldUpdateOperationsInput | number | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    yearsOfExperience?: NullableIntFieldUpdateOperationsInput | number | null
+    qualifications?: ArtisanUpdatequalificationsInput | string[]
   }
 
   export type AuthTokenCreateInput = {
@@ -7003,9 +7003,9 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type ServiceProviderNullableScalarRelationFilter = {
-    is?: ServiceProviderWhereInput | null
-    isNot?: ServiceProviderWhereInput | null
+  export type ArtisanNullableScalarRelationFilter = {
+    is?: ArtisanWhereInput | null
+    isNot?: ArtisanWhereInput | null
   }
 
   export type AuthTokenListRelationFilter = {
@@ -7176,11 +7176,11 @@ export namespace Prisma {
     isEmpty?: boolean
   }
 
-  export type EnumServiceProviderStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.ServiceProviderStatus | EnumServiceProviderStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.ServiceProviderStatus[] | ListEnumServiceProviderStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ServiceProviderStatus[] | ListEnumServiceProviderStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumServiceProviderStatusFilter<$PrismaModel> | $Enums.ServiceProviderStatus
+  export type EnumArtisanStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ArtisanStatus | EnumArtisanStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ArtisanStatus[] | ListEnumArtisanStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ArtisanStatus[] | ListEnumArtisanStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumArtisanStatusFilter<$PrismaModel> | $Enums.ArtisanStatus
   }
 
   export type FloatNullableFilter<$PrismaModel = never> = {
@@ -7232,7 +7232,7 @@ export namespace Prisma {
     isNot?: UserWhereInput
   }
 
-  export type ServiceProviderCountOrderByAggregateInput = {
+  export type ArtisanCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     businessName?: SortOrder
@@ -7254,7 +7254,7 @@ export namespace Prisma {
     qualifications?: SortOrder
   }
 
-  export type ServiceProviderAvgOrderByAggregateInput = {
+  export type ArtisanAvgOrderByAggregateInput = {
     rating?: SortOrder
     totalRatings?: SortOrder
     maxJobDistance?: SortOrder
@@ -7262,7 +7262,7 @@ export namespace Prisma {
     yearsOfExperience?: SortOrder
   }
 
-  export type ServiceProviderMaxOrderByAggregateInput = {
+  export type ArtisanMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     businessName?: SortOrder
@@ -7281,7 +7281,7 @@ export namespace Prisma {
     yearsOfExperience?: SortOrder
   }
 
-  export type ServiceProviderMinOrderByAggregateInput = {
+  export type ArtisanMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     businessName?: SortOrder
@@ -7300,7 +7300,7 @@ export namespace Prisma {
     yearsOfExperience?: SortOrder
   }
 
-  export type ServiceProviderSumOrderByAggregateInput = {
+  export type ArtisanSumOrderByAggregateInput = {
     rating?: SortOrder
     totalRatings?: SortOrder
     maxJobDistance?: SortOrder
@@ -7308,14 +7308,14 @@ export namespace Prisma {
     yearsOfExperience?: SortOrder
   }
 
-  export type EnumServiceProviderStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.ServiceProviderStatus | EnumServiceProviderStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.ServiceProviderStatus[] | ListEnumServiceProviderStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ServiceProviderStatus[] | ListEnumServiceProviderStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumServiceProviderStatusWithAggregatesFilter<$PrismaModel> | $Enums.ServiceProviderStatus
+  export type EnumArtisanStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ArtisanStatus | EnumArtisanStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ArtisanStatus[] | ListEnumArtisanStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ArtisanStatus[] | ListEnumArtisanStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumArtisanStatusWithAggregatesFilter<$PrismaModel> | $Enums.ArtisanStatus
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumServiceProviderStatusFilter<$PrismaModel>
-    _max?: NestedEnumServiceProviderStatusFilter<$PrismaModel>
+    _min?: NestedEnumArtisanStatusFilter<$PrismaModel>
+    _max?: NestedEnumArtisanStatusFilter<$PrismaModel>
   }
 
   export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -7437,10 +7437,10 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type ServiceProviderCreateNestedOneWithoutUserInput = {
-    create?: XOR<ServiceProviderCreateWithoutUserInput, ServiceProviderUncheckedCreateWithoutUserInput>
-    connectOrCreate?: ServiceProviderCreateOrConnectWithoutUserInput
-    connect?: ServiceProviderWhereUniqueInput
+  export type ArtisanCreateNestedOneWithoutUserInput = {
+    create?: XOR<ArtisanCreateWithoutUserInput, ArtisanUncheckedCreateWithoutUserInput>
+    connectOrCreate?: ArtisanCreateOrConnectWithoutUserInput
+    connect?: ArtisanWhereUniqueInput
   }
 
   export type AuthTokenCreateNestedManyWithoutUserInput = {
@@ -7457,10 +7457,10 @@ export namespace Prisma {
     connect?: RefreshTokenWhereUniqueInput | RefreshTokenWhereUniqueInput[]
   }
 
-  export type ServiceProviderUncheckedCreateNestedOneWithoutUserInput = {
-    create?: XOR<ServiceProviderCreateWithoutUserInput, ServiceProviderUncheckedCreateWithoutUserInput>
-    connectOrCreate?: ServiceProviderCreateOrConnectWithoutUserInput
-    connect?: ServiceProviderWhereUniqueInput
+  export type ArtisanUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<ArtisanCreateWithoutUserInput, ArtisanUncheckedCreateWithoutUserInput>
+    connectOrCreate?: ArtisanCreateOrConnectWithoutUserInput
+    connect?: ArtisanWhereUniqueInput
   }
 
   export type AuthTokenUncheckedCreateNestedManyWithoutUserInput = {
@@ -7501,14 +7501,14 @@ export namespace Prisma {
     set?: Date | string
   }
 
-  export type ServiceProviderUpdateOneWithoutUserNestedInput = {
-    create?: XOR<ServiceProviderCreateWithoutUserInput, ServiceProviderUncheckedCreateWithoutUserInput>
-    connectOrCreate?: ServiceProviderCreateOrConnectWithoutUserInput
-    upsert?: ServiceProviderUpsertWithoutUserInput
-    disconnect?: ServiceProviderWhereInput | boolean
-    delete?: ServiceProviderWhereInput | boolean
-    connect?: ServiceProviderWhereUniqueInput
-    update?: XOR<XOR<ServiceProviderUpdateToOneWithWhereWithoutUserInput, ServiceProviderUpdateWithoutUserInput>, ServiceProviderUncheckedUpdateWithoutUserInput>
+  export type ArtisanUpdateOneWithoutUserNestedInput = {
+    create?: XOR<ArtisanCreateWithoutUserInput, ArtisanUncheckedCreateWithoutUserInput>
+    connectOrCreate?: ArtisanCreateOrConnectWithoutUserInput
+    upsert?: ArtisanUpsertWithoutUserInput
+    disconnect?: ArtisanWhereInput | boolean
+    delete?: ArtisanWhereInput | boolean
+    connect?: ArtisanWhereUniqueInput
+    update?: XOR<XOR<ArtisanUpdateToOneWithWhereWithoutUserInput, ArtisanUpdateWithoutUserInput>, ArtisanUncheckedUpdateWithoutUserInput>
   }
 
   export type AuthTokenUpdateManyWithoutUserNestedInput = {
@@ -7539,14 +7539,14 @@ export namespace Prisma {
     deleteMany?: RefreshTokenScalarWhereInput | RefreshTokenScalarWhereInput[]
   }
 
-  export type ServiceProviderUncheckedUpdateOneWithoutUserNestedInput = {
-    create?: XOR<ServiceProviderCreateWithoutUserInput, ServiceProviderUncheckedCreateWithoutUserInput>
-    connectOrCreate?: ServiceProviderCreateOrConnectWithoutUserInput
-    upsert?: ServiceProviderUpsertWithoutUserInput
-    disconnect?: ServiceProviderWhereInput | boolean
-    delete?: ServiceProviderWhereInput | boolean
-    connect?: ServiceProviderWhereUniqueInput
-    update?: XOR<XOR<ServiceProviderUpdateToOneWithWhereWithoutUserInput, ServiceProviderUpdateWithoutUserInput>, ServiceProviderUncheckedUpdateWithoutUserInput>
+  export type ArtisanUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<ArtisanCreateWithoutUserInput, ArtisanUncheckedCreateWithoutUserInput>
+    connectOrCreate?: ArtisanCreateOrConnectWithoutUserInput
+    upsert?: ArtisanUpsertWithoutUserInput
+    disconnect?: ArtisanWhereInput | boolean
+    delete?: ArtisanWhereInput | boolean
+    connect?: ArtisanWhereUniqueInput
+    update?: XOR<XOR<ArtisanUpdateToOneWithWhereWithoutUserInput, ArtisanUpdateWithoutUserInput>, ArtisanUncheckedUpdateWithoutUserInput>
   }
 
   export type AuthTokenUncheckedUpdateManyWithoutUserNestedInput = {
@@ -7577,36 +7577,36 @@ export namespace Prisma {
     deleteMany?: RefreshTokenScalarWhereInput | RefreshTokenScalarWhereInput[]
   }
 
-  export type ServiceProviderCreateserviceCategoriesInput = {
+  export type ArtisanCreateserviceCategoriesInput = {
     set: string[]
   }
 
-  export type ServiceProviderCreateserviceAreasInput = {
+  export type ArtisanCreateserviceAreasInput = {
     set: string[]
   }
 
-  export type ServiceProviderCreatequalificationsInput = {
+  export type ArtisanCreatequalificationsInput = {
     set: string[]
   }
 
-  export type UserCreateNestedOneWithoutServiceProviderInput = {
-    create?: XOR<UserCreateWithoutServiceProviderInput, UserUncheckedCreateWithoutServiceProviderInput>
-    connectOrCreate?: UserCreateOrConnectWithoutServiceProviderInput
+  export type UserCreateNestedOneWithoutArtisanInput = {
+    create?: XOR<UserCreateWithoutArtisanInput, UserUncheckedCreateWithoutArtisanInput>
+    connectOrCreate?: UserCreateOrConnectWithoutArtisanInput
     connect?: UserWhereUniqueInput
   }
 
-  export type ServiceProviderUpdateserviceCategoriesInput = {
+  export type ArtisanUpdateserviceCategoriesInput = {
     set?: string[]
     push?: string | string[]
   }
 
-  export type ServiceProviderUpdateserviceAreasInput = {
+  export type ArtisanUpdateserviceAreasInput = {
     set?: string[]
     push?: string | string[]
   }
 
-  export type EnumServiceProviderStatusFieldUpdateOperationsInput = {
-    set?: $Enums.ServiceProviderStatus
+  export type EnumArtisanStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ArtisanStatus
   }
 
   export type NullableFloatFieldUpdateOperationsInput = {
@@ -7637,17 +7637,17 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type ServiceProviderUpdatequalificationsInput = {
+  export type ArtisanUpdatequalificationsInput = {
     set?: string[]
     push?: string | string[]
   }
 
-  export type UserUpdateOneRequiredWithoutServiceProviderNestedInput = {
-    create?: XOR<UserCreateWithoutServiceProviderInput, UserUncheckedCreateWithoutServiceProviderInput>
-    connectOrCreate?: UserCreateOrConnectWithoutServiceProviderInput
-    upsert?: UserUpsertWithoutServiceProviderInput
+  export type UserUpdateOneRequiredWithoutArtisanNestedInput = {
+    create?: XOR<UserCreateWithoutArtisanInput, UserUncheckedCreateWithoutArtisanInput>
+    connectOrCreate?: UserCreateOrConnectWithoutArtisanInput
+    upsert?: UserUpsertWithoutArtisanInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutServiceProviderInput, UserUpdateWithoutServiceProviderInput>, UserUncheckedUpdateWithoutServiceProviderInput>
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutArtisanInput, UserUpdateWithoutArtisanInput>, UserUncheckedUpdateWithoutArtisanInput>
   }
 
   export type UserCreateNestedOneWithoutAuthTokensInput = {
@@ -7834,11 +7834,11 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedEnumServiceProviderStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.ServiceProviderStatus | EnumServiceProviderStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.ServiceProviderStatus[] | ListEnumServiceProviderStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ServiceProviderStatus[] | ListEnumServiceProviderStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumServiceProviderStatusFilter<$PrismaModel> | $Enums.ServiceProviderStatus
+  export type NestedEnumArtisanStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ArtisanStatus | EnumArtisanStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ArtisanStatus[] | ListEnumArtisanStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ArtisanStatus[] | ListEnumArtisanStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumArtisanStatusFilter<$PrismaModel> | $Enums.ArtisanStatus
   }
 
   export type NestedFloatNullableFilter<$PrismaModel = never> = {
@@ -7863,14 +7863,14 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
-  export type NestedEnumServiceProviderStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.ServiceProviderStatus | EnumServiceProviderStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.ServiceProviderStatus[] | ListEnumServiceProviderStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ServiceProviderStatus[] | ListEnumServiceProviderStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumServiceProviderStatusWithAggregatesFilter<$PrismaModel> | $Enums.ServiceProviderStatus
+  export type NestedEnumArtisanStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ArtisanStatus | EnumArtisanStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ArtisanStatus[] | ListEnumArtisanStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ArtisanStatus[] | ListEnumArtisanStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumArtisanStatusWithAggregatesFilter<$PrismaModel> | $Enums.ArtisanStatus
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumServiceProviderStatusFilter<$PrismaModel>
-    _max?: NestedEnumServiceProviderStatusFilter<$PrismaModel>
+    _min?: NestedEnumArtisanStatusFilter<$PrismaModel>
+    _max?: NestedEnumArtisanStatusFilter<$PrismaModel>
   }
 
   export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -7946,14 +7946,14 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type ServiceProviderCreateWithoutUserInput = {
+  export type ArtisanCreateWithoutUserInput = {
     id?: string
     businessName: string
     businessLicense: string
     taxId?: string | null
-    serviceCategories?: ServiceProviderCreateserviceCategoriesInput | string[]
-    serviceAreas?: ServiceProviderCreateserviceAreasInput | string[]
-    status?: $Enums.ServiceProviderStatus
+    serviceCategories?: ArtisanCreateserviceCategoriesInput | string[]
+    serviceAreas?: ArtisanCreateserviceAreasInput | string[]
+    status?: $Enums.ArtisanStatus
     rating?: number | null
     totalRatings?: number
     verificationDate?: Date | string | null
@@ -7964,17 +7964,17 @@ export namespace Prisma {
     hourlyRate?: number | null
     description?: string | null
     yearsOfExperience?: number | null
-    qualifications?: ServiceProviderCreatequalificationsInput | string[]
+    qualifications?: ArtisanCreatequalificationsInput | string[]
   }
 
-  export type ServiceProviderUncheckedCreateWithoutUserInput = {
+  export type ArtisanUncheckedCreateWithoutUserInput = {
     id?: string
     businessName: string
     businessLicense: string
     taxId?: string | null
-    serviceCategories?: ServiceProviderCreateserviceCategoriesInput | string[]
-    serviceAreas?: ServiceProviderCreateserviceAreasInput | string[]
-    status?: $Enums.ServiceProviderStatus
+    serviceCategories?: ArtisanCreateserviceCategoriesInput | string[]
+    serviceAreas?: ArtisanCreateserviceAreasInput | string[]
+    status?: $Enums.ArtisanStatus
     rating?: number | null
     totalRatings?: number
     verificationDate?: Date | string | null
@@ -7985,12 +7985,12 @@ export namespace Prisma {
     hourlyRate?: number | null
     description?: string | null
     yearsOfExperience?: number | null
-    qualifications?: ServiceProviderCreatequalificationsInput | string[]
+    qualifications?: ArtisanCreatequalificationsInput | string[]
   }
 
-  export type ServiceProviderCreateOrConnectWithoutUserInput = {
-    where: ServiceProviderWhereUniqueInput
-    create: XOR<ServiceProviderCreateWithoutUserInput, ServiceProviderUncheckedCreateWithoutUserInput>
+  export type ArtisanCreateOrConnectWithoutUserInput = {
+    where: ArtisanWhereUniqueInput
+    create: XOR<ArtisanCreateWithoutUserInput, ArtisanUncheckedCreateWithoutUserInput>
   }
 
   export type AuthTokenCreateWithoutUserInput = {
@@ -8047,25 +8047,25 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ServiceProviderUpsertWithoutUserInput = {
-    update: XOR<ServiceProviderUpdateWithoutUserInput, ServiceProviderUncheckedUpdateWithoutUserInput>
-    create: XOR<ServiceProviderCreateWithoutUserInput, ServiceProviderUncheckedCreateWithoutUserInput>
-    where?: ServiceProviderWhereInput
+  export type ArtisanUpsertWithoutUserInput = {
+    update: XOR<ArtisanUpdateWithoutUserInput, ArtisanUncheckedUpdateWithoutUserInput>
+    create: XOR<ArtisanCreateWithoutUserInput, ArtisanUncheckedCreateWithoutUserInput>
+    where?: ArtisanWhereInput
   }
 
-  export type ServiceProviderUpdateToOneWithWhereWithoutUserInput = {
-    where?: ServiceProviderWhereInput
-    data: XOR<ServiceProviderUpdateWithoutUserInput, ServiceProviderUncheckedUpdateWithoutUserInput>
+  export type ArtisanUpdateToOneWithWhereWithoutUserInput = {
+    where?: ArtisanWhereInput
+    data: XOR<ArtisanUpdateWithoutUserInput, ArtisanUncheckedUpdateWithoutUserInput>
   }
 
-  export type ServiceProviderUpdateWithoutUserInput = {
+  export type ArtisanUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     businessName?: StringFieldUpdateOperationsInput | string
     businessLicense?: StringFieldUpdateOperationsInput | string
     taxId?: NullableStringFieldUpdateOperationsInput | string | null
-    serviceCategories?: ServiceProviderUpdateserviceCategoriesInput | string[]
-    serviceAreas?: ServiceProviderUpdateserviceAreasInput | string[]
-    status?: EnumServiceProviderStatusFieldUpdateOperationsInput | $Enums.ServiceProviderStatus
+    serviceCategories?: ArtisanUpdateserviceCategoriesInput | string[]
+    serviceAreas?: ArtisanUpdateserviceAreasInput | string[]
+    status?: EnumArtisanStatusFieldUpdateOperationsInput | $Enums.ArtisanStatus
     rating?: NullableFloatFieldUpdateOperationsInput | number | null
     totalRatings?: IntFieldUpdateOperationsInput | number
     verificationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8076,17 +8076,17 @@ export namespace Prisma {
     hourlyRate?: NullableFloatFieldUpdateOperationsInput | number | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     yearsOfExperience?: NullableIntFieldUpdateOperationsInput | number | null
-    qualifications?: ServiceProviderUpdatequalificationsInput | string[]
+    qualifications?: ArtisanUpdatequalificationsInput | string[]
   }
 
-  export type ServiceProviderUncheckedUpdateWithoutUserInput = {
+  export type ArtisanUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     businessName?: StringFieldUpdateOperationsInput | string
     businessLicense?: StringFieldUpdateOperationsInput | string
     taxId?: NullableStringFieldUpdateOperationsInput | string | null
-    serviceCategories?: ServiceProviderUpdateserviceCategoriesInput | string[]
-    serviceAreas?: ServiceProviderUpdateserviceAreasInput | string[]
-    status?: EnumServiceProviderStatusFieldUpdateOperationsInput | $Enums.ServiceProviderStatus
+    serviceCategories?: ArtisanUpdateserviceCategoriesInput | string[]
+    serviceAreas?: ArtisanUpdateserviceAreasInput | string[]
+    status?: EnumArtisanStatusFieldUpdateOperationsInput | $Enums.ArtisanStatus
     rating?: NullableFloatFieldUpdateOperationsInput | number | null
     totalRatings?: IntFieldUpdateOperationsInput | number
     verificationDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -8097,7 +8097,7 @@ export namespace Prisma {
     hourlyRate?: NullableFloatFieldUpdateOperationsInput | number | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     yearsOfExperience?: NullableIntFieldUpdateOperationsInput | number | null
-    qualifications?: ServiceProviderUpdatequalificationsInput | string[]
+    qualifications?: ArtisanUpdatequalificationsInput | string[]
   }
 
   export type AuthTokenUpsertWithWhereUniqueWithoutUserInput = {
@@ -8157,7 +8157,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"RefreshToken"> | Date | string
   }
 
-  export type UserCreateWithoutServiceProviderInput = {
+  export type UserCreateWithoutArtisanInput = {
     id?: string
     firstName: string
     lastName: string
@@ -8178,7 +8178,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutServiceProviderInput = {
+  export type UserUncheckedCreateWithoutArtisanInput = {
     id?: string
     firstName: string
     lastName: string
@@ -8199,23 +8199,23 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutServiceProviderInput = {
+  export type UserCreateOrConnectWithoutArtisanInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutServiceProviderInput, UserUncheckedCreateWithoutServiceProviderInput>
+    create: XOR<UserCreateWithoutArtisanInput, UserUncheckedCreateWithoutArtisanInput>
   }
 
-  export type UserUpsertWithoutServiceProviderInput = {
-    update: XOR<UserUpdateWithoutServiceProviderInput, UserUncheckedUpdateWithoutServiceProviderInput>
-    create: XOR<UserCreateWithoutServiceProviderInput, UserUncheckedCreateWithoutServiceProviderInput>
+  export type UserUpsertWithoutArtisanInput = {
+    update: XOR<UserUpdateWithoutArtisanInput, UserUncheckedUpdateWithoutArtisanInput>
+    create: XOR<UserCreateWithoutArtisanInput, UserUncheckedCreateWithoutArtisanInput>
     where?: UserWhereInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutServiceProviderInput = {
+  export type UserUpdateToOneWithWhereWithoutArtisanInput = {
     where?: UserWhereInput
-    data: XOR<UserUpdateWithoutServiceProviderInput, UserUncheckedUpdateWithoutServiceProviderInput>
+    data: XOR<UserUpdateWithoutArtisanInput, UserUncheckedUpdateWithoutArtisanInput>
   }
 
-  export type UserUpdateWithoutServiceProviderInput = {
+  export type UserUpdateWithoutArtisanInput = {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
@@ -8236,7 +8236,7 @@ export namespace Prisma {
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
   }
 
-  export type UserUncheckedUpdateWithoutServiceProviderInput = {
+  export type UserUncheckedUpdateWithoutArtisanInput = {
     id?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
@@ -8274,7 +8274,7 @@ export namespace Prisma {
     zipCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    serviceProvider?: ServiceProviderCreateNestedOneWithoutUserInput
+    artisan?: ArtisanCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenCreateNestedManyWithoutUserInput
   }
 
@@ -8295,7 +8295,7 @@ export namespace Prisma {
     zipCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    serviceProvider?: ServiceProviderUncheckedCreateNestedOneWithoutUserInput
+    artisan?: ArtisanUncheckedCreateNestedOneWithoutUserInput
     refreshTokens?: RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -8332,7 +8332,7 @@ export namespace Prisma {
     zipCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    serviceProvider?: ServiceProviderUpdateOneWithoutUserNestedInput
+    artisan?: ArtisanUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUpdateManyWithoutUserNestedInput
   }
 
@@ -8353,7 +8353,7 @@ export namespace Prisma {
     zipCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    serviceProvider?: ServiceProviderUncheckedUpdateOneWithoutUserNestedInput
+    artisan?: ArtisanUncheckedUpdateOneWithoutUserNestedInput
     refreshTokens?: RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -8374,7 +8374,7 @@ export namespace Prisma {
     zipCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    serviceProvider?: ServiceProviderCreateNestedOneWithoutUserInput
+    artisan?: ArtisanCreateNestedOneWithoutUserInput
     authTokens?: AuthTokenCreateNestedManyWithoutUserInput
   }
 
@@ -8395,7 +8395,7 @@ export namespace Prisma {
     zipCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    serviceProvider?: ServiceProviderUncheckedCreateNestedOneWithoutUserInput
+    artisan?: ArtisanUncheckedCreateNestedOneWithoutUserInput
     authTokens?: AuthTokenUncheckedCreateNestedManyWithoutUserInput
   }
 
@@ -8432,7 +8432,7 @@ export namespace Prisma {
     zipCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    serviceProvider?: ServiceProviderUpdateOneWithoutUserNestedInput
+    artisan?: ArtisanUpdateOneWithoutUserNestedInput
     authTokens?: AuthTokenUpdateManyWithoutUserNestedInput
   }
 
@@ -8453,7 +8453,7 @@ export namespace Prisma {
     zipCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    serviceProvider?: ServiceProviderUncheckedUpdateOneWithoutUserNestedInput
+    artisan?: ArtisanUncheckedUpdateOneWithoutUserNestedInput
     authTokens?: AuthTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 

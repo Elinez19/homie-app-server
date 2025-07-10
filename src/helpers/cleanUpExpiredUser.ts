@@ -1,10 +1,5 @@
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
-
-interface CleanupParams {
-  id: string;
-}
+import { prisma } from '../config/database.config';
+import { CleanupParams } from '../@types/common.types';
 
 export const cleanupTokensAfterFailedEmailMessage = async ({ id }: CleanupParams) => {
   try {

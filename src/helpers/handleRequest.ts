@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
-
-type RequestHandler = (req: Request, res: Response) => Promise<void>;
+import { RequestHandler } from '../@types/common.types';
 
 // Higher-order function to handle try/catch logic
 export const handleRequest = (handler: RequestHandler) => {
