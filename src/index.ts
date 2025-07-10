@@ -6,6 +6,8 @@ import { config } from "./config/app.config";
 import { connectDatabase } from "./config/database.config";
 import { errorHandler } from "./middlewares/errorHandler.middleware";
 import { HTTPSTATUS } from "./config/http.config";
+import swaggerUi from 'swagger-ui-express';
+import fs from 'fs';
 import path from 'path';
 
 // Routes
@@ -14,10 +16,22 @@ import artisanAuthRoutes from './routes/artisanAuth.route';
 import adminRoutes from './routes/admin.route';
 
 // Swagger documentation
-import swaggerUi from 'swagger-ui-express';
 
 const app = express();
 const BASE_PATH = config.BASE_PATH;
+
+// Swagger setup (before static and other routes)
+const openApiPath = path.resolve(__dirname, '../openapi.json');
+let openApiSpec = {};
+try {
+  openApiSpec = JSON.parse(fs.readFileSync(openApiPath, 'utf8'));
+} catch (e) {
+  openApiSpec = { openapi: '3.0.0', info: { title: 'Homie App API', version: '1.0.0' }, paths: {} };
+}
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openApiSpec));
+app.get('/api/docs/swagger.json', (req, res) => {
+  res.json(openApiSpec);
+});
 
 // Serve static files (landing page, assets)
 app.use(express.static(path.join(__dirname, '../public')));
